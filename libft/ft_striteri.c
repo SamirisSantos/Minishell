@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/03 16:25:19 by sade-ara         ###   ########.fr       */
+/*   Created: 2024-11-12 11:00:41 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-11-12 11:00:41 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "headers/minishell.h"
+#include "libft.h"
 
-int main (int argc, char **argv, char *envp[])
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	if (argc != 1)
+	size_t	i;
+
+	i = 0;
+	while (s[i])
 	{
-		perror("Error: too many arguments.");
-		exit(0);
-		// nao deve executar, pois primeiro deve entrar no shell
+		f(i, &s[i]);
+		i++;
 	}
-	else
-	{
-		//inicia o shell
-	}
-	return (0);
 }

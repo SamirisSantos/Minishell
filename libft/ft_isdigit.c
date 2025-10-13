@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/03 16:25:19 by sade-ara         ###   ########.fr       */
+/*   Created: 2024-10-22 13:30:01 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-10-22 13:30:01 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "headers/minishell.h"
 
-int main (int argc, char **argv, char *envp[])
+int	ft_isdigit(int c)
 {
-	if (argc != 1)
-	{
-		perror("Error: too many arguments.");
-		exit(0);
-		// nao deve executar, pois primeiro deve entrar no shell
-	}
+	if (c >= 48 && c <= 57)
+		return (1);
 	else
-	{
-		//inicia o shell
-	}
-	return (0);
+		return (0);
 }

@@ -1,0 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 16:09:11 by sade-ara          #+#    #+#             */
+/*   Updated: 2025/10/13 16:28:44 by cpinho-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "../../headers/minishell.h"
+
+// change variable to receive struct later 
+void	ft_echo(char **args, int fd)
+{
+	int		i;
+	bool	withN;
+
+	i = 0;
+	withN = false;
+	while (args[i] && (ft_strncmp(args[i], "-n", 2) == 0) 
+		&& (ft_strlen(args[i]) == 2))
+	{
+		i++;
+		withN = true;
+	}
+	while (args[i])
+	{
+		ft_printf(fd, "%s", args[i]);
+		i++;
+		if (args[i])
+			ft_printf(fd, " ");
+	}
+	if (!withN)
+		ft_printf(fd, "\n");
+}
+
+// int main (int ac, char **av)
+// {
+// 	(void)ac;
+// 	ft_echo(av + 2, 1);
+// }

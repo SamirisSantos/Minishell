@@ -10,13 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifdef MINISHELL_H
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/libft.h"
 # include "errors.h"
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h> //bool variables
 # include <sys/types.h> // pid_t, stat types
 # include <sys/wait.h> // wait, waitpid, wait3, wait4
 # include <sys/stat.h> // stat, lstat, fstat, unlink
@@ -26,6 +29,6 @@
 # include <readline/readline.h> // readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/history.h> // add_history, rl_clear_history
 
-int main (int argc, char **argv, char *envp[]);
+
 
 #endif

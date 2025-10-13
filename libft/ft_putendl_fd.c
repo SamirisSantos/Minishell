@@ -1,12 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 16:09:11 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/03 16:09:12 by sade-ara         ###   ########.fr       */
+/*   Created: 2024-11-03 17:02:40 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-11-03 17:02:40 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
+}

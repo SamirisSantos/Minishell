@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/03 16:25:19 by sade-ara         ###   ########.fr       */
+/*   Created: 2024-10-23 14:04:44 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-10-23 14:04:44 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "headers/minishell.h"
+#include "libft.h"
 
-int main (int argc, char **argv, char *envp[])
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	if (argc != 1)
+	size_t	i;
+	char	cc;
+	char	*str;
+
+	i = 0;
+	cc = (char) c;
+	str = (char *) s;
+	while (i < n)
 	{
-		perror("Error: too many arguments.");
-		exit(0);
-		// nao deve executar, pois primeiro deve entrar no shell
+		if (str[i] == cc)
+			return ((char *) str + i);
+		i++;
 	}
-	else
-	{
-		//inicia o shell
-	}
-	return (0);
+	return (NULL);
 }
