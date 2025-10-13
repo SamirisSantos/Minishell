@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   structs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/13 15:56:01 by sade-ara         ###   ########.fr       */
+/*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
+/*   Updated: 2025/10/13 15:50:01 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef STRUCTS_H
+# define STRUCTS_H
+# include "minishell.h"
+# include "errors.h"
 
-int main (int argc, char **argv, char *envp[])
+// SHELL STRUCT 
+
+typedef struct s_shell
 {
-	if (argc != 1)
-	{
-		perror("Error: too many arguments.");
-		exit(0);
-	}
-	else
-	{
-		while(1)
-		{
-			
-		}
-	}
-	return (0);
-}
+	int		exit_status;
+	char	*cmd;
+	
+}	t_shell;
+#endif

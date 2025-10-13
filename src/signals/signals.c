@@ -6,7 +6,9 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:10:30 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/03 16:10:30 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/10/13 15:35:48 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../headers/minishell.h"
+#include "../headers/errors.h"
