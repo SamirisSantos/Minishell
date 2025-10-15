@@ -12,13 +12,15 @@
 #include "../../headers/minishell.h"
 
 // change variable to receive struct later 
-void	ft_echo(char **args, int fd)
+void	ft_echo(t_shell *shell)
 {
 	int		i;
 	bool	withN;
+	int		fd;
 
 	i = 0;
 	withN = false;
+	////////FIIIIIIX
 	while (args[i] && (ft_strncmp(args[i], "-n", 2) == 0) 
 		&& (ft_strlen(args[i]) == 2))
 	{

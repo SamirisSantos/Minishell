@@ -11,7 +11,20 @@
 /* ************************************************************************** */
 #include "../../headers/minishell.h"
 
-void	ft_cd()
+void	ft_cd(t_shell *shell)
 {
-	
+	char	newpath[PATH_MAX];
+
+	newpath = NULL;
+	if (chdir(path) == 0)
+	{
+		getcwd(newpath,sizeof(newpath));
+		//update pwd Function
+		shell->exit_status = 0;
+	}
+	else
+	{
+		ft_printf(STDERR_FILENO,"%s", ERROR_CDNODIR);
+		shell->exit_status = 1;
+	}
 }
