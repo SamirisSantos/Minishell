@@ -48,8 +48,8 @@ typedef enum s_token_type
 typedef struct s_tree
 {
 	char			*data;
+	char			**cmd_args;
 	t_token_type	type;
-	bool			is_pipe;
 	bool			redir_in;
 	bool			redir_out;
 	int				fd_in;
