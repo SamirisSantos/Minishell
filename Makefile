@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -lreadline
 SRCS = 
 OBJS = $(SRCS:.c=.o)
 RM = rm -f
+LIBFT = libft/libft.a
 
 #VALGRIND
 VALGRIND_FLAGS = --quiet --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes --gen-suppressions=all
@@ -26,7 +27,7 @@ VALGRIND_SUPP = --suppressions=readline.supp
 
 all: $(NAME)
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 %.o: %.c

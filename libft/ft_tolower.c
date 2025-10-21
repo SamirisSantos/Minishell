@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_tolower                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/13 15:56:01 by sade-ara         ###   ########.fr       */
+/*   Created: 2024-10-22 13:47:11 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-10-22 13:47:11 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-int main (int argc, char **argv, char *envp[])
+int	ft_tolower(int c)
 {
-	if (argc != 1)
+	if (c >= 65 && c <= 90)
 	{
-		perror("Error: too many arguments.");
-		exit(0);
-<<<<<<< HEAD
-=======
-		// nao deve executar, pois primeiro deve entrar no shell
->>>>>>> cami
+		c += 32;
+		return (c);
 	}
 	else
-	{
-		while(1)
-		{
-			
-		}
-	}
-	return (0);
+		return (c);
 }

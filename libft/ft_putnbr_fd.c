@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/13 15:56:01 by sade-ara         ###   ########.fr       */
+/*   Created: 2024-11-03 17:08:08 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-11-03 17:08:08 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-
-int main (int argc, char **argv, char *envp[])
+void	ft_putnbr_fd(int n, int fd)
 {
-	if (argc != 1)
+	long int	nbr;
+
+	nbr = n;
+	if (nbr < 0)
 	{
-		perror("Error: too many arguments.");
-		exit(0);
-<<<<<<< HEAD
-=======
-		// nao deve executar, pois primeiro deve entrar no shell
->>>>>>> cami
+		ft_putchar_fd('-', fd);
+		nbr *= -1;
+	}
+	if (nbr > 9)
+	{
+		ft_putnbr_fd(nbr / 10, fd);
+		ft_putnbr_fd(nbr % 10, fd);
 	}
 	else
-	{
-		while(1)
-		{
-			
-		}
-	}
-	return (0);
+		ft_putchar_fd(nbr + '0', fd);
 }

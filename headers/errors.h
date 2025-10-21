@@ -12,9 +12,15 @@
 
 #ifndef ERRORS_H
 # define ERRORS_H
-# include "minishell.h"
 
 # define ERROR_ARG "Error: too many arguments.\n"
+<<<<<<< HEAD
+=======
+
+# define ERROR_CDNODIR "cd: no_such_dir: No such file or directory\n"
+
+//ctrl + c & ctrl + d exit status
+>>>>>>> cami
 # define EXIT_SIGINT 130
 # define EXIT_SIGQUIT 131
 
