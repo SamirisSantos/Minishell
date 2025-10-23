@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/23 16:40:22 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/10/23 17:16:12 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include <readline/readline.h> // readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/history.h> // add_history, rl_clear_history
 
+
+
 //builtins
 
 //executor
@@ -43,6 +45,11 @@ t_token	*new_token(char *value, t_token_type type);
 void	add_token(t_token **list, t_token *new);
 void	free_tokens(t_token *list);
 
+//getting tokens
+t_token_type	get_token_type(char *s);
+char			*get_quoted_word(char **s);
+char			*get_word(char **s);
+char			*get_operator(char **s);
 
 //lexer
 t_token	*lexer(char *input);

@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:29:34 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/23 16:30:25 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/10/23 17:13:45 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ t_comd 2:
   outfile_file: "out.txt"
   append: 0
 */
+
+// " \t\n\r\v\f" 
+int	is_space(char *c)
+{
+	return ((c >= 9 && c <= 13) || c == 32);
+}
 
 // criar lista de tokens
 t_token	*lexer(char *input)
