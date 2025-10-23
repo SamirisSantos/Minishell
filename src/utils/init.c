@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.c                                          :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/13 15:50:01 by sade-ara         ###   ########.fr       */
+/*   Created: 2025/10/23 14:30:32 by sade-ara          #+#    #+#             */
+/*   Updated: 2025/10/23 15:17:08 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
-# include "minishell.h"
-# include "errors.h"
+#include "../headers/minishell.h"
+#include "../headers/errors.h"
 
-// SHELL STRUCT 
-
-typedef struct s_shell
+void	init_data(&shell, envp)
 {
-	int		exit_status;
-	char	*cmd;
-	
-}	t_shell;
-#endif
+	// TODO
+}

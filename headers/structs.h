@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.c                                          :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/13 15:50:01 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:27:03 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include "minishell.h"
+# include <stdbool.h>
 
 typedef struct s_shell
 {
@@ -31,17 +32,27 @@ typedef struct s_token
 	t_token			*next;
 }	t_token;
 
-typedef enum s_token_type
+typedef struct  s_cmd
 {
-	CMD,
-	CMD_ARG,
-	PIPE,
-	REDIR_IN,
-	REDIR_IN_FILE,
-	REDIR_OUT,
-	REDIR_OUT_FILE,
-	APPEND,
-	HEREDOC,
+	char	**args; // lista de argumentos
+	char	*input_file; // <
+	char	*output_file; // >
+	int		append; // >>
+	int		heredoc; // <<
+	struct s_cmd *next; // pipes
+}		t_cmd;
+
+typedef enum e_token_type
+{
+	CMD,               // comandos
+	CMD_ARG,           // words
+	PIPE,              // | 
+	REDIR_IN,          // <
+	REDIR_IN_FILE,     // Name infile
+	REDIR_OUT,         // >
+	REDIR_OUT_FILE,    // Name outfile
+	APPEND,            // >>
+	HEREDOC,           // <<
 	SPACE_TOKEN
 }	t_token_type;
 
@@ -57,5 +68,8 @@ typedef struct s_tree
 	t_tree			*left;
 	t_tree			*right;
 }	t_tree;
+
+
+
 
 #endif

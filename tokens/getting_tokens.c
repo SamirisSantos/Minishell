@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   getting_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/23 15:15:49 by sade-ara         ###   ########.fr       */
+/*   Created: 2025/10/23 15:19:43 by sade-ara          #+#    #+#             */
+/*   Updated: 2025/10/23 16:40:46 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-t_cmd	*parse_tokens(t_token *tokens)
+// Retorna o tipo de token com base no conteúdo
+t_token_type	get_token_type(char *s)
 {
-	/* TODO */
+
 }
-
-int	syntax_check(t_token *tokens)
+//Lê um token tipo palavra até espaço ou operador
+char	*get_word(char **s)
+{
+	
+}
+// Trata operadores especiais (<, >, `
+char	*get_operator(char **s)
 {
 
+}
+// Lê conteúdo dentro de ' ou "
+char *get_quoted_word(char **s)
+{
+	
 }

@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/13 16:05:57 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:40:22 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "errors.h"
+# include "structs.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -29,22 +31,28 @@
 # include <readline/readline.h> // readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/history.h> // add_history, rl_clear_history
 
-<<<<<<< HEAD
-=======
-# include "errors.h"
-# include "structs.h"
-
 //builtins
 
 //executor
 
 //inits
+void	init_data(&shell, envp);
+
+//tokens
+t_token	*new_token(char *value, t_token_type type);
+void	add_token(t_token **list, t_token *new);
+void	free_tokens(t_token *list);
+
+
+//lexer
+t_token	*lexer(char *input);
 
 //parser
+t_cmd	*parse_tokens(t_token *tokens);
+int		syntax_check(t_token *tokens);
 
 //signals
 
 //utils
 
->>>>>>> cami
 #endif

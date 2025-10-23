@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_envp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-10-13 16:02:29 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025-10-13 16:02:29 by cpinho-c         ###   ########.fr       */
+/*   Created: 2025/10/13 16:02:29 by cpinho-c          #+#    #+#             */
+/*   Updated: 2025/10/23 14:51:21 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../headers/minishell.h"
+
 
 char	**copy_envp(char *envp[])
 {
