@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 14:34:52 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/27 14:47:24 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/10/27 15:01:58 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,19 @@ char	*extract_word(char **s)
 	int		len;
 
 	start = *s;
+	len = 0;
+	quote_char = '\0'; //FLAG
+
+	while (start[len])
+	{
+		if (quote_char)
+		{
+			if (start[len] == quote_char)
+				quote_char = '\0';
+		}
+		else
+		{
+			
+		}
+	}
 }
