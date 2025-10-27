@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:29:34 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/27 14:49:19 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/10/27 16:16:28 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ t_comd 2:
 */
 
 // " \t\n\r\v\f" 
-static int	is_space(char c)
+int	is_space(char c)
 {
 	return ((c >= 9 && c <= 13) || c == 32);
 }
 
-static int is_metachar(char c)
+int	is_metachar(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
 }

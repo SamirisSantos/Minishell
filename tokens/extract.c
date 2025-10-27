@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 14:34:52 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/27 15:01:58 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:07:03 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ OUTRO TESTE:
 
 */
 
+static int	is_quote(char c)
+{
+	return (c == '\'' || c == '"');
+}
+
 char	*extract_word(char **s)
 {
 	char	*start;
@@ -46,18 +51,23 @@ char	*extract_word(char **s)
 
 	start = *s;
 	len = 0;
-	quote_char = '\0'; //FLAG
+	quote_char = 0;
 
 	while (start[len])
 	{
-		if (quote_char)
+		if (is_quote(start[len]))
 		{
+			quote_char = start[len++];
+			while (start[len] && start[len] != quote_char)
+				len++;
 			if (start[len] == quote_char)
-				quote_char = '\0';
+				len++;
 		}
+		else if (is_space(start[len]) || is_metachar(start[len]))
+			break;
 		else
-		{
-			
-		}
+			len++;
 	}
+	*s += len;
+	return (ft_substr(start, 0, len));
 }
