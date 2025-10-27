@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/23 17:16:12 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/10/27 14:39:31 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,10 @@ t_token	*new_token(char *value, t_token_type type);
 void	add_token(t_token **list, t_token *new);
 void	free_tokens(t_token *list);
 
-//getting tokens
-t_token_type	get_token_type(char *s);
-char			*get_quoted_word(char **s);
-char			*get_word(char **s);
-char			*get_operator(char **s);
-
 //lexer
 t_token	*lexer(char *input);
+char	*extract_word(char **s)
+
 
 //parser
 t_cmd	*parse_tokens(t_token *tokens);
