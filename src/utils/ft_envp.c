@@ -9,6 +9,10 @@
 /*   Updated: 2025-10-13 16:02:29 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 #include "../../headers/minishell.h"
 
 char	**copy_envp(char *envp[])

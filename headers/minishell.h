@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2025/10/03 16:15:35 by sade-ara         ###   ########.fr       */
+=======
+/*   Updated: 2025/10/28 18:53:19 by cpinho-c         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +45,12 @@
 //parser
 
 //signals
+
+//tree
+t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);
+char	**build_args(t_token **tokens);
+int		ft_redir(t_shell *shell, char *filename, t_token_type type);
+void	check_redir(t_shell *shell, t_tree *tree, t_token **token);
 
 //utils
 

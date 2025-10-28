@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-10-13 15:25:22 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025-10-13 15:25:22 by cpinho-c         ###   ########.fr       */
+/*   Created: 2025/10/13 15:25:22 by cpinho-c          #+#    #+#             */
+/*   Updated: 2025/10/28 16:23:08 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
 void	ft_cd(t_shell *shell)
