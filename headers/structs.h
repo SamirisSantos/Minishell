@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.c                                          :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2025/10/13 15:50:01 by sade-ara         ###   ########.fr       */
-=======
-/*   Updated: 2025/10/28 16:22:36 by cpinho-c         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2025/10/28 19:03:18 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-# include "minishell.h"
 
 typedef struct s_shell
 {
@@ -35,19 +30,8 @@ typedef struct s_token
 	t_token			*next;
 }	t_token;
 
-typedef enum s_token_type
+typedef struct  s_cmd
 {
-<<<<<<< Updated upstream
-	CMD,
-	CMD_ARG,
-	PIPE,
-	REDIR_IN,
-	REDIR_IN_FILE,
-	REDIR_OUT,
-	REDIR_OUT_FILE,
-	APPEND,
-	HEREDOC,
-=======
 	char	**args;			// lista de argumentos
 	char	*input_file;	// <
 	char	*output_file;	// >
@@ -67,7 +51,6 @@ typedef enum e_token_type
 	REDIR_OUT_FILE,    // Name outfile
 	APPEND,            // >>
 	HEREDOC,           // <<
->>>>>>> Stashed changes
 	SPACE_TOKEN
 }	t_token_type;
 
