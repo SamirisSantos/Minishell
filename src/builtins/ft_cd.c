@@ -6,21 +6,44 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:25:22 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/10/28 16:23:08 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/10/29 17:38:31 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	ft_cd(t_shell *shell)
+void	update_pwd(t_shell *shell, char *newpath)
+{
+	int	i;
+
+	i = 0;
+	while (shell && shell->envp_cpy && shell->envp_cpy[i])
+	{
+		if(ft_strncmp(shell->envp_cpy[i], "PWD=",4) == 0)
+		{
+			shell->envp_cpy[i] = ft_strdup("PWD=");
+			shell->envp_cpy[i] = ft_strjoin(shell->envp_cpy[i], newpath);
+			if(shell->envp_cpy[i] == NULL)
+			{
+				shell->exit_status = 12;
+				ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
+			}
+		}
+		i++;
+	}
+	
+}
+
+void	ft_cd(t_shell *shell, char *data)
 {
 	char	newpath[PATH_MAX];
 
 	newpath = NULL;
-	if (chdir(path) == 0)
+	if (chdir(data) == 0)
 	{
+		setenv("PWD", data, 1);
 		getcwd(newpath,sizeof(newpath));
-		//update pwd Function
+		update_pwd(shell, newpath);
 		shell->exit_status = 0;
 	}
 	else

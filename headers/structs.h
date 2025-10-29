@@ -6,53 +6,47 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/28 19:03:18 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/10/29 16:07:42 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+# include <stdbool.h>
 
-typedef struct s_shell
+//changed to fix order of declaration to avoid something needing
+//something that was not yet declared
+
+typedef struct s_cmd
 {
-	char	*orig_input; //DEBUG
-	char	**envp_cpy;
-	char	*cwd;
-	int		exit_status;
-	t_token	*token;
-	t_tree	*tree;
-}	t_shell;
+	char			**args;			// lista de argumentos
+	char			*input_file;	// <
+	char			*output_file;	// >
+	int				append;			// >>
+	int				heredoc;		// <<
+	struct s_cmd	*next;		// pipes
+}			t_cmd;
+
+typedef enum e_token_type
+{
+	CMD,				// comandos
+	CMD_ARG,			// words
+	PIPE,				// |
+	REDIR_IN,			// <
+	REDIR_IN_FILE,		// Name infile
+	REDIR_OUT,			// >
+	REDIR_OUT_FILE,		// Name outfile
+	APPEND,				// >>
+	HEREDOC,			// <<
+	SPACE_TOKEN
+}			t_token_type;
 
 typedef struct s_token
 {
 	char			*data;
 	t_token_type	type;
 	t_token			*next;
-}	t_token;
-
-typedef struct  s_cmd
-{
-	char	**args;			// lista de argumentos
-	char	*input_file;	// <
-	char	*output_file;	// >
-	int		append;			// >>
-	int		heredoc;		// <<
-	struct s_cmd *next;		// pipes
-}		t_cmd;
-
-typedef enum e_token_type
-{
-	CMD,               // comandos
-	CMD_ARG,           // words
-	PIPE,              // | 
-	REDIR_IN,          // <
-	REDIR_IN_FILE,     // Name infile
-	REDIR_OUT,         // >
-	REDIR_OUT_FILE,    // Name outfile
-	APPEND,            // >>
-	HEREDOC,           // <<
-	SPACE_TOKEN
-}	t_token_type;
+}			t_token;
 
 typedef struct s_tree
 {
@@ -65,6 +59,16 @@ typedef struct s_tree
 	int				fd_out;
 	t_tree			*left;
 	t_tree			*right;
-}	t_tree;
+}			t_tree;
+
+typedef struct s_shell
+{
+	char	*orig_input; //DEBUG
+	char	**envp_cpy;
+	char	*cwd;
+	int		exit_status;
+	t_token	*token;
+	t_tree	*tree;
+}			t_shell;
 
 #endif

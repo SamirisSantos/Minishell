@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 16:19:11 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/10/28 18:51:24 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/10/29 16:04:29 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	ft_redir(t_shell *shell, char *filename, t_token_type type)
 	else if (type == REDIR_OUT)
 	{
 		if (access(filename, F_OK) != 0)
-			fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR
+					| S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	if (fd == -1)
 	{
 		shell->exit_status = 1;
-		perror("file");
 		ft_printf(STDERR_FILENO, "%s", ERROR_FILE_PERMISSION);
 	}
 	return (fd);
