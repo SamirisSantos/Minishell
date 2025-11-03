@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/03 14:03:03 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/03 14:59:23 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,10 @@ t_token	*new_token(char *value, t_token_type type);
 void	add_token(t_token **list, t_token *new);
 void	free_tokens(t_token *list);
 char	*extract_word(char **s);
-
-//lexer
 t_token	*lexer(char *input);
 int		is_metachar(char c);
 int		is_space(char c);
-char	*extract_word(char **s);
-
+int		is_quote(char c);
 
 //parser
 t_cmd	*parse_tokens(t_token *tokens);

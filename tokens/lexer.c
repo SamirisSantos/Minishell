@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:29:34 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/27 16:16:28 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/03 14:58:42 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ t_comd 2:
   append: 0
 */
 
-// " \t\n\r\v\f" 
-int	is_space(char c)
-{
-	return ((c >= 9 && c <= 13) || c == 32);
-}
-
-int	is_metachar(char c)
-{
-	return (c == '|' || c == '<' || c == '>');
-}
 
 // criar lista de tokens
 /*

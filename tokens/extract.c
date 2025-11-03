@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 14:34:52 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/03 14:42:22 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/03 14:57:51 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,6 @@ OUTRO TESTE:
  - ESPACO ANTES DO ECHO TBM NAO ACEITA
 
 */
-
-int	is_space(char c)
-{
-	return ((c >= 9 && c <= 13) || c == 32);
-}
-
-int	is_metachar(char c)
-{
-	return (c == '|' || c == '<' || c == '>');
-}
-
-static int	is_quote(char c)
-{
-	return (c == '\'' || c == '"');
-}
 
 char	*extract_word(char **s)
 {
