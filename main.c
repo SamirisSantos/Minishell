@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/23 15:13:13 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/03 14:01:46 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int main (int argc, char **argv, char *envp[])
 				//TODO
 			if (shell_signal == EXIT_SIGQUIT)
 				/* TODO */
-			tokens = lexer(input); //TODO
+			tokens = lexer(input);
 			if (syntax_check(tokens)) //TODO
 				continue;
 			cmds = parse_tokens(tokens); //TODO

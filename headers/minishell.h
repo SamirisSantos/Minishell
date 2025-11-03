@@ -6,16 +6,16 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/27 16:19:38 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/03 14:03:03 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "structs.h"
 # include "../libft/libft.h"
 # include "errors.h"
-# include "structs.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -31,25 +31,24 @@
 # include <readline/readline.h> // readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/history.h> // add_history, rl_clear_history
 
-
-
 //builtins
 
 //executor
 
 //inits
-void	init_data(&shell, envp);
+void	init_data(t_shell *shell, char **envp);
 
 //tokens
 t_token	*new_token(char *value, t_token_type type);
 void	add_token(t_token **list, t_token *new);
 void	free_tokens(t_token *list);
+char	*extract_word(char **s);
 
 //lexer
 t_token	*lexer(char *input);
-char	*extract_word(char **s);
 int		is_metachar(char c);
 int		is_space(char c);
+char	*extract_word(char **s);
 
 
 //parser

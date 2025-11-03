@@ -2,6 +2,8 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
 		"minishell.h": "c",
-		"history.h": "c"
+		"history.h": "c",
+		"errors.h": "c",
+		"structs.h": "c"
 	}
 }
