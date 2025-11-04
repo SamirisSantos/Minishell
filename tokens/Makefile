@@ -8,34 +8,46 @@ NAME = test_extractor
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
-INCLUDES = -I../headers
+LIBFT_PATH = ../libft
+LIBFT_A = $(LIBFT_PATH)/libft.a
+
+MINISHELL_HEADERS = ../headers
+INCLUDES = -I$(MINISHELL_HEADERS) -I$(LIBFT_PATH)
+
+LDFLAGS = -L$(LIBFT_PATH)
+LDLIBS = -lft
 
 TEST_MAIN = teste_tokens.c
 
-SRCS = $(TEST_MAIN) \
+SRCS = teste_tokens.c \
 		extract.c \
-		utils_tokens.c \
-		ft_substr.c \
-		ft_strdup.c \
-		ft_strlen.c \
-		ft_memcpy.c
+		utils_tokens.c
 
 OBJS = $(SRCS:.c=.o)
 
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT_A)
+	@echo "Ligando $(NAME)..."
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS) $(LDLIBS)
+	@echo "$(NAME) pronto! (em ./tokens/)"
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "Compilando $<..."
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(LIBFT_A):
+	@echo "Compilando a Libft em $(LIBFT_PATH)..."
+	@$(MAKE) -s -C $(LIBFT_PATH)
 
 clean:
-	rm -f $(OBJS)
+	@$(MAKE) -s -C $(LIBFT_PATH) clean
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@$(MAKE) -s -C $(LIBFT_PATH) fclean
+	@rm -f $(NAME)
 
 re: fclean all
 

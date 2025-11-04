@@ -22,16 +22,15 @@ void test_line(const char *line_str)
 {
 	// Usamos strdup para criar uma cópia da string de teste.
 	char *line_copy = ft_strdup(line_str);
+	char *ptr = line_copy;
+	char *word;
+	int i = 1;
+	
 	if (!line_copy)
 	{
 		perror("strdup failed");
 		return;
 	}
-
-	char *ptr = line_copy;
-	char *word;
-	int i = 1;
-
 	printf("--- Testando Linha: \"%s\" ---\n", line_str);
 	while (*ptr)
 	{
