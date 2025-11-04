@@ -9,14 +9,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
+
+char	*extract_word(char **s);
+int		is_space(char c);
+int		is_metachar(char c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 void test_line(const char *line_str)
 {
 	// Usamos strdup para criar uma cópia da string de teste.
-	// Embora extract_word não modifique o *conteúdo* da string,
-	// o ponteiro 'ptr' será avançado.
-	char *line_copy = strdup(line_str);
+	char *line_copy = ft_strdup(line_str);
 	if (!line_copy)
 	{
 		perror("strdup failed");
@@ -30,21 +35,30 @@ void test_line(const char *line_str)
 	printf("--- Testando Linha: \"%s\" ---\n", line_str);
 	while (*ptr)
 	{
-		while (*ptr && isspace(*ptr))
+		//Pular espaços em branco usando a função do projeto
+		while (*ptr && is_space(*ptr))
 			ptr++;
+		
 		if (!*ptr)
 			break;
-		printf("  [%d] Chamando extract_word em: \"%s\"\n", i, ptr);
-		word = extract_word(&ptr);
-		printf("      -> Extraído: \"%s\"\n", word);
-		printf("      -> Ponteiro restante: \"%s\"\n", ptr);
-		free(word);
-		i++;
-		if (word && *word == '\0' && (*ptr == '|' || *ptr == '<' || *ptr == '>')) {
-			printf("      [AVISO] Detectado loop infinito potencial! Parando teste.\n");
-			printf("      A função retornou \"\" mas o ponteiro não avançou de um delimitador.\n");
-			break;
+		if (is_metachar(*ptr))
+		{
+			printf("  [%d] Detectado Metachar: '%c'\n", i, *ptr);
+			char op[2] = {*ptr, '\0'};
+			printf("      -> (Simulando) Token Operador: \"%s\"\n", op);
+			ptr++;
+			printf("      -> Ponteiro restante: \"%s\"\n", ptr);
 		}
+		// Se não for metachar, é uma palavra
+		else
+		{
+			printf("  [%d] Chamando extract_word em: \"%s\"\n", i, ptr);
+			word = extract_word(&ptr);
+			printf("      -> Extraído (Palavra): \"%s\"\n", word);
+			printf("      -> Ponteiro restante: \"%s\"\n", ptr);
+			free(word);
+		}
+		i++;
 	}
 	printf("--- Fim do Teste: \"%s\" ---\n\n", line_str);
 	free(line_copy);
@@ -67,6 +81,9 @@ int main(void)
 		"\"quote dupla nao fechada",            // Aspas duplas sem fechar
 		"",                                     // String vazia
 		"   ",                                  // Apenas espaços
+		"echo>out",                             // Colado no redirect
+		"in<file",                              // Colado no redirect
+		"cmd1|cmd2",                            // Colado no pipe
 		NULL                                    // Marcador de fim
 	};
 
