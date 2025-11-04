@@ -1,39 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_envp_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 16:09:11 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/04 14:31:41 by cpinho-c         ###   ########.fr       */
+/*   Created: 2025/11/04 15:18:43 by cpinho-c          #+#    #+#             */
+/*   Updated: 2025/11/04 16:41:09 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	ft_echo(t_shell *shell, t_tree *tree)
+size_t	ft_find_var_name(char *arg)
 {
-	int		i;
-	bool	withN;
-	int		fd;
+	int	i;
 
 	i = 0;
-	withN = false;
-	while (tree->cmd_args[i] && (ft_strncmp(tree->cmd_args[i], "-n", 2) == 0) 
-		&& (ft_strlen(tree->cmd_args[i]) == 2))
+	while (arg[i])
 	{
+		if (arg[i] == '=')
+			return (i);
 		i++;
-		withN = true;
 	}
-	while (tree->cmd_args[i])
+	return (i);
+}
+
+char	**ft_realloc_envp(char **envp, size_t old_size)
+{
+	char	**new_envp;
+	size_t	i;
+	size_t	new_size;
+
+	new_size = old_size + 1;
+	new_envp = (char **)malloc((new_size + 1) * sizeof(char *));
+	if (!new_envp)
+		return (NULL);
+	i = 0;
+	while (i < old_size)
 	{
-		ft_printf(tree->fd_out, "%s", tree->cmd_args[i]);
+		new_envp[i] = envp[i];
 		i++;
-		if (tree->cmd_args[i])
-			ft_printf(tree->fd_out, " ");
 	}
-	if (!withN)
-		ft_printf(tree->fd_out, "\n");
-	shell->exit_status = 0;
+	free(envp);
+	new_envp[new_size] = NULL;
+	return (new_envp);
 }

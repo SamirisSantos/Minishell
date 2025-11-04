@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/29 17:36:08 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:01:00 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,21 @@
 
 //builtins
 	//echo
-void	ft_echo(t_shell *shell, char **args);
+void	ft_echo(t_shell *shell, t_tree *tree);
 	//cd
 void	update_pwd(t_shell *shell, char *newpath);
 void	ft_cd(t_shell *shell, char *path);
+	//pwd
+void	ft_pwd(t_shell *shell, t_tree *tree);
+	//exit
+void	ft_exit(t_shell *shell);
+	//export
+void	ft_update_envp(t_shell *shell, int i, char *arg);
+void	ft_add_var(t_shell *shell, char *arg);
+void	ft_export(t_shell *shell, char **cmd_args);
+	//unset
+void	ft_fix_envp(t_shell *shell, int j);
+void	ft_unset(t_shell *shell, char **cmd_args);
 
 //executor
 
@@ -58,5 +69,7 @@ void	check_redir(t_shell *shell, t_tree *tree, t_token **token);
 
 //utils
 char	**copy_envp(t_shell *shell, char *envp[]);
+char	**ft_realloc_envp(char **envp, size_t old_size);
+size_t	ft_find_var_name(char *arg);
 
 #endif
