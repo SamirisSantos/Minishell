@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:29:34 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/03 14:58:42 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:35:32 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ t_token	*lexer(char *input)
 		if (!*input)
 			break;
 		if (is_metachar(*input))
-			new = handle_operator(&input, &head); // TODO
+			new = handle_operator(&input, &head);
 		else
-			new = handle_word(&input, &head, last_token); // TODO tratar palavras e comandos
+			new = handle_word(&input, &head, last_token);
 		if (!new)
 		{
 			free_tokens(head);

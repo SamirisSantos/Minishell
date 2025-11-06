@@ -25,7 +25,7 @@ void test_line(const char *line_str)
 	char *ptr = line_copy;
 	char *word;
 	int i = 1;
-	
+
 	if (!line_copy)
 	{
 		perror("strdup failed");
@@ -66,24 +66,37 @@ void test_line(const char *line_str)
 int main(void)
 {
 	const char *test_cases[] = {
-		"echo hello world",                     // Teste simples
-		"ls -l",                                // Palavra com hífen
-		"cmd   'palavra com espacos'  arg2",     // Aspas simples e espaços
-		"cmd \"palavra com 'aspas' dentro\" ",  // Aspas duplas
-		"echo 'aspas\"duplas\"misturadas'",     // Aspas misturadas
-		"echo \"aspas'simples'misturadas\"",    // Aspas misturadas
-		"palavra'junta'\"com\"aspas",            // Aspas coladas (deve ser 1 palavra)
-		"ls | wc -l",                             // Teste de delimitador (pipe)
-		"cat < infile > outfile",               // Teste de delimitadores (redirect)
-		"<infile",                              // Delimitador no início
-		"'quote nao fechada",                   // Aspas sem fechar
-		"\"quote dupla nao fechada",            // Aspas duplas sem fechar
-		"",                                     // String vazia
-		"   ",                                  // Apenas espaços
-		"echo>out",                             // Colado no redirect
-		"in<file",                              // Colado no redirect
-		"cmd1|cmd2",                            // Colado no pipe
-		NULL                                    // Marcador de fim
+		// --- NOVOS TESTES REQUERIDOS ---
+		"e\"c\"ho name",                             // "ec"ho name -> palavra: "echo"
+		"\"e\"cho name",                            // "e"cho name -> palavra: "echo"
+		"\"ec\"ho name",                            // "ec"ho name -> palavra: "echo"
+		"\"ech\"o name",                            // "ech"o name -> palavra: "echo"
+		"\"echo\" name",                            // "echo" name -> palavra: "echo"
+		"echo\"\" hello",                           // echo"" hello -> palavra: "echo"
+		"echo'' hello",                             // echo'' hello -> palavra: "echo"
+		"'e'cho name",                              // 'e'cho name -> palavra: "echo"
+		
+		// --- TESTES DE LIMITE/COMPLEXOS ---
+		"cmd   'palavra com espacos'  arg2",         // Aspas simples e espaços
+		"cmd \"palavra com 'aspas' dentro\" ",      // Aspas duplas
+		"palavra'junta'\"com\"aspas",                // Aspas coladas (deve ser 1 palavra)
+		"echo 'aspas\"duplas\"misturadas'",         // Aspas misturadas
+		"echo \"aspas'simples'misturadas\"",        // Aspas misturadas
+
+		// --- TESTES DE OPERADORES/SEPARADORES ---
+		"ls | wc -l",                               // Pipe
+		"cat < infile > outfile",                   // Redirecionamentos
+		"<infile",                                 // Redirecionamento no início
+		"echo>out",                                 // Colado no redirect
+		"in<file",                                  // Colado no redirect
+		"cmd1|cmd2",                                // Colado no pipe
+		
+		// --- TESTES DE ERRO/ESPAÇOS ---
+		"'quote nao fechada",                       // Aspas sem fechar (deve extrair tudo)
+		"\"quote dupla nao fechada",                // Aspas duplas sem fechar (deve extrair tudo)
+		"   ",                                      // Apenas espaços
+		"",                                         // String vazia
+		NULL                                        // Marcador de fim
 	};
 
 	int i = 0;
