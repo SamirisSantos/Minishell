@@ -1,23 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/05 14:35:10 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/06 16:12:37 by sade-ara         ###   ########.fr       */
+/*   Created: 2025/11/06 16:09:59 by sade-ara          #+#    #+#             */
+/*   Updated: 2025/11/06 16:11:03 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "../headers/minishell.h"
 
-# define ERROR_ARG "Error: too many arguments.\n"
-# define ERROR_CDNODIR "cd: no_such_dir: No such file or directory\n"
-
-//ctrl + c & ctrl + d exit status
-# define EXIT_SIGINT 130
-# define EXIT_SIGQUIT 131
-
-#endif
