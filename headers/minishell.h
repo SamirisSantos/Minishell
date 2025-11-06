@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/03 14:59:23 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:35:58 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_token	*lexer(char *input);
 int		is_metachar(char c);
 int		is_space(char c);
 int		is_quote(char c);
+t_token	*handle_operador(char **input, t_token **head);
+t_token	*handle_word(char **input, t_token **head, t_token *last_token);
 
 //parser
 t_cmd	*parse_tokens(t_token *tokens);
