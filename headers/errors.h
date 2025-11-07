@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 14:35:10 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/06 16:12:37 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:16:20 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define ERROR_ARG "Error: too many arguments.\n"
 # define ERROR_CDNODIR "cd: no_such_dir: No such file or directory\n"
+
 
 //ctrl + c & ctrl + d exit status
 # define EXIT_SIGINT 130

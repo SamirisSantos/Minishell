@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/06 15:35:58 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:20:23 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	init_data(t_shell *shell, char **envp);
 t_token	*new_token(char *value, t_token_type type);
 void	add_token(t_token **list, t_token *new);
 void	free_tokens(t_token *list);
+
+//extract word and lexer
 char	*extract_word(char **s);
 t_token	*lexer(char *input);
 int		is_metachar(char c);
@@ -49,6 +51,9 @@ int		is_space(char c);
 int		is_quote(char c);
 t_token	*handle_operador(char **input, t_token **head);
 t_token	*handle_word(char **input, t_token **head, t_token *last_token);
+
+//expansion
+void	expand_tokens(t_token *token_list, char **envp);
 
 //parser
 t_cmd	*parse_tokens(t_token *tokens);
