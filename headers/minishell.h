@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/07 15:20:23 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:22:10 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 # include <readline/readline.h> // readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/history.h> // add_history, rl_clear_history
 
+
+//global variable
+extern int	g_exit_status;
+
 //builtins
 
 //executor
@@ -51,6 +55,9 @@ int		is_space(char c);
 int		is_quote(char c);
 t_token	*handle_operador(char **input, t_token **head);
 t_token	*handle_word(char **input, t_token **head, t_token *last_token);
+
+//remove_quotes
+char	*remove_quotes(char *str);
 
 //expansion
 void	expand_tokens(t_token *token_list, char **envp);

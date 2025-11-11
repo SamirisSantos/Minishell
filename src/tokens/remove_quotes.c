@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
+/*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:09:59 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/07 16:29:13 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:06:19 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
+//APAGAR | DELL APAGAR COMENTARIOS
 // SE str == '\0' nao chamar o remove_quotes
 /*
 Pegar a string do lexer, verificar se tem aspas e tira as aspas.
@@ -53,10 +54,23 @@ static void	quote_flag(char c, char *quote_char)
 
 static int	unclosed_quotes(char *input)
 {
-	
+	char	quote_char;
+	quote_char = 0;
+	while(*input)
+	{
+		quote_flag(*input, &quote_char);
+		input++;
+	}
+	if (quote_char != 0)
+	{
+		printf("Não fechou a aspas"); //APAGAR | DELL
+		// TODO verificar quando nao achar a aspa como se comporta
+		return (1);
+	}
+	return (0);
 }
 
-static char	*remove_quotes(char *str)
+char	*remove_quotes(char *str)
 {
 	char	*clean_str;
 	char	*quote_char;
@@ -81,16 +95,4 @@ static char	*remove_quotes(char *str)
 	return (clean_str);
 }
 
-void	expand_tokens(t_token *token_list, char **envp)
-{
-	
-}
-
-//APAGAR | DEL -> MAIN
-
-/*
- * ==========================================================
- * MAIN DE TESTE
- * ==========================================================
- */
 

@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/03 14:01:46 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:07:22 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 readline() → lexer(tokenrização) → parser → executor
 
 */
+
+int	g_exit_status = 0;
 
 int main (int argc, char **argv, char *envp[])
 {
