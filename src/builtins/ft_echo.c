@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:09:11 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/04 14:31:41 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:26:34 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	ft_echo(t_shell *shell, t_tree *tree)
 {
 	int		i;
-	bool	withN;
+	bool	with_n;
 	int		fd;
 
 	i = 0;
-	withN = false;
-	while (tree->cmd_args[i] && (ft_strncmp(tree->cmd_args[i], "-n", 2) == 0) 
+	with_n = false;
+	while (tree->cmd_args[i] && (ft_strncmp(tree->cmd_args[i], "-n", 2) == 0)
 		&& (ft_strlen(tree->cmd_args[i]) == 2))
 	{
 		i++;
-		withN = true;
+		with_n = true;
 	}
 	while (tree->cmd_args[i])
 	{
@@ -33,7 +33,7 @@ void	ft_echo(t_shell *shell, t_tree *tree)
 		if (tree->cmd_args[i])
 			ft_printf(tree->fd_out, " ");
 	}
-	if (!withN)
+	if (!with_n)
 		ft_printf(tree->fd_out, "\n");
 	shell->exit_status = 0;
 }

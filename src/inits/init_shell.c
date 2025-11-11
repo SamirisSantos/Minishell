@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 17:31:13 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/10/29 17:35:57 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:02:37 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_shell	*init_shell(void)
 	t_shell	*shell;
 
 	shell = malloc(sizeof(t_shell));
-	if(!shell)
+	if (!shell)
 	{
 		ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
 		return (NULL);
@@ -26,6 +26,7 @@ t_shell	*init_shell(void)
 	shell->envp_cpy = NULL;
 	shell->exit_status = 0;
 	shell->orig_input = NULL;
+	shell->xcmd = NULL;
 	shell->token = NULL;
 	shell->tree = NULL;
 	return (shell);

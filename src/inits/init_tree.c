@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:24:40 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/10/29 18:23:10 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:48:20 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_tree	*init_tree_node(t_shell *shell)
 	{
 		shell->exit_status = 12;
 		ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
-		return(NULL);
+		return (NULL);
 	}
 	tree->cmd_args = NULL;
 	tree->data = NULL;

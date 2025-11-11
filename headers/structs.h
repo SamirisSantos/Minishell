@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/29 16:07:42 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:58:24 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_cmd
 	char			*output_file;	// >
 	int				append;			// >>
 	int				heredoc;		// <<
-	struct s_cmd	*next;		// pipes
+	struct s_cmd	*next;			// pipes
 }			t_cmd;
 
 typedef enum e_token_type
@@ -61,12 +61,20 @@ typedef struct s_tree
 	t_tree			*right;
 }			t_tree;
 
+typedef struct s_xcmd
+{
+	int		**pipe_fd;
+	int		cmd_count;
+	pid_t	*pids;
+}			t_xcmd;
+
 typedef struct s_shell
 {
 	char	*orig_input; //DEBUG
 	char	**envp_cpy;
 	char	*cwd;
 	int		exit_status;
+	t_xcmd	*xcmd;
 	t_token	*token;
 	t_tree	*tree;
 }			t_shell;

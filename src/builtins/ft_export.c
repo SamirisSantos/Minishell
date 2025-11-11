@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 11:53:39 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/04 16:41:04 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:46:58 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,21 @@ void	ft_add_var(t_shell *shell, char *arg)
 	if (!new_envp)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO,"%s",ERROR_MALLOC);
+		ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
 		return ;
 	}
 	size++;
 	new_envp[size] = arg;
 	shell->envp_cpy = new_envp;
 	shell->exit_status = 0;
+}
+
+bool	check_var_exists(t_shell *shell, char *cmd_arg, size_t size, int j)
+{
+	if (ft_strncmp(shell->envp_cpy[j], cmd_arg, size) == 0
+		&& shell->envp_cpy[j][size] == '=')
+		return (true);
+	return (false);
 }
 
 void	ft_export(t_shell *shell, char **cmd_args)
@@ -52,19 +60,18 @@ void	ft_export(t_shell *shell, char **cmd_args)
 	{
 		j = 0;
 		size = ft_find_var_name(cmd_args[i]);
-		var_found = false;
-		while(shell->envp_cpy[j])
+		while (shell->envp_cpy[j])
 		{
-			if (ft_strncmp(shell->envp_cpy[j],cmd_args[i], size) == 0
-				&& shell->envp_cpy[j][size] == '=')
+			var_found = check_var_exists(shell, cmd_args[i], size, j);
+			if (var_found)
 			{
 				ft_update_envp(shell, j, cmd_args[i]);
-				var_found = true;
-				break;
+				break ;
 			}
 			j++;
 		}
-		if (!var_found) ft_add_var(shell, cmd_args[i]);
+		if (!var_found)
+			ft_add_var(shell, cmd_args[i]);
 		i++;
 	}
 }

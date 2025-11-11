@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 11:53:56 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/04 17:02:20 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:47:57 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ void	ft_unset(t_shell *shell, char **cmd_args)
 	size_t	var_len;
 
 	i = 0;
-	while(cmd_args[i])
+	while (cmd_args[i])
 	{
 		j = 0;
 		var_len = ft_strlen(cmd_args[i]);
 		while (shell->envp_cpy[j])
 		{
-			if(ft_strncmp(shell->envp_cpy[j],cmd_args[i],var_len) == 0 
+			if (ft_strncmp(shell->envp_cpy[j], cmd_args[i], var_len) == 0 
 				&& shell->envp_cpy[j][var_len] == '=')
 			{
 				free(shell->envp_cpy[j]);
 				ft_fix_envp(shell, j);
-				break;
+				break ;
 			}
 			j++;
 		}

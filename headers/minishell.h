@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/04 17:01:00 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:00:36 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_exit(t_shell *shell);
 	//export
 void	ft_update_envp(t_shell *shell, int i, char *arg);
 void	ft_add_var(t_shell *shell, char *arg);
+bool	check_var_exists(t_shell *shell, char *cmd_arg, size_t size, int j);
 void	ft_export(t_shell *shell, char **cmd_args);
 	//unset
 void	ft_fix_envp(t_shell *shell, int j);
@@ -52,9 +53,18 @@ void	ft_unset(t_shell *shell, char **cmd_args);
 
 //executor
 
+//free
+void	free_array(char **array);
+void	free_pipe_pids(t_shell *shell);
+void	free_tree(t_tree *tree);
+void	free_token(t_token *token);
+void	free_shell(t_shell *shell);
+
 //inits
 t_shell	*init_shell(void);
 t_tree	*init_tree_node(t_shell *shell);
+void	init_pipes(t_shell *shell);
+void	init_pid(t_shell *shell);
 
 //parser
 
