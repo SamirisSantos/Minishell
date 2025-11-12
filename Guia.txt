@@ -1,0 +1,33 @@
+Mapa do Minishell: 4 Fases
+O seu projeto segue uma sequência de processamento rígida.
+O resultado de uma fase torna-se a entrada da próxima.
+
+1. Lexer (Tokenização)
+2. Parser (Análise Sintática)
+3. Expander (Expansão e Limpeza)
+4. Executor
+
+O fluxo completo é o seguinte:
+
+Readline (char *input)
+
+Lexer (lexer.c): Gera t_token *.
+------------- PROXIMO PASSO ----------------------------------
+
+Parser (Sua próxima etapa):
+O Seu Objetivo no Parser
+A sua principal missão é transformar a lista de tokens 
+do lexer.c em uma estrutura hierárquica (a Árvore Binária).
+
+O Parser deve funcionar como um tradutor que garante que a 
+sintaxe está correta antes de construir a árvore.
+
+-------------------------------------------------------------
+
+Expander (expansion.c): Limpa a AST (expande $, remove aspas).
+
+Executor (execute.c):
+- Percorre a AST.
+- Se for um comando: Verifica se é Builtin.
+- Se sim: Chama a função C Builtin diretamente.
+- Se não: Executa o binário do sistema (/bin/ls).
