@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/11 16:22:10 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/12 16:36:50 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,14 @@ t_token	*handle_operador(char **input, t_token **head);
 t_token	*handle_word(char **input, t_token **head, t_token *last_token);
 
 //remove_quotes
+void	quote_flag(char c, char *quote_char);
 char	*remove_quotes(char *str);
+int		unclosed_quotes(char *input);
 
 //expansion
 void	expand_tokens(t_token *token_list, char **envp);
+int		get_expanded_len(char *str, char **envp);
+void	fill_expanded_str(char *new_str, char *old_str, char **envp);
 
 //parser
 t_cmd	*parse_tokens(t_token *tokens);
