@@ -6,7 +6,13 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:16:15 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/03 16:16:16 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/13 16:57:21 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../headers/minishell.h"
+
+void	free_shell(t_shell *shell)
+{
+	//TODO
+}

@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:09:59 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/12 16:37:03 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:15:34 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void	quote_flag(char c, char *quote_char)
 			*quote_char = 0;
 }
 
+
+// Retorna 0 (SUCESSO) se as aspas estiverem fechadas.
+// Retorna 1 (ERRO) se as aspas NÃO estiverem fechadas.
 int	unclosed_quotes(char *input)
 {
 	char	quote_char;
@@ -64,7 +67,8 @@ int	unclosed_quotes(char *input)
 	if (quote_char != 0)
 	{
 		printf("Não fechou a aspas"); //APAGAR | DELL
-		// TODO verificar quando nao achar a aspa como se comporta
+		g_exit_status = 2;
+		//TODO imprimir o erro de sintaxe
 		return (1);
 	}
 	return (0);
