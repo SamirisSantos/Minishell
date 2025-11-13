@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:29:34 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/12 16:43:55 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/13 18:02:24 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ t_token	*lexer(char *input)
 	head = NULL;
 	new = NULL;
 	last_token = NULL;
-	if (unclosed_quotes(input))
-		return (NULL);
 	while (*input)
 	{
 		while (*input && is_space(*input))
