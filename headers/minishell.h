@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/12 16:36:50 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:28:06 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,16 @@
 //global variable
 extern int	g_exit_status;
 
+//controle shell chamar todo as funções de depois chamar na main
+void	shell_control(t_shell *shell);
+
 //builtins
 
 //executor
 
 //inits
 void	init_data(t_shell *shell, char **envp);
+void	init_signals(void);
 
 //tokens
 t_token	*new_token(char *value, t_token_type type);
