@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/13 17:30:37 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/13 18:15:23 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ APAGAR | DEL
 * Lê a entrada, processa e executa.
 * Esta funções separadas da main para cumprir a Norminette. kry
 */
+
+static void	free_all(t_token tokens, t_cmd cmd, char *input)
+{
+	if (token)
+		free_tokens;
+	if (cmds)
+		free_tree((t_tree *)cmds);
+	if (input)
+		free(input);
+}
+
 
 void	shell_control(t_shell *shell)
 {
@@ -57,13 +68,13 @@ void	shell_control(t_shell *shell)
 			tokens = lexer(input);
 			if (!syntax_check(tokens)) // TODO
 			{
-				g_exit_status = 2;
+				shell->exit_status = 2;
 				free_tokens(tokens); // TODO
 				free(input);
 				continue ;
 			}
 			cmds = parse_tokens(tokens); //TODO
 			execute(cmds); //TODO
-			free_all(tokens, cmds, input); //TODO
+			free_all(tokens, cmds, input);
 		}
 }
