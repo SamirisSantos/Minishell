@@ -6,11 +6,11 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/13 17:29:32 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:36:37 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "headers/minishell.h"
+#include "headers/minishell.h"
 
 /*
 readline() → lexer(tokenrização) → parser → executor
@@ -18,7 +18,7 @@ readline() → lexer(tokenrização) → parser → executor
 
 int	g_exit_status = 0;
 
-int main (int argc, char **argv, char *envp[])
+int	main(int argc, char **argv, char *envp[])
 {
 	t_shell	*shell;
 
@@ -35,5 +35,5 @@ int main (int argc, char **argv, char *envp[])
 		shell_control(shell); //doing em src ...
 		free_shell(shell); //TODO esta em utils/utils.c
 	}
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
