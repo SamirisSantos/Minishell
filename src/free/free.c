@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:10:32 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/11 17:03:40 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/13 18:07:37 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	free_token(t_token *token)
 	while (token)
 	{
 		temp = token->next;
+		if (token->data)
+			free(token->data);
 		free(token);
 		token = temp;
 	}
