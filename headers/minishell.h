@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/13 17:28:06 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/13 20:23:32 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,43 @@
 # include <readline/history.h> // add_history, rl_clear_history
 
 
-//global variable
-extern int	g_exit_status;
-
 //controle shell chamar todo as funções de depois chamar na main
 void	shell_control(t_shell *shell);
 
 //builtins
+	//echo
+void	ft_echo(t_shell *shell, t_tree *tree);
+	//cd
+void	update_pwd(t_shell *shell, char *newpath);
+void	ft_cd(t_shell *shell, char *path);
+	//pwd
+void	ft_pwd(t_shell *shell, t_tree *tree);
+	//exit
+void	ft_exit(t_shell *shell);
+	//export
+void	ft_update_envp(t_shell *shell, int i, char *arg);
+void	ft_add_var(t_shell *shell, char *arg);
+bool	check_var_exists(t_shell *shell, char *cmd_arg, size_t size, int j);
+void	ft_export(t_shell *shell, char **cmd_args);
+	//unset
+void	ft_fix_envp(t_shell *shell, int j);
+void	ft_unset(t_shell *shell, char **cmd_args);
+
 
 //executor
 
+//free
+void	free_array(char **array);
+void	free_pipe_pids(t_shell *shell);
+void	free_tree(t_tree *tree);
+void	free_token(t_token *token);
+void	free_shell(t_shell *shell);
+
 //inits
-void	init_data(t_shell *shell, char **envp);
+t_shell	*init_shell(void);
+t_tree	*init_tree_node(t_shell *shell);
+void	init_pipes(t_shell *shell);
+void	init_pid(t_shell *shell);
 void	init_signals(void);
 
 //tokens
@@ -77,5 +102,8 @@ int		syntax_check(t_token *tokens);
 //signals
 
 //utils
+char	**copy_envp(t_shell *shell, char *envp[]);
+char	**ft_realloc_envp(char **envp, size_t old_size);
+size_t	ft_find_var_name(char *arg);
 
 #endif
