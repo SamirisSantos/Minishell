@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 16:54:21 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/18 12:56:24 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/18 15:35:02 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,33 +61,6 @@ t_token	*handle_operador(char **input, t_token **head)
 	*input +=len;
 	return (new_node);
 }
-
-/*
-APAGAR | DEL
-logica:
-Se o ultimo token é uma PIPE o shell espera um comando 
-ou a primeira entrada deve ser um comando, se nao tem
-token operador e o primeira palavra no shel é um comando
-exemplo:
-cd NAME_FILE
-echo hello
-cat qualquer coisa
-se não for nada tbm diz que o comando nao foi encontrado
-----
-
-Operadores de entrada < e <<
-
-Exemplo             |   Antes    |   Depois
-wc -l < dados.csv.  |   comando  | ARQUIVO
-cat << FIM.         |   comando. | chave delimitadora
-
-Operadores de saida  > e >>
-
-Exemplo                   |   Antes    |   Depois
-wc -l > dados.txt         |   comando  |  ARQUIVO
-echo "fim" >>  file.txt   |   comando  |  ARQUIVO
-
-*/
 
 static 	t_token_type	get_word_type(t_token *last_token)
 {
