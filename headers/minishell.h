@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/11 17:00:36 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:39:38 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <errno.h> //allows use of errno for system error msgs
+# include <string.h> //strerror to get char * with errno msg
 # include <stdbool.h> //bool variables
 # include <limits.h> //adds variables to int MAX/MIN, PATH_MAX, etc
 # include <sys/types.h> // pid_t, stat types
@@ -29,8 +31,10 @@
 # include <readline/readline.h> // rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/history.h> // add_history, rl_clear_history
 
-# include "errors.h"
 # include "structs.h"
+
+# define EXIT_SIGINT 130
+# define EXIT_SIGQUIT 131
 
 //builtins
 	//echo
@@ -65,6 +69,8 @@ t_shell	*init_shell(void);
 t_tree	*init_tree_node(t_shell *shell);
 void	init_pipes(t_shell *shell);
 void	init_pid(t_shell *shell);
+void	init_cmd_path(t_shell *shell);
+void	init_xcmd(t_shell *shell);
 
 //parser
 
@@ -74,7 +80,8 @@ void	init_pid(t_shell *shell);
 t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);
 t_tree	*build_node(t_shell *shell, t_token *tokens);
 char	**build_args(t_token **tokens);
-int		ft_redir(t_shell *shell, char *filename, t_token_type type);
+int		ft_redir_in(t_shell *shell, char *filename);
+int		ft_redir_out(t_shell *shell, char *filename, t_token_type type);
 void	check_redir(t_shell *shell, t_tree *tree, t_token **token);
 
 //utils

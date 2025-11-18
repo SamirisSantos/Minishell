@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:09:07 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/11 17:02:03 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/18 19:41:45 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_pipes(t_shell *shell)
 	if(!shell->xcmd->pipe_fd)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
+		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 		return ;
 	}
 	while (i < shell->xcmd->cmd_count - 1)
@@ -32,7 +32,7 @@ void	init_pipes(t_shell *shell)
 		if (!shell->xcmd->pipe_fd[i])
 		{
 			shell->exit_status = 12;
-			ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
+			ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 			free_pipe(shell, i + 1);
 			return ;
 		}
@@ -48,8 +48,40 @@ void	init_pid(t_shell *shell)
 	if (!pids)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
+		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 		return ;
 	}
 	shell->xcmd->pids = pids;
+}
+
+void	init_cmd_path(t_shell *shell)
+{
+	int	i;
+	
+	i = 0;
+	shell->xcmd->cmd_path = (char **)malloc((shell->xcmd->cmd_count + 1) * sizeof(char *));
+	if (!shell->xcmd->cmd_path)
+	{
+		shell->exit_status = 12;
+		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		return ;
+	}
+}
+
+void	init_xcmd(t_shell *shell)
+{
+	t_xcmd	*xcmd;
+
+	xcmd = malloc(sizeof(t_xcmd));
+	if(!xcmd)
+	{
+		shell->exit_status = 12;
+		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		return ;
+	}
+	xcmd->cmd_count = 0;
+	xcmd->cmd_path = NULL;
+	xcmd->pids = NULL;
+	xcmd->pipe_fd = NULL;
+	shell->xcmd = xcmd;
 }

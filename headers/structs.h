@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/11 16:58:24 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/18 19:40:37 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct s_tree
 	char			*data;
 	char			**cmd_args;
 	t_token_type	type;
-	bool			redir_in;
-	bool			redir_out;
+	t_token_type	fd_in_type;
+	t_token_type	fd_out_type;
 	int				fd_in;
 	int				fd_out;
 	t_tree			*left;
@@ -65,6 +65,7 @@ typedef struct s_xcmd
 {
 	int		**pipe_fd;
 	int		cmd_count;
+	char	**cmd_path;
 	pid_t	*pids;
 }			t_xcmd;
 

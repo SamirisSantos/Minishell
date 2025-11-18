@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:25:22 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/11 14:52:27 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:31:17 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	update_pwd(t_shell *shell, char *newpath)
 			if (shell->envp_cpy[i] == NULL)
 			{
 				shell->exit_status = 12;
-				ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
+				ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 			}
 		}
 		i++;
@@ -48,7 +48,7 @@ void	ft_cd(t_shell *shell, char *data)
 	}
 	else
 	{
-		ft_printf(STDERR_FILENO, "%s", ERROR_CDNODIR);
+		ft_printf(STDERR_FILENO, "%s", strerror(errno));
 		shell->exit_status = 1;
 	}
 }

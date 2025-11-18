@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 11:53:39 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/11 11:46:58 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:31:43 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_add_var(t_shell *shell, char *arg)
 	if (!new_envp)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
+		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 		return ;
 	}
 	size++;

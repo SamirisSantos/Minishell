@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:10:32 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/11 17:03:40 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:56:31 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_array(char **array)
 	int	i;
 
 	i = 0;
+	if (!array)
+		return ;
 	while (array[i])
 	{
 		free(array[i]);
@@ -25,26 +27,24 @@ void	free_array(char **array)
 	free(array);
 }
 
-void	free_pipe_pids(t_shell *shell)
+void	free_pipe_pids(t_xcmd *xcmd)
 {
 	int	i;
 
 	i = 0;
-	if (shell->xcmd->pipe_fd)
+	if (xcmd->pipe_fd)
 	{
-		while (i < shell->xcmd->cmd_count - 1)
+		while (i < xcmd->cmd_count - 1)
 		{
-			close(shell->xcmd->pipe_fd[i][0]);
-			close(shell->xcmd->pipe_fd[i][1]);
-			free(shell->xcmd->pipe_fd[i]);
+			close(xcmd->pipe_fd[i][0]);
+			close(xcmd->pipe_fd[i][1]);
+			free(xcmd->pipe_fd[i]);
 			i++;
 		}
-		free(shell->xcmd->pipe_fd);
+		free(xcmd->pipe_fd);
 	}
-	if (shell->xcmd->pids)
-		free(shell->xcmd->pids);
-	if (shell->xcmd)
-		free(shell->xcmd);
+	if (xcmd->pids)
+		free(xcmd->pids);
 }
 
 
@@ -73,10 +73,21 @@ void	free_token(t_token *token)
 
 void	free_shell(t_shell *shell)
 {
-	free(shell->cwd);
-	free_array(shell->envp_cpy);
-	free_pipe_pids(shell);
-	free_tree(shell->tree);
-	free_token(shell->token);
+	if (shell->cwd)
+		free(shell->cwd);
+	if (shell->envp_cpy)
+		free_array(shell->envp_cpy);
+	if (shell->xcmd)
+	{
+		if(shell->xcmd->cmd_path)
+			free_array(shell->xcmd->cmd_path);
+		if(shell->xcmd->pids || shell->xcmd->pipe_fd)
+			free_pipe_pids(shell->xcmd->pids);
+		free(shell->xcmd);
+	}
+	if (shell->tree)
+		free_tree(shell->tree);
+	if (shell->token)
+		free_token(shell->token);
 	free(shell);
 }

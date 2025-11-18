@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 17:31:13 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/11 17:02:37 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:30:25 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_shell	*init_shell(void)
 	shell = malloc(sizeof(t_shell));
 	if (!shell)
 	{
-		ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
+		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 		return (NULL);
 	}
 	shell->cwd = NULL;
