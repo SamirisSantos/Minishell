@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:09:59 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/12 16:37:18 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/18 13:01:27 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*remove_quotes(char *str)
 
 	i = 0;
 	j = 0;
-	quote_char = 0; //FLAG
+	quote_char = 0;
 	clean_str = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!clean_str)
 		return (NULL);
