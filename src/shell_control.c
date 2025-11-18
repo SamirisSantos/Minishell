@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/13 18:15:23 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:07:16 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	shell_control(t_shell *shell)
 			if (!syntax_check(tokens)) // TODO
 			{
 				shell->exit_status = 2;
-				free_tokens(tokens); // TODO
+				free_tokens(tokens);
 				free(input);
 				continue ;
 			}

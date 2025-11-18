@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/13 18:12:00 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/17 14:24:35 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	main(int argc, char **argv, char *envp[])
 	}
 	else
 	{
-		*init_shell();//TODO
-		init_signals(); //TODO esta em utils/init.c
+		*init_shell();
+		init_signals(); //TODO 
 		shell_control(shell); //doing em src ...
-		free_shell(shell); //TODO esta em utils/utils.c
+		free_shell(shell);
 	}
 	return (EXIT_SUCCESS);
 }
