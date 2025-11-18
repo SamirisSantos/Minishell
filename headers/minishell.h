@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/13 20:23:32 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:09:16 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,9 @@ int		get_expanded_len(char *str, char **envp);
 void	fill_expanded_str(char *new_str, char *old_str, char **envp);
 
 //parser
+t_cmd	*init_cmd(void);
 t_cmd	*parse_tokens(t_token *tokens);
-int		syntax_check(t_token *tokens);
+int		is_syntax_valid(t_token *tokens);
 
 //signals
 
