@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/18 12:49:48 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:08:36 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,24 @@ static void	free_all(t_token tokens, t_cmd cmd, char *input)
 		free(input);
 }
 
-static int	check_input(char * input, t_shell *shell)
+static int	is_input_valid(char * input, t_shell *shell)
 {
 	if (!input)
-		return (0);
+		return (1);
 	if (*input == '\0')
 	{
 		free(input);
-		return (0);
+		return (1);
 	}
-	add_history(input); // APAGAR | DEL biblioteca readline
+	add_history(input);
 	if (unclosed_quotes(input))
 	{
 		shell->exit_status = 2;
 		free(input);
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
-
 
 void	shell_control(t_shell *shell)
 {
@@ -73,17 +72,17 @@ void	shell_control(t_shell *shell)
 			input = readline("minishell$");
 			if (!input)
 				break;
-			if (!check_input(input, shell))
+			if (is_input_valid(input, shell) != 0 )
 				continue ;
 			tokens = lexer(input);
-			if (!syntax_check(tokens)) // TODO
+			if (is_syntax_valid(tokens) != 0)
 			{
 				shell->exit_status = 2;
 				free_tokens(tokens);
 				free(input);
 				continue ;
 			}
-			cmds = parse_tokens(tokens); //TODO
+			cmd = parse_tokens(tokens); //TODO
 			execute(cmds); //TODO
 			free_all(tokens, cmds, input);
 		}
