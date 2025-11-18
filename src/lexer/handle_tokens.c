@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 16:54:21 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/07 13:37:50 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/18 12:56:24 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ t_token	*handle_operador(char **input, t_token **head)
 
 	len = 0;
 	type = get_operator_type(*input, &len);
-	printf("valor de len no handler operdor depois do get%d", len);
+	//printf("valor de len no handler operdor depois do get%d", len);
 	value = ft_substr(*input, 0, len);
 	if (!value)
 		return (NULL);
 	new_node = new_token(value, type);
-	if (!new_token_node)
+	if (!new_node)
 	{
 		free(value);
 		return (NULL);
@@ -91,14 +91,13 @@ echo "fim" >>  file.txt   |   comando  |  ARQUIVO
 
 static 	t_token_type	get_word_type(t_token *last_token)
 {
-	if (!last_token || last_token == PIPE)
+	if (!last_token || last_token->type == PIPE)
 		return(CMD);
 	if (last_token->type == REDIR_IN)
 		return (REDIR_IN_FILE);
 	if (last_token->type == REDIR_OUT || last_token->type == APPEND)
 		return (REDIR_OUT_FILE);
-	// CHAVE DELIMIDORA é uma argumento que deve ser expandido
-	if (last_token == HEREDOC)
+	if (last_token->type == HEREDOC)
 		return (CMD_ARG);
 	return (CMD_ARG);
 }
@@ -120,6 +119,6 @@ t_token	*handle_word(char **input, t_token **head, t_token *last_token)
 		free(value);
 		return (NULL);
 	}
-	add_token(head, new_token_node);
-	return (new_token_node);
+	add_token(head, new_node);
+	return (new_node);
 }

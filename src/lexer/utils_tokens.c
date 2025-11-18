@@ -6,22 +6,12 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 14:09:00 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/07 13:38:04 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/18 12:42:39 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-
-/*
-APAGAR | DEL
-Lê um token tipo palavra até espaço ou operador
-Trata operadores especiais (<, >, `)
-Lê conteúdo dentro de ' ou "
-Retorna o tipo de token com base no conteúdo
-*/
-
-// " \t\n\r\v\f" 
 int	is_space(char c)
 {
 	return ((c >= 9 && c <= 13) || c == 32);
