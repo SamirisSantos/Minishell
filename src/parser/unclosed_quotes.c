@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:09:59 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/13 18:01:37 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/18 12:51:59 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ int	unclosed_quotes(char *input)
 	}
 	if (quote_char != 0)
 	{
-		printf("Não fechou a aspas"); //APAGAR | DELL
-		shell->exit_status = 2;
-		//TODO imprimir o erro de sintaxe
-		return (1);
+		ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
+		ft_putchar_fd(quote_char, 2);
+		ft_putstr_fd("'\n", 2);
+		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
+		return (1); // ERRO
 	}
-	return (0);
+	return (0)
 }
