@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/18 16:15:08 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/18 17:11:17 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 
 t_cmd	*parse_tokens(t_token *tokens)
 {
-	/* TODO */
+	exit(errno == ENOENT ? 127 : 126);
 }
