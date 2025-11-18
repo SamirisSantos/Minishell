@@ -6,18 +6,14 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/07 15:57:08 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:15:08 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
+
 t_cmd	*parse_tokens(t_token *tokens)
 {
 	/* TODO */
-}
-
-int	syntax_check(t_token *tokens)
-{
-
 }
