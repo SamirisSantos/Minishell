@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/18 16:08:36 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 13:48:13 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	shell_control(t_shell *shell)
 				free(input);
 				continue ;
 			}
-			cmd = parse_tokens(tokens); //TODO
+			cmd = parse_tokens(tokens); //doing ...
 			execute(cmds); //TODO
 			free_all(tokens, cmds, input);
 		}
