@@ -6,13 +6,13 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:48:47 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 15:20:55 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:36:15 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static char	get_env(char *name, char **envp)
+static char	*get_env_value(char *name, char **envp)
 {
 	int	len;
 	int	i;

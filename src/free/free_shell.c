@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:35:11 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 14:37:48 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:45:58 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	free_shell(t_shell *shell)
 	if (shell->tree)
 		free_tree(shell->tree);
 	if (shell->token)
-		free_token(shell->token);
+		free_tokens(shell->token);
 	free(shell);
 }
