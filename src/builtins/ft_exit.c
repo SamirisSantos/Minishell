@@ -3,10 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-10-16 11:54:24 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025-10-16 11:54:24 by cpinho-c         ###   ########.fr       */
+/*   Created: 2025/10/16 11:54:24 by cpinho-c          #+#    #+#             */
+/*   Updated: 2025/11/04 14:41:28 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../headers/minishell.h"
+
+void	ft_exit(t_shell *shell)
+{
+	exit(shell->exit_status);
+}

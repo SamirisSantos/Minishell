@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 13:58:59 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:16:42 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <errno.h> //allows use of errno for system error msgs
+# include <string.h> //strerror to get char * with errno msg
 # include <stdbool.h> //bool variables
 # include <limits.h> //adds variables to int MAX/MIN, PATH_MAX, etc
 # include <sys/types.h> // pid_t, stat types
@@ -26,7 +28,7 @@
 # include <signal.h> // signal, sigaction, sigemptyset, sigaddset, kill
 # include <fcntl.h> // open
 # include <dirent.h> // opendir, readdir, closedir
-# include <readline/readline.h> // readline, rl_on_new_line, rl_replace_line, rl_redisplay
+# include <readline/readline.h> // rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/history.h> // add_history, rl_clear_history
 
 # include "structs.h"

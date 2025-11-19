@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 14:01:59 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:11:25 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	count_args(t_token *token)
 	return (count);
 }
 
-static void	fill_cmd_content(t_cmd *new, t_token **tk)
+static void	fill_cmd(t_cmd *new, t_token **tk)
 {
 	int	i;
 

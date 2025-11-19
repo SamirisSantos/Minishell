@@ -3,43 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:09:11 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/10/13 16:28:44 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:26:34 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
-// change variable to receive struct later 
-void	ft_echo(t_shell *shell)
+void	ft_echo(t_shell *shell, t_tree *tree)
 {
 	int		i;
-	bool	withN;
+	bool	with_n;
 	int		fd;
 
 	i = 0;
-	withN = false;
-	////////FIIIIIIX
-	while (args[i] && (ft_strncmp(args[i], "-n", 2) == 0) 
-		&& (ft_strlen(args[i]) == 2))
+	with_n = false;
+	while (tree->cmd_args[i] && (ft_strncmp(tree->cmd_args[i], "-n", 2) == 0)
+		&& (ft_strlen(tree->cmd_args[i]) == 2))
 	{
 		i++;
-		withN = true;
+		with_n = true;
 	}
-	while (args[i])
+	while (tree->cmd_args[i])
 	{
-		ft_printf(fd, "%s", args[i]);
+		ft_printf(tree->fd_out, "%s", tree->cmd_args[i]);
 		i++;
-		if (args[i])
-			ft_printf(fd, " ");
+		if (tree->cmd_args[i])
+			ft_printf(tree->fd_out, " ");
 	}
-	if (!withN)
-		ft_printf(fd, "\n");
+	if (!with_n)
+		ft_printf(tree->fd_out, "\n");
+	shell->exit_status = 0;
 }
-
-// int main (int ac, char **av)
-// {
-// 	(void)ac;
-// 	ft_echo(av + 2, 1);
-// }

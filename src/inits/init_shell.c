@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 17:31:13 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/11 17:02:37 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:21:02 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_shell	*init_shell(void)
 	shell = malloc(sizeof(t_shell));
 	if (!shell)
 	{
-		ft_printf(STDERR_FILENO, "%s", ERROR_MALLOC);
+		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 		return (NULL);
 	}
 	shell->cwd = NULL;

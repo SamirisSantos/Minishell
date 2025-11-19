@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 13:46:20 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:13:18 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char *envp[])
 
 	if (argc != 1)
 	{
-		perror("Error: too many arguments.");
+		ft_printf(STDERR_FILENO,"Error: too many arguments.\n");
 		exit(0);
 	}
 	else

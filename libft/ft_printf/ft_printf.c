@@ -74,9 +74,11 @@ static int	print_args(va_list args, char c, int fd)
 // 	unsigned long *ptr = &hex;
 // 	// int i = printf(" %p %p ", (void *)LONG_MIN, (void *)LONG_MAX);
 // 	fprintf(stderr, "printf%d\n", n);
-// 	ft_printf(STDERR_FILENO, "lowhex = %x\nuphex = %X\nchar = %c\nstr = %s\ndigit\ndigit d = %d\nunsigned = %u\npercent = %%\npointer = %p\nYipee!!!\n",
+// 	ft_printf(STDERR_FILENO, "lowhex = %x\nuphex = %X\nchar = %c\n
+// 	str = %s\ndigit\ndigit d = %d\nunsigned = %u\npercent = %%\n
+// 	pointer = %p\nYipee!!!\n",
 // 		hex, hex, c, str, n, n, n2, ptr);
 // 	// i = ft_printf(" %p %p ", LONG_MIN, LONG_MAX);
 // 	// ft_printf("ftprin%d", i);
 // 	return (0);
-// }
+// // }
