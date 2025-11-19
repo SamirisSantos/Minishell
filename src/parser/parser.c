@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 14:11:25 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:26:53 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,49 @@ static int	count_args(t_token *token)
 	return (count);
 }
 
-static void	fill_cmd(t_cmd *new, t_token **tk)
+t_token	*handle_redirects(t_token *token, t_cmd *cmd)
+{
+	if (token->type == REDIR_IN || token->type == HEREDOC)
+	{
+		if (cmd->input_file)
+			free(cmd->input_file);
+		cmd->input_file = ft_strdup(token->next->data);
+		if (token->type == HEREDOC)
+			cmd->heredoc = 1;
+		else
+			cmd->heredoc = 0;
+	}
+	else if (token->type == REDIR_OUT || token->type == APPEND)
+	{
+		if (cmd->output_file)
+			free(cmd->output_file);
+		cmd->output_file = ft_strdup(token->next->data);
+		if (token->type == APPEND)
+			cmd->append = 1;
+		else
+			cmd->append = 0;
+	}
+	return (token->next);
+}
+
+static void	fill_cmd(t_cmd *new, t_token **token)
 {
 	int	i;
 
 	i = 0;
-	new->args = malloc(sizeof(char *) * (count_args(*tk) + 1));
+	new->args = malloc(sizeof(char *) * (count_args(*token) + 1));
 	if (!new->args)
 		return ;
-	while (*tk && (*tk)->type != PIPE)
+	while (*token && (*token)->type != PIPE)
 	{
-		if ((*tk)->type == CMD || (*tk)->type == CMD_ARG)
+		if ((*token)->type == CMD || (*token)->type == CMD_ARG)
 		{
-			new->args[i++] = ft_strdup((*tk)->data);
-			*tk = (*tk)->next;
+			new->args[i++] = ft_strdup((*token)->data);
+			*token = (*token)->next;
 		}
-		else if ((*tk)->type >= REDIR_IN && (*tk)->type <= HEREDOC)
+		else if ((*token)->type >= REDIR_IN && (*token)->type <= HEREDOC)
 		{
-			*tk = handle_redirects(*tk, new);
+			*token = handle_redirects(*token, new);
 		}
 	}
 	new->args[i] = NULL;
@@ -58,7 +83,6 @@ t_cmd	*parse_tokens(t_token *tokens)
 
 	head = NULL;
 	current = NULL;
-
 	while (tokens)
 	{
 		new = init_cmd();
@@ -67,20 +91,7 @@ t_cmd	*parse_tokens(t_token *tokens)
 			free_cmd(new);
 			return (NULL);
 		}
-		new->args = malloc(sizeof(char *) * (count_args(tokens) + 1));
-		i = 0;
-		while (tokens && tokens->type == PIPE)
-		{
-			while (tokens && tokens->type != PIPE)
-			{
-				if (tokens->type == CMD || tokens->type == CMD_ARG)
-					new->args[i++] = ft_strdup(tokens->data);
-				else if (tokens->type >= REDIR_IN && tokens->type <= HEREDOC)
-					tokens = handle_redirects(tokens, new);
-				tokens = tokens->next;
-			}
-		}
-		new->args[i] = NULL;
+		fill_cmd_content(new, &tokens);
 		if (!head)
 			head = new;
 		else
