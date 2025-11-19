@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 13:54:09 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:01:59 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,29 @@ static int	count_args(t_token *token)
 		token = token->next;
 	}
 	return (count);
+}
+
+static void	fill_cmd_content(t_cmd *new, t_token **tk)
+{
+	int	i;
+
+	i = 0;
+	new->args = malloc(sizeof(char *) * (count_args(*tk) + 1));
+	if (!new->args)
+		return ;
+	while (*tk && (*tk)->type != PIPE)
+	{
+		if ((*tk)->type == CMD || (*tk)->type == CMD_ARG)
+		{
+			new->args[i++] = ft_strdup((*tk)->data);
+			*tk = (*tk)->next;
+		}
+		else if ((*tk)->type >= REDIR_IN && (*tk)->type <= HEREDOC)
+		{
+			*tk = handle_redirects(*tk, new);
+		}
+	}
+	new->args[i] = NULL;
 }
 
 t_cmd	*parse_tokens(t_token *tokens)
