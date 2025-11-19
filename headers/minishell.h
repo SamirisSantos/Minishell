@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 14:27:50 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:44:21 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <errno.h> //allows use of errno for system error msgs
 # include <string.h> //strerror to get char * with errno msg
 # include <stdbool.h> //bool variables
+# include <linux/limits.h>
 # include <limits.h> //adds variables to int MAX/MIN, PATH_MAX, etc
 # include <sys/types.h> // pid_t, stat types
 # include <sys/wait.h> // wait, waitpid, wait3, wait4
@@ -46,8 +47,8 @@ void	ft_echo(t_shell *shell, t_tree *tree);
 	//cd
 void	update_pwd(t_shell *shell, char *newpath);
 void	ft_cd(t_shell *shell, char *path);
-	//pwd
-void	ft_pwd(t_shell *shell, t_tree *tree);
+	//env
+void	ft_env(t_shell *shell);
 	//exit
 void	ft_exit(t_shell *shell);
 	//export
@@ -55,12 +56,22 @@ void	ft_update_envp(t_shell *shell, int i, char *arg);
 void	ft_add_var(t_shell *shell, char *arg);
 bool	check_var_exists(t_shell *shell, char *cmd_arg, size_t size, int j);
 void	ft_export(t_shell *shell, char **cmd_args);
+	//pwd
+void	ft_pwd(t_shell *shell, t_tree *tree);
 	//unset
 void	ft_fix_envp(t_shell *shell, int j);
 void	ft_unset(t_shell *shell, char **cmd_args);
 
-
 //executor
+char	*get_path(char **envp);
+char	*find_truepath(t_shell *shell, char *cmd, char *fullpath);
+bool	is_builtin(t_tree *tree);
+char	*find_cmd_path(t_shell *shell, t_tree *tree);
+void	count_cmds(t_tree *temp, int *cmd_count);
+void	executor(t_shell *shell, t_tree *tree, int i);
+void	exec_builtin(t_shell *shell, t_tree *tree, int i);
+void	start_exe(t_shell *shell, t_tree *tree, int *i);
+void	pre_executor(t_shell *shell);
 
 //free
 void	free_array(char **array);

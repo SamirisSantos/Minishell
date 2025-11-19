@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 14:18:57 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:18:20 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_cmd
 	char			*input_file;	// <
 	char			*output_file;	// >
 	int				append;			// >>
-	int				heredoc;		// <<
+	int				heredoc;		// << 
 	struct s_cmd	*next;			// pipes
 }			t_cmd;
 
