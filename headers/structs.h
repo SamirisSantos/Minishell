@@ -6,16 +6,13 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 14:18:57 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:31:34 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include <stdbool.h>
-
-//changed to fix order of declaration to avoid something needing
-//something that was not yet declared
 
 typedef struct s_cmd
 {

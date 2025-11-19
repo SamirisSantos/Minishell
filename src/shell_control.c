@@ -6,31 +6,11 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 13:48:13 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:39:59 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
-
-/*
-APAGAR | DEL
-readline() → lexer(tokenrização) → parser → executor
-1. readline()
-2. VALIDAÇÃO DE SINTAXE (PRÉ-LEXER)
-3. LEXER
-4. EXTRACT_WORD
-5. EXPANSION
-6. PARSER
-7. BUILD
-8. EXECUTOR
-9. LIMPEZA
-*/
-
-/*
-APAGAR | DEL
-* Lê a entrada, processa e executa.
-* Esta funções separadas da main para cumprir a Norminette. kry
-*/
 
 static void	free_all(t_token tokens, t_cmd cmd, char *input)
 {
@@ -82,8 +62,8 @@ void	shell_control(t_shell *shell)
 				free(input);
 				continue ;
 			}
-			cmd = parse_tokens(tokens); //doing ...
-			execute(cmds); //TODO
+			cmd = parse_tokens(tokens);
+			execute(cmd); //TODO
 			free_all(tokens, cmds, input);
 		}
 }

@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:48:47 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/12 16:08:54 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:20:55 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,65 +29,45 @@ static char	get_env(char *name, char **envp)
 	return (NULL);
 }
 
-/*
-
-APAGAR | DEL
-exit_status
-Sugestão do chat adicionar isso e fazer durante o Building
-> ls                             # Comando 'ls' tem sucesso
-minishell.h Makefile ...
-> echo $?                        # Pergunta "Qual foi o status do último comando?"
-0                                # O shell responde "0" (sucesso)
-
-> ls ficheiro_que_nao_existe     # Este comando falha
-ls: cannot access 'ficheiro_que_nao_existe': No such file or directory
-> echo $?                        # Pergunta "Qual foi o status do último comando?"
-2                                # O shell responde "2" (erro)
-------
-
-g_exit_status é a variável C que tu deves criar (provavelmente uma 
-variável global, por isso o prefixo g_) para armazenar o código de 
-saída do último comando que o teu Minishell executou.
-
-Sempre que o teu executor corre um comando (seja um execve para ls 
-ou um builtin como cd), ele recebe um código de saída. A tua lógica 
-principal deve pegar nesse código (seja o status de um waitpid ou o 
-return do teu builtin_cd) e guardá-lo nesta variável g_exit_status.
-
-*/
-
-/* APAGAR | DEL
-	verificar qual o status exemplo
-	exemplo
-	minishell: echo name
-	minishell: name
-	minishell: $?
-	minishell: 0;
-	*/
-
-static char	*get_var_value(char *str, char **envp, int *var_len)
+static char	*get_var_value(char *str, t_shell *shell, int *var_len)
 {
-	int		len;
 	char	*name;
 	char	*value;
 
-	len = 0;
 	if (str[i] == '?')
 	{
 		*var_len = 2;
-		return(ft_itoa(g_exit_status)); // TODO 
+		return(ft_itoa(shell->exit_status));
 	}
+	i = 1;
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+		i++;
+	if (i == 1)
+	{
+		*var_len = 1;
+		return (ft_strdup("$"));
+	}
+	*var_len = i;
+	name = ft_substr(str, 1, i - 1);
+	value = get_env_value(name, shell->envp);
+	free(name);
+
+	if (!var_value)
+		return (ft_strdup(""));
+	return (ft_strdup(value));
 }
 
-static void	process_var_len(char *str, char **envp, int *len, int *i)
+static void	process_var_len(char *str, t_shell *shell, int *len, int *i)
 {
 	int		var_name_len;
 	char	*val;
 
-	// str[*i] é o mesmo que &str[i]
-	val = get_var_value(&str[*i], envp, &var_name_len); 
-	*len += ft_strlen(val);
-	free(val);
+	val = get_var_value(&str[*i], shell, var_name_len);
+	if (val)
+	{
+		*total_len += ft_strlen(val);
+		free(val);
+	}
 	*i += var_name_len;
 }
 
@@ -95,9 +75,7 @@ int	get_expanded_len(char *str, char **envp)
 {
 	int		i;
 	int		len;
-	int		var_len;
 	char	quote;
-	char	*val;
 
 	i = 0;
 	len = 0;
@@ -117,19 +95,23 @@ int	get_expanded_len(char *str, char **envp)
 	}
 	return (len);
 }
-static void	process_var_fill(char *new_str, char *old_str, int *i, int *j, char **envp)
+static void	process_var_fill(char *new_str, char *old_str, int *i, int *j,t_shell *shell)
 {
 	int		var_len;
 	char	*val;
 
-	val = get_var_value(&old_str[*i], envp, &var_len);
-	ft_strcpy(&new_str[*j], val);
-	*j += ft_strlen(val);
-	free(val);
+	val = get_var_value(&old_str[*i], shell, &var_len);
+	if (val)
+	{
+		k = 0;
+		while (val[k])
+			new_str[(*j)++] = val[k++];
+		free(val);
+	}
 	*i += var_len;
 }
 
-void	fill_expanded_str(char *new_str, char *old_str, char **envp)
+void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell)
 {
 	int		i;
 	int		j;
@@ -145,7 +127,7 @@ void	fill_expanded_str(char *new_str, char *old_str, char **envp)
 			quote_flag(old_str[i++], &quote);
 		else if (old_str[i] == '$' && quote != '\'')
 		{
-			process_var_fill(new_str, old_str, &i, &j, envp);
+			process_var_fill(new_str, old_str, &i, &j, shell);
 		}
 		else
 			new_str[j++] = old_str[i++];

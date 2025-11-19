@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:25:22 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/18 16:31:17 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:33:20 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+# include <linux/limits.h> 
 
 void	update_pwd(t_shell *shell, char *newpath)
 {
