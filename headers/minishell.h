@@ -6,16 +6,14 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/18 16:09:16 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 13:58:59 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "structs.h"
 # include "../libft/libft.h"
-# include "errors.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -30,6 +28,11 @@
 # include <dirent.h> // opendir, readdir, closedir
 # include <readline/readline.h> // readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/history.h> // add_history, rl_clear_history
+
+# include "structs.h"
+
+# define EXIT_SIGINT 130
+# define EXIT_SIGQUIT 131
 
 
 //controle shell chamar todo as funções de depois chamar na main
@@ -63,6 +66,7 @@ void	free_pipe_pids(t_shell *shell);
 void	free_tree(t_tree *tree);
 void	free_token(t_token *token);
 void	free_shell(t_shell *shell);
+void	free_cmd(t_cmd *cmd);
 
 //inits
 t_shell	*init_shell(void);
@@ -70,6 +74,9 @@ t_tree	*init_tree_node(t_shell *shell);
 void	init_pipes(t_shell *shell);
 void	init_pid(t_shell *shell);
 void	init_signals(void);
+void	init_cmd_path(t_shell *shell);
+void	init_xcmd(t_shell *shell);
+t_cmd	*init_cmd(void);
 
 //tokens
 t_token	*new_token(char *value, t_token_type type);
@@ -101,6 +108,15 @@ t_cmd	*parse_tokens(t_token *tokens);
 int		is_syntax_valid(t_token *tokens);
 
 //signals
+
+
+//tree
+t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);
+t_tree	*build_node(t_shell *shell, t_token *tokens);
+char	**build_args(t_token **tokens);
+int		ft_redir_in(t_shell *shell, char *filename);
+int		ft_redir_out(t_shell *shell, char *filename, t_token_type type);
+void	check_redir(t_shell *shell, t_tree *tree, t_token **token);
 
 //utils
 char	**copy_envp(t_shell *shell, char *envp[]);
