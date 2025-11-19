@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:48:47 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 15:25:10 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:28:00 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*expand_string(char *str, t_shell *shell)
 	return (new_str);
 }
 
-void	expand_tokens(t_token *token_list, char **envp)
+void	expand_tokens(t_token *token_list, t_shell *shell)
 {
 	t_token	*current;
 	t_token	*prev;
@@ -40,18 +40,24 @@ void	expand_tokens(t_token *token_list, char **envp)
 	{
 		if (prev && prev->type == HEREDOC)
 		{
-			*clean_delim = remove_quotes(curr->data);
-			free(current->data);
-			current->data = clean_delim;
+			*clean_delim = remove_quotes(current->data);
+			if (clean_delim)
+			{
+				free(current->data);
+				current->data = clean_delim;
+			}
 		}
 		else if (current->type == CMD || current->type == CMD_ARG
 			|| current->type == REDIR_IN_FILE || current->type == REDIR_OUT_FILE)
 		{
 			*expanded_data = expand_string(current->data, envp);
-			free(current->data);
-			curr->data = expanded_data;
+			if (expanded_data)
+			{
+				free(curr->data);
+				current->data = expanded_data;
+			}
 		}
 		prev = current;
-		current = curr->next;
+		current = current->next;
 	}
 }
