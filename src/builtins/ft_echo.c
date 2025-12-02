@@ -18,7 +18,7 @@ void	ft_echo(t_shell *shell, t_tree *tree)
 	bool	with_n;
 	int		fd;
 
-	i = 0;
+	i = 1;
 	with_n = false;
 	while (tree->cmd_args[i] && (ft_strncmp(tree->cmd_args[i], "-n", 2) == 0)
 		&& (ft_strlen(tree->cmd_args[i]) == 2))

@@ -27,7 +27,7 @@ void	executor(t_shell *shell, t_tree *tree, int i)
 				dup2(shell->xcmd->pipe_fd[i][1], STDOUT_FILENO);
 			close(shell->xcmd->pipe_fd[i][0]);
 			close(shell->xcmd->pipe_fd[i][1]);
-			execve(tree->data, shell->xcmd->cmd_path[i],shell->envp_cpy);
+			execve(shell->xcmd->cmd_path[i],tree->cmd_args,shell->envp_cpy);
 			ft_printf(STDERR_FILENO, "%s: %s", tree->data, strerror(errno));
 			free_shell(shell);
 			if (errno == ENOENT)
@@ -42,19 +42,19 @@ void	executor(t_shell *shell, t_tree *tree, int i)
 
 void	exec_builtin(t_shell *shell, t_tree *tree)
 {
-	if (strncmp(tree->data, "cd", 2) && ft_strlen(tree->data) == 2)
+	if (strncmp(tree->data, "cd", 2) == 0 && ft_strlen(tree->data) == 2)
 		ft_cd(shell, tree->cmd_args[0]);
-	else if (strncmp(tree->data, "echo", 4) && ft_strlen(tree->data) == 4)
+	else if (strncmp(tree->data, "echo", 4) == 0 && ft_strlen(tree->data) == 4)
 		ft_echo(shell, tree);
-	else if (strncmp(tree->data, "env", 3) && ft_strlen(tree->data) == 3)
+	else if (strncmp(tree->data, "env", 3) == 0 && ft_strlen(tree->data) == 3)
 		ft_env(shell);
-	else if (strncmp(tree->data, "exit", 4) && ft_strlen(tree->data) == 4)
+	else if (strncmp(tree->data, "exit", 4) == 0 && ft_strlen(tree->data) == 4)
 		ft_exit(shell);
-	else if (strncmp(tree->data, "export", 6) && ft_strlen(tree->data) == 6)
+	else if (strncmp(tree->data, "export", 6) == 0 && ft_strlen(tree->data) == 6)
 		ft_export(shell, tree->cmd_args);
-	else if (strncmp(tree->data, "pwd", 3) && ft_strlen(tree->data) == 3)
+	else if (strncmp(tree->data, "pwd", 3) == 0 && ft_strlen(tree->data) == 3)
 		ft_pwd(shell, tree);
-	else if (strncmp(tree->data, "unset", 5) && ft_strlen(tree->data) == 5)
+	else if (strncmp(tree->data, "unset", 5) == 0 && ft_strlen(tree->data) == 5)
 		ft_unset(shell, tree->cmd_args);
 }
 
@@ -62,11 +62,17 @@ void	fork_builtin(t_shell *shell, t_tree *tree, int i)
 {
 	pid_t	pid;
 	int		exit_status;
+
 	if (i < shell->xcmd->cmd_count)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
+			if (tree->fd_in > 0)
+			{
+				dup2(tree->fd_in, STDIN_FILENO);
+				close(tree->fd_in);
+			}
 			if (i > 0)
 				dup2(shell->xcmd->pipe_fd[i - 1][0], STDIN_FILENO);
 			if (i < shell->xcmd->cmd_count - 1)

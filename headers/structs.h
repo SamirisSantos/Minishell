@@ -38,6 +38,7 @@ typedef enum e_token_type
 	REDIR_OUT_FILE,		// Name outfile
 	APPEND,				// >>
 	HEREDOC,			// <<
+	DELIMITER,			// Delimitador do Heredoc
 	SPACE_TOKEN
 }			t_token_type;
 

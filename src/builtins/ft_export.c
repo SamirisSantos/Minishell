@@ -55,7 +55,7 @@ void	ft_export(t_shell *shell, char **cmd_args)
 	size_t	size;
 	bool	var_found;
 
-	i = 0;
+	i = 1;
 	while (cmd_args[i])
 	{
 		j = 0;
