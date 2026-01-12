@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 14:32:57 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/21 13:38:47 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_token	*lexer(char *input);
 int		is_metachar(char c);
 int		is_space(char c);
 int		is_quote(char c);
-t_token	*handle_operador(char **input, t_token **head);
+t_token	*handle_operator(char **input, t_token **head);
 t_token	*handle_word(char **input, t_token **head, t_token *last_token);
 
 //remove_quotes
@@ -100,9 +100,9 @@ char	*remove_quotes(char *str);
 int		unclosed_quotes(char *input);
 
 //expansion
-void	expand_tokens(t_token *token_list, char **envp);
-int		get_expanded_len(char *str, char **envp);
-void	fill_expanded_str(char *new_str, char *old_str, char **envp);
+void	expand_tokens(t_token *token_list, t_shell *shell);
+int		get_expanded_len(char *str, t_shell *shell);
+void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
 
 //parser
 t_cmd	*init_cmd(void);

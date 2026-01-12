@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:48:47 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 15:36:15 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:09:43 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	process_var_len(char *str, t_shell *shell, int *len, int *i)
 	*i += var_name_len;
 }
 
-int	get_expanded_len(char *str, char **envp)
+int	get_expanded_len(char *str, t_shell *shell)
 {
 	int		i;
 	int		len;
@@ -82,11 +82,11 @@ int	get_expanded_len(char *str, char **envp)
 	quote = 0;
 	while (str[i])
 	{
-		if ((str[i] == '\'' || str[i] == '"') 
+		if ((str[i] == '\'' || str[i] == '"')
 			&& (quote == 0 || str[i] == quote))
 			quote_flag(str[i++], &quote);
 		else if (str[i] == '$' && quote != '\'')
-			process_var_len(str, envp, &len, &i);
+			process_var_len(str, shell, &len, &i);
 		else
 		{
 			len++;

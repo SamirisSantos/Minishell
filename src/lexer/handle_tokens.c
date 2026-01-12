@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 16:54:21 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/18 15:35:02 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/21 13:40:08 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_token_type	get_operator_type(char *input, int *len)
 	return (0);
 }
 
-t_token	*handle_operador(char **input, t_token **head)
+t_token	*handle_operator(char **input, t_token **head)
 {
 	int				len;
 	char			*value;
@@ -71,7 +71,7 @@ static 	t_token_type	get_word_type(t_token *last_token)
 	if (last_token->type == REDIR_OUT || last_token->type == APPEND)
 		return (REDIR_OUT_FILE);
 	if (last_token->type == HEREDOC)
-		return (CMD_ARG);
+		return (DELIMITER);
 	return (CMD_ARG);
 }
 

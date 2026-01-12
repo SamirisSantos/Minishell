@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 14:39:59 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:18:05 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,16 @@ void	shell_control(t_shell *shell)
 	t_token	*tokens;
 	t_cmd	*cmd;
 	char	*input;
-
 	while(1)
 		{
 			input = readline("minishell$");
 			if (!input)
 				break;
 			if (is_input_valid(input, shell) != 0 )
+			{
+				free(input);
 				continue ;
+			}
 			tokens = lexer(input);
 			if (is_syntax_valid(tokens) != 0)
 			{
