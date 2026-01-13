@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 14:34:52 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/25 11:12:25 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/12 14:45:27 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ char	*extract_word(char **s)
 			len++;
 	}
 	*s += len;
-	return (ft_substr(start, 0, len))
+	return (ft_substr(start, 0, len));
 }
