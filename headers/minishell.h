@@ -37,6 +37,7 @@
 # define EXIT_SIGINT 130
 # define EXIT_SIGQUIT 131
 
+extern int	g_sig;
 
 //controle shell chamar todo as funções de depois chamar na main
 void	shell_control(t_shell *shell);
@@ -63,18 +64,22 @@ void	ft_fix_envp(t_shell *shell, int j);
 void	ft_unset(t_shell *shell, char **cmd_args);
 
 //executor
+bool	is_builtin(t_tree *tree);
+void	exec_builtin(t_shell *shell, t_tree *tree);
+void	fork_builtin(t_shell *shell, t_tree *tree, int i);
+
+void	count_cmds(t_tree *temp, int *cmd_count);
 char	*get_path(char **envp);
 char	*find_truepath(t_shell *shell, char *cmd, char *fullpath);
-bool	is_builtin(t_tree *tree);
 char	*find_cmd_path(t_shell *shell, t_tree *tree);
-void	count_cmds(t_tree *temp, int *cmd_count);
+
 void	executor(t_shell *shell, t_tree *tree, int i);
-void	exec_builtin(t_shell *shell, t_tree *tree, int i);
 void	start_exe(t_shell *shell, t_tree *tree, int *i);
 void	pre_executor(t_shell *shell);
 
 //free
 void	free_array(char **array);
+void	close_pipes(t_shell *shell);
 void	free_pipe_pids(t_shell *shell);
 void	free_tree(t_tree *tree);
 void	free_token(t_token *token);

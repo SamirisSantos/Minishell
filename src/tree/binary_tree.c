@@ -21,7 +21,7 @@ t_tree	*build_node(t_shell *shell, t_token *tokens)
 		|| tokens->type == APPEND)
 		check_redir(shell, tree, &tokens);
 	if (tokens->type == HEREDOC && tokens->next->type == DELIMITER)
-		create_heredoc(shell, tree, tokens);
+		handle_heredoc(shell, tree, &tokens);
 	if (tokens->type == CMD)
 	{
 		tree->data = tokens->data;

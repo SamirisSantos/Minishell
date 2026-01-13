@@ -83,7 +83,7 @@ void	shell_control(t_shell *shell)
 				continue ;
 			}
 			cmd = parse_tokens(tokens); //doing ...
-			execute(cmds); //TODO
+			pre_executor(shell); //TODO
 			free_all(tokens, cmds, input);
 		}
 }

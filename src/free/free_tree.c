@@ -18,7 +18,11 @@ void	free_tree(t_tree *tree)
 		return ;
 	free_tree(tree->left);
 	free_tree(tree->right);
-	free(tree->data);
-	free_array(tree->cmd_args);
+	if (tree->data)
+		free(tree->data);
+	if (tree->cmd_args)
+		free_array(tree->cmd_args);
+	if (tree->heredoc_name)
+		free(tree->heredoc_name);
 	free(tree);
 }

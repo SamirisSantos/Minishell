@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   free_pids.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-23 13:38:18 by cpinho-c          #+#    #+#             */
-/*   Updated: 2024-10-23 13:38:18 by cpinho-c         ###   ########.fr       */
+/*   Created: 2026/01/13 17:36:39 by cpinho-c          #+#    #+#             */
+/*   Updated: 2026/01/13 17:36:39 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../headers/minishell.h"
 
-void	ft_bzero(void *s, size_t n)
+void	close_pipes(t_shell *shell)
 {
-	size_t	i;
-	char	*str;
+	int	i;
 
 	i = 0;
-	str = (char *) s;
-	while (i < n)
+	while (i < shell->xcmd->cmd_count - 1)
 	{
-		str[i] = 0;
+		close(shell->xcmd->pipe_fd[i][0]);
+		close(shell->xcmd->pipe_fd[i][1]);
+		free(shell->xcmd->pipe_fd[i]);
 		i++;
 	}
 }

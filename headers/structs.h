@@ -53,6 +53,7 @@ typedef struct s_tree
 {
 	char			*data;
 	char			**cmd_args;
+	char			*heredoc_name;
 	t_token_type	type;
 	t_token_type	fd_in_type;
 	t_token_type	fd_out_type;
@@ -76,6 +77,7 @@ typedef struct s_shell
 	char	**envp_cpy;
 	char	*cwd;
 	int		exit_status;
+	int		heredoc_count;
 	t_xcmd	*xcmd;
 	t_token	*token;
 	t_tree	*tree;
