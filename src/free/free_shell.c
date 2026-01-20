@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:35:11 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 13:36:22 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:05:45 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	free_shell(t_shell *shell)
 			free_pipe_pids(shell->xcmd->pids);
 		free(shell->xcmd);
 	}
+	if (shell->heredoc_count > 0)
+		clear_heredoc(shell->tree);
 	if (shell->tree)
 		free_tree(shell->tree);
 	if (shell->token)

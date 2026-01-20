@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   clear_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/23 14:30:32 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/13 16:02:09 by sade-ara         ###   ########.fr       */
+/*   Created: 2026/01/20 16:22:17 by cpinho-c          #+#    #+#             */
+/*   Updated: 2026/01/20 16:26:58 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
-#include "../headers/errors.h"
+#include "../../headers/minishell.h"
 
-void	init_data(&shell, envp)
+void	clear_heredoc(t_tree *tree)
 {
-	// TODO
-}
-
-void	init_signals(void)
-{
-	// TODO
+	if (!tree)
+		return ;
+	if (tree->heredoc_name)
+	{
+		unlink(tree->heredoc_name);
+		free(tree->heredoc_name);
+	}
+	clear_heredoc(tree->left);
+	clear_heredoc(tree->right);
 }

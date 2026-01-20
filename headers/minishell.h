@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 15:44:21 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:28:51 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	free_tree(t_tree *tree);
 void	free_token(t_token *token);
 void	free_shell(t_shell *shell);
 void	free_cmd(t_cmd *cmd);
+void	clear_heredoc(t_tree *tree);
 
 //inits
 t_shell	*init_shell(void);
@@ -127,9 +128,6 @@ int		is_syntax_valid(t_token *tokens);
 t_cmd	*parse_tokens(t_token *tokens);
 t_token	*handle_redirects(t_token *token, t_cmd *cmd);
 
-//signals
-
-
 //tree
 t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);
 t_tree	*build_node(t_shell *shell, t_token *tokens);
@@ -142,5 +140,8 @@ void	check_redir(t_shell *shell, t_tree *tree, t_token **token);
 char	**copy_envp(t_shell *shell, char *envp[]);
 char	**ft_realloc_envp(char **envp, size_t old_size);
 size_t	ft_find_var_name(char *arg);
+
+void	handle_sigint(int sig);
+void	sigint_clear(t_shell *shell, char *input);
 
 #endif

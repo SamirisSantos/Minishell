@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 13:48:13 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:19:05 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,14 @@ void	shell_control(t_shell *shell)
 	t_cmd	*cmd;
 	char	*input;
 
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	g_sig = 0;
 	while(1)
 		{
 			input = readline("minishell$");
+			if (g_sig = SIGINT)
+				sigint_clear(shell, input);
 			if (!input)
 				break;
 			if (is_input_valid(input, shell) != 0 )
@@ -83,7 +88,7 @@ void	shell_control(t_shell *shell)
 				continue ;
 			}
 			cmd = parse_tokens(tokens); //doing ...
-			pre_executor(shell); //TODO
-			free_all(tokens, cmds, input);
+			pre_executor(shell);
+			free_all(shell, tokens, cmds, input);
 		}
 }

@@ -1,15 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 16:16:15 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/13 18:12:52 by sade-ara         ###   ########.fr       */
+/*   Created: 2026/01/20 15:58:50 by cpinho-c          #+#    #+#             */
+/*   Updated: 2026/01/20 16:03:36 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
-
+void	free_all(t_shell *shell /*whatever else need to be sent to free*/)
+{
+	//free whatever else used in parsing
+	free_shell(shell);
+}

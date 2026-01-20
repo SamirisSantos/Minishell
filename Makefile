@@ -6,7 +6,7 @@
 #    By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/03 16:00:55 by sade-ara          #+#    #+#              #
-#    Updated: 2025/11/11 11:19:09 by cpinho-c         ###   ########.fr        #
+#    Updated: 2026/01/20 16:31:08 by cpinho-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ SRCS = main.c \
 		src/expander/remove_quotes.c \
 		src/expander/utils_expansion.c \
 
+		src/free/clear_heredoc.c \
 		src/free/close_pipes.c \
+		src/free/free_all.c \
 		src/free/free_array.c \
 		src/free/free_cmd.c \
 		src/free/free_pipe_pids.c \
@@ -56,14 +58,12 @@ SRCS = main.c \
 		src/parser/syntax_valid.c \
 		src/parser/unclosed_quotes.c \
 
-		src/signals/signals.c \
-
 		src/tree/binary_tree.c \
 		src/tree/tree_utils.c \
 
 		src/utils/ft_envp_utils.c \
 		src/utils/ft_envp.c \
-		src/utils/utils.c \
+		src/utils/handle_signals.c \
 
 		src/shell_cibtrik \
 
