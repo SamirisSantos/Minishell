@@ -6,43 +6,11 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:09:59 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/18 12:51:59 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:38:59 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-//APAGAR | DELL APAGAR COMENTARIOS
-// SE str == '\0' nao chamar o remove_quotes
-/*
-Pegar a string do lexer, verificar se tem aspas e tira as aspas.
-Procura a primeira aspas varre a string e encontra a segunda aspas.
-e guarda a string sem aspas
-
-exemplo:
-teste de extract_wor
-[1] Chamando extract_word em: ""e"cho name"
-      -> Extraído (Palavra): ""e"cho"
-      -> Ponteiro restante: " name"
-[2] Chamando extract_word em: "name"
-      -> Extraído (Palavra): "name"
-      -> Ponteiro restante: ""
-str = "ec"ho 
-clean_str = echo
-*/
-
-/*
-**  ------------------------------------------------------------------------------------------
-**  | Entrada     | Saída (clean_str) | Bash faz? | Observação                    |
-**  ------------------------------------------------------------------------------------------
-**  | "ec"ho      | echo              | ✅ Sim    | Aspas fechadas corretamente  |
-**  | 'ec"ho'     | ec"ho             | ✅ Sim    | ' protege "                  |
-**  | "ec'ho"     | ec'ho             | ✅ Sim    | " não afeta '                |
-**  | ec"ho       | echo              | ⚠️ Não    | Bash dá erro (aspa aberta)   |
-**  | 'ec"ho      | ec"ho             | ⚠️ Não    | Bash dá erro (aspa aberta)   |
-**  | "e'c"h'o    | e'cho             | ✅ Sim    | Aspas mistas válidas         |
-**  ------------------------------------------------------------------------------------------
-*/
 
 void	quote_flag(char c, char *quote_char)
 {
@@ -52,9 +20,6 @@ void	quote_flag(char c, char *quote_char)
 			*quote_char = 0;
 }
 
-
-// Retorna 0 (SUCESSO) se as aspas estiverem fechadas.
-// Retorna 1 (ERRO) se as aspas NÃO estiverem fechadas.
 int	unclosed_quotes(char *input)
 {
 	char	quote_char;

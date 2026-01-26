@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_token.c                                       :+:      :+:    :+:   */
+/*   free_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:44 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 13:40:14 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:11:41 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	free_tokens(t_token *token)
+void	free_tokens(t_token *list)
 {
-	t_token	*temp;
+	t_token	*current;
+	t_token	*next_node;
 
-	while (token)
+	current = list;
+	while (current != NULL)
 	{
-		temp = token->next;
-		if (token->data)
-			free(token->data);
-		free(token);
-		token = temp;
+		next_node = current->next;
+		if (current->data)
+		{
+			free(current->data);
+			current->data = NULL;
+		}
+		free(current);
+		current = next_node;
 	}
 }

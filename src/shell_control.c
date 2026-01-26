@@ -12,26 +12,6 @@
 
 #include "../headers/minishell.h"
 
-/*
-APAGAR | DEL
-readline() → lexer(tokenrização) → parser → executor
-1. readline()
-2. VALIDAÇÃO DE SINTAXE (PRÉ-LEXER)
-3. LEXER
-4. EXTRACT_WORD
-5. EXPANSION
-6. PARSER
-7. BUILD
-8. EXECUTOR
-9. LIMPEZA
-*/
-
-/*
-APAGAR | DEL
-* Lê a entrada, processa e executa.
-* Esta funções separadas da main para cumprir a Norminette. kry
-*/
-
 static void	free_all(t_token tokens, t_cmd cmd, char *input)
 {
 	if (token)

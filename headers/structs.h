@@ -14,9 +14,6 @@
 # define STRUCTS_H
 # include <stdbool.h>
 
-//changed to fix order of declaration to avoid something needing
-//something that was not yet declared
-
 typedef struct s_cmd
 {
 	char			**args;			// lista de argumentos

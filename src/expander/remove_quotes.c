@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:09:59 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/18 13:01:27 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:30:47 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 char	*remove_quotes(char *str)
 {
 	char	*clean_str;
-	char	*quote_char;
+	char	quote_char;
 	int		i;
 	int		j;
 
+	if (!str)
+		return (NULL);
 	i = 0;
 	j = 0;
 	quote_char = 0;

@@ -12,6 +12,7 @@
 
 #include "../../headers/minishell.h"
 
+
 void	free_shell(t_shell *shell)
 {
 	if (shell->cwd)
