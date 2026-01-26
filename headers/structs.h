@@ -78,6 +78,7 @@ typedef struct s_shell
 	char	*cwd;
 	int		exit_status;
 	int		heredoc_count;
+	t_cmd	*cmd;
 	t_xcmd	*xcmd;
 	t_token	*token;
 	t_tree	*tree;

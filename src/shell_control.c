@@ -61,12 +61,8 @@ static int	is_input_valid(char * input, t_shell *shell)
 	return (0);
 }
 
-void	shell_control(t_shell *shell)
+void	shell_control(t_shell *shell, char *input)
 {
-	t_token	*tokens;
-	t_cmd	*cmd;
-	char	*input;
-
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
 	g_sig = 0;
@@ -79,16 +75,17 @@ void	shell_control(t_shell *shell)
 				break;
 			if (is_input_valid(input, shell) != 0 )
 				continue ;
-			tokens = lexer(input);
-			if (is_syntax_valid(tokens) != 0)
+			shell->token = lexer(input);
+			if (is_syntax_valid(shell->token) != 0)
 			{
 				shell->exit_status = 2;
-				free_tokens(tokens);
+				free_tokens(shell->token);
 				free(input);
 				continue ;
 			}
-			cmd = parse_tokens(tokens); //doing ...
+			cmd = parse_tokens(shell->token); //doing ...
+			build_tree(shell, shell->token, false);
 			pre_executor(shell);
-			free_all(shell, tokens, cmds, input);
+			free_all(shell, input);
 		}
 }

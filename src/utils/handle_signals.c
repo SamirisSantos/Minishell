@@ -27,4 +27,5 @@ void	sigint_clear(t_shell *shell, char *input)
 	g_sig = 0;
 	if (input)
 		free(input);
+	free_all(shell);
 }

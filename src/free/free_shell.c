@@ -26,11 +26,13 @@ void	free_shell(t_shell *shell)
 			free_pipe_pids(shell->xcmd->pids);
 		free(shell->xcmd);
 	}
+	if (shell->cmd)
+		free_cmd(shell->cmd);
 	if (shell->heredoc_count > 0)
 		clear_heredoc(shell->tree);
 	if (shell->tree)
 		free_tree(shell->tree);
 	if (shell->token)
-		free_token(shell->token);
+		free_tokens(shell->token);
 	free(shell);
 }

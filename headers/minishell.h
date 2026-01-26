@@ -40,7 +40,7 @@
 extern int	g_sig;
 
 //controle shell chamar todo as funções de depois chamar na main
-void	shell_control(t_shell *shell);
+void	shell_control(t_shell *shell, char *input);
 
 //builtins
 	//echo
@@ -81,8 +81,9 @@ void	pre_executor(t_shell *shell);
 void	free_array(char **array);
 void	close_pipes(t_shell *shell);
 void	free_pipe_pids(t_shell *shell);
+void	free_all(t_shell *shell, char *input);
 void	free_tree(t_tree *tree);
-void	free_token(t_token *token);
+void	free_tokens(t_token *token);
 void	free_shell(t_shell *shell);
 void	free_cmd(t_cmd *cmd);
 void	clear_heredoc(t_tree *tree);

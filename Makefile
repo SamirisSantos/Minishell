@@ -38,7 +38,7 @@ SRCS = main.c \
 		src/free/free_cmd.c \
 		src/free/free_pipe_pids.c \
 		src/free/free_shell.c \
-		src/free/free_token.c \
+		src/free/free_tokens.c \
 		src/free/free_tree.c \
 
 		src/heredoc/heredoc_main.c \

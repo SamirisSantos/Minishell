@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/20 15:58:50 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/01/20 16:03:36 by cpinho-c         ###   ########.fr       */
+/*   Created: 2026/01/26 15:38:19 by cpinho-c          #+#    #+#             */
+/*   Updated: 2026/01/26 15:38:19 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	free_all(t_shell *shell /*whatever else need to be sent to free*/)
+void	free_all(t_shell *shell, char *input)
 {
-	//free whatever else used in parsing
+	free(input);
 	free_shell(shell);
 }
