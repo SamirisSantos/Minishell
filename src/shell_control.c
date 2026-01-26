@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/20 17:18:05 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/26 11:00:59 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,6 @@ static int	is_input_valid(char * input, t_shell *shell)
 		return (1);
 	}
 	add_history(input);
-	if (unclosed_quotes(input))
-	{
-		shell->exit_status = 2;
-		free(input);
-		return (1);
-	}
 	return (0);
 }
 
