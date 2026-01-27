@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:48:47 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/26 09:44:55 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:41:41 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	process_token(t_token *current, t_token *prev, t_shell *shell)
 	else if (current->type == CMD || current->type == CMD_ARG
 		|| current->type == REDIR_IN_FILE || current->type == REDIR_OUT_FILE)
 	{
-		expanded_data = expand_string(current->data, shell->envp);
+		expanded_data = expand_string(current->data, shell);
 		if (expanded_data)
 		{
 			free(current->data);
@@ -67,6 +67,3 @@ void	expand_tokens(t_token *token_list, t_shell *shell)
 		current = current->next;
 	}
 }
-/*
-main test
-*/

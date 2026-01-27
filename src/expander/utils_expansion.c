@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:48:47 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/20 17:09:43 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:25:09 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ static char	*get_var_value(char *str, t_shell *shell, int *var_len)
 {
 	char	*name;
 	char	*value;
+	int		i;
 
-	if (str[i] == '?')
+	i = 0;
+	if (str[i] == '$' && str[i + 1] == '?')
 	{
 		*var_len = 2;
-		return(ft_itoa(shell->exit_status));
+		return (ft_itoa(shell->exit_status));
 	}
 	i = 1;
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
@@ -49,10 +51,9 @@ static char	*get_var_value(char *str, t_shell *shell, int *var_len)
 	}
 	*var_len = i;
 	name = ft_substr(str, 1, i - 1);
-	value = get_env_value(name, shell->envp);
+	value = get_env_value(name, shell->envp_cpy);
 	free(name);
-
-	if (!var_value)
+	if (!value)
 		return (ft_strdup(""));
 	return (ft_strdup(value));
 }
@@ -62,10 +63,10 @@ static void	process_var_len(char *str, t_shell *shell, int *len, int *i)
 	int		var_name_len;
 	char	*val;
 
-	val = get_var_value(&str[*i], shell, var_name_len);
+	val = get_var_value(&str[*i], shell, &var_name_len);
 	if (val)
 	{
-		*total_len += ft_strlen(val);
+		*len += ft_strlen(val);
 		free(val);
 	}
 	*i += var_name_len;
@@ -98,7 +99,8 @@ int	get_expanded_len(char *str, t_shell *shell)
 static void	process_var_fill(char *new_str, char *old_str, int *i, int *j,t_shell *shell)
 {
 	int		var_len;
-	char	*val;
+	char	*val; 
+	int		k;
 
 	val = get_var_value(&old_str[*i], shell, &var_len);
 	if (val)
