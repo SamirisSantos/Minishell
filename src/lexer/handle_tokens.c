@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 16:54:21 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/12 09:18:40 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:13:02 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_token	*handle_operator(char **input, t_token **head)
 
 	len = 0;
 	type = get_operator_type(*input, &len);
-	//printf("valor de len no handler operdor depois do get%d", len);
 	value = ft_substr(*input, 0, len);
 	if (!value)
 		return (NULL);
@@ -58,14 +57,14 @@ t_token	*handle_operator(char **input, t_token **head)
 		return (NULL);
 	}
 	add_token(head, new_node);
-	*input +=len;
+	*input += len;
 	return (new_node);
 }
 
-static 	t_token_type	get_word_type(t_token *last_token)
+static	t_token_type	get_word_type(t_token *last_token)
 {
 	if (!last_token || last_token->type == PIPE)
-		return(CMD);
+		return (CMD);
 	if (last_token->type == REDIR_IN)
 		return (REDIR_IN_FILE);
 	if (last_token->type == REDIR_OUT || last_token->type == APPEND)
@@ -84,7 +83,6 @@ t_token	*handle_word(char **input, t_token **head, t_token *last_token)
 	value = extract_word(input);
 	if (!value)
 		return (NULL);
-	
 	type = get_word_type(last_token);
 	new_node = new_token(value, type);
 	if (!new_node)

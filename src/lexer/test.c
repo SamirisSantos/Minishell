@@ -1,6 +1,6 @@
 #include "../../headers/minishell.h"
 
-// ----------- MAIN TEST -----------
+// ----------- MAIN TEST ----------- APAGAR | DEL
 
 char *get_type_name(t_token_type type)
 {
