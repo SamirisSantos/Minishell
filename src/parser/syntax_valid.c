@@ -6,11 +6,11 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/26 10:34:46 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:12:37 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
 static int	msg_error(char *str)
 {
@@ -18,6 +18,13 @@ static int	msg_error(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("'\n", 2);
 	return (0);
+}
+
+static int	is_valid_file(t_token_type type)
+{
+	return (type == CMD || type == CMD_ARG || 
+			type == REDIR_IN_FILE || type == REDIR_OUT_FILE || 
+			type == DELIMITER);
 }
 
 int	is_syntax_valid(t_token *tokens)
@@ -33,15 +40,15 @@ int	is_syntax_valid(t_token *tokens)
 			if (!tokens->next || tokens->next->type == PIPE)
 				return (msg_error("|"));
 		}
-		else if (tokens->type >= REDIR_IN && tokens->type <= HEREDOC)
+		else if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT ||
+				 tokens->type == APPEND || tokens->type == HEREDOC)
 		{
 			if (!tokens->next)
 				return (msg_error("newline"));
-			if (tokens->next->type == PIPE || 
-				(tokens->next->type >= REDIR_IN && tokens->next->type <= HEREDOC))
-				return (print_syntax_error(tokens->next->data));
+			if (!is_valid_file(tokens->next->type))
+				return (msg_error(tokens->next->data));
 		}
 		tokens = tokens->next;
 	}
-	return (0);
+	return (1);
 }
