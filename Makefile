@@ -6,7 +6,7 @@
 #    By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/03 16:00:55 by sade-ara          #+#    #+#              #
-#    Updated: 2025/11/11 11:19:09 by cpinho-c         ###   ########.fr        #
+#    Updated: 2026/01/20 16:31:08 by cpinho-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,29 +15,59 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -lreadline
 SRCS = main.c \
 
-		builtins/ft_cd.c \
-		builtins/ft_echo.c \
-		builtins/ft_env.c \
-		builtins/ft_exit.c \
-		builtins/ft_export.c \
-		builtins/ft_pwd \
-		builtins/ft_unset \
+		src/builtins/ft_cd.c \
+		src/builtins/ft_echo.c \
+		src/builtins/ft_env.c \
+		src/builtins/ft_exit.c \
+		src/builtins/ft_export.c \
+		src/builtins/ft_pwd \
+		src/builtins/ft_unset \
 
-		executor/
+		src/executor/builtin_exec.c \
+		src/executor/cmd_path.c \
+		src/executor/executor.c \
 
-		inits/init_shell.c \
-		inits/init_tree.c \
+		src/expander/expancion.c \
+		src/expander/remove_quotes.c \
+		src/expander/utils_expansion.c \
 
-		parser/parser.c \
+		src/free/clear_heredoc.c \
+		src/free/close_pipes.c \
+		src/free/free_all.c \
+		src/free/free_array.c \
+		src/free/free_cmd.c \
+		src/free/free_pipe_pids.c \
+		src/free/free_shell.c \
+		src/free/free_tokens.c \
+		src/free/free_tree.c \
 
-		signals/signals.c \
+		src/heredoc/heredoc_main.c \
 
-		tree/binary_tree.c \
-		tree/tree_utils.c \
+		src/inits/init_cmd.c \
+		src/inits/init_exec.c \
+		src/inits/init_shell.c \
+		src/inits/init_tree.c \
 
-		utils/ft_envp_utils.c \
-		utils/ft_envp.c \
-		utils/utils.c \
+		src/lexer/extract_word.c \
+		src/lexer/handle_tokens.c \
+		src/lexer/lexer.c \
+		src/lexer/tokens.c \
+		src/lexer/utils_tokens.c \
+
+		src/parser/parser.c \
+		src/parser/syntax_valid.c \
+		src/parser/unclosed_quotes.c \
+
+		src/tree/binary_tree.c \
+		src/tree/tree_utils.c \
+
+		src/utils/ft_envp_utils.c \
+		src/utils/ft_envp.c \
+		src/utils/handle_signals.c \
+
+		src/shell_cibtrik \
+
+		main.c
 
 OBJS = $(SRCS:.c=.o)
 RM = rm -f

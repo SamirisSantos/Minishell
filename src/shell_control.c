@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/26 11:00:59 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:42:29 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ static int	is_input_valid(char * input, t_shell *shell)
 	return (0);
 }
 
-void	shell_control(t_shell *shell)
+void	shell_control(t_shell *shell, char *input)
 {
-	t_token	*tokens;
-	t_cmd	*cmd;
-	char	*input;
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	g_sig = 0;
 	while(1)
 		{
 			input = readline("minishell$");
+			if (g_sig = SIGINT)
+				sigint_clear(shell, input);
 			if (!input)
 				break;
 			if (is_input_valid(input, shell) != 0 )
@@ -50,16 +52,17 @@ void	shell_control(t_shell *shell)
 				free(input);
 				continue ;
 			}
-			tokens = lexer(input);
-			if (is_syntax_valid(tokens) != 0)
+			shell->token = lexer(input);
+			if (is_syntax_valid(shell->token) != 0)
 			{
 				shell->exit_status = 2;
-				free_tokens(tokens);
+				free_tokens(shell->token);
 				free(input);
 				continue ;
 			}
-			cmd = parse_tokens(tokens);
-			execute(cmd); //TODO
-			free_all(tokens, cmds, input);
+			cmd = parse_tokens(shell->token); //doing ...
+			build_tree(shell, shell->token, false);
+			pre_executor(shell);
+			free_all(shell, input);
 		}
 }

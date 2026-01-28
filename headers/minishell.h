@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/28 15:43:12 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:32:21 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <errno.h> //allows use of errno for system error msgs
 # include <string.h> //strerror to get char * with errno msg
 # include <stdbool.h> //bool variables
+# include <linux/limits.h>
 # include <limits.h> //adds variables to int MAX/MIN, PATH_MAX, etc
 # include <sys/types.h> // pid_t, stat types
 # include <sys/wait.h> // wait, waitpid, wait3, wait4
@@ -36,9 +37,10 @@
 # define EXIT_SIGINT 130
 # define EXIT_SIGQUIT 131
 
+extern int	g_sig;
 
 //controle shell chamar todo as funções de depois chamar na main
-void	shell_control(t_shell *shell);
+void	shell_control(t_shell *shell, char *input);
 
 //builtins
 	//echo
@@ -46,8 +48,8 @@ void	ft_echo(t_shell *shell, t_tree *tree);
 	//cd
 void	update_pwd(t_shell *shell, char *newpath);
 void	ft_cd(t_shell *shell, char *path);
-	//pwd
-void	ft_pwd(t_shell *shell, t_tree *tree);
+	//env
+void	ft_env(t_shell *shell);
 	//exit
 void	ft_exit(t_shell *shell);
 	//export
@@ -55,20 +57,36 @@ void	ft_update_envp(t_shell *shell, int i, char *arg);
 void	ft_add_var(t_shell *shell, char *arg);
 bool	check_var_exists(t_shell *shell, char *cmd_arg, size_t size, int j);
 void	ft_export(t_shell *shell, char **cmd_args);
+	//pwd
+void	ft_pwd(t_shell *shell, t_tree *tree);
 	//unset
 void	ft_fix_envp(t_shell *shell, int j);
 void	ft_unset(t_shell *shell, char **cmd_args);
 
-
 //executor
+bool	is_builtin(t_tree *tree);
+void	exec_builtin(t_shell *shell, t_tree *tree);
+void	fork_builtin(t_shell *shell, t_tree *tree, int i);
+
+void	count_cmds(t_tree *temp, int *cmd_count);
+char	*get_path(char **envp);
+char	*find_truepath(t_shell *shell, char *cmd, char *fullpath);
+char	*find_cmd_path(t_shell *shell, t_tree *tree);
+
+void	executor(t_shell *shell, t_tree *tree, int i);
+void	start_exe(t_shell *shell, t_tree *tree, int *i);
+void	pre_executor(t_shell *shell);
 
 //free
 void	free_array(char **array);
+void	close_pipes(t_shell *shell);
 void	free_pipe_pids(t_shell *shell);
+void	free_all(t_shell *shell, char *input);
 void	free_tree(t_tree *tree);
-void	free_token(t_token *token);
+void	free_tokens(t_token *token);
 void	free_shell(t_shell *shell);
 void	free_cmd(t_cmd *cmd);
+void	clear_heredoc(t_tree *tree);
 
 //inits
 t_shell	*init_shell(void);
@@ -113,9 +131,6 @@ int		is_syntax_valid(t_token *tokens);
 t_cmd	*parse_tokens(t_token *tokens);
 t_token	*handle_redirects(t_token *token, t_cmd *cmd);
 
-//signals
-
-
 //tree
 t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);
 t_tree	*build_node(t_shell *shell, t_token *tokens);
@@ -128,5 +143,8 @@ void	check_redir(t_shell *shell, t_tree *tree, t_token **token);
 char	**copy_envp(t_shell *shell, char *envp[]);
 char	**ft_realloc_envp(char **envp, size_t old_size);
 size_t	ft_find_var_name(char *arg);
+
+void	handle_sigint(int sig);
+void	sigint_clear(t_shell *shell, char *input);
 
 #endif

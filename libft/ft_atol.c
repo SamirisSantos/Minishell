@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-23 10:39:15 by cpinho-c          #+#    #+#             */
-/*   Updated: 2024-10-23 10:39:15 by cpinho-c         ###   ########.fr       */
+/*   Created: 2025/12/23 20:59:01 by cpinho-c          #+#    #+#             */
+/*   Updated: 2025/12/23 20:59:01 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+long	ft_atol(const char *nptr)
 {
-	int	i;
-	int	n;
-	int	sign;
+	int				i;
+	long long int	n;
+	int				sign;
 
 	i = 0;
 	sign = 1;
 	n = 0;
+	if (ft_strncmp(nptr, "-2147483648", 11) == 0)
+		return (-2147483648);
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
 	{
 		i++;
@@ -31,10 +33,8 @@ int	ft_atoi(const char *nptr)
 			sign *= -1;
 		i++;
 	}
-	while (nptr[i] != '\0')
+	while (nptr[i] != '\0' && (nptr[i] >= '0' && nptr[i] <= '9'))
 	{
-		if (!(nptr[i] >= '0' && nptr[i] <= '9'))
-			break ;
 		n = n * 10 + (nptr[i] - '0');
 		i++;
 	}

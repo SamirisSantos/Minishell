@@ -26,18 +26,6 @@ void	check_redir(t_shell *shell, t_tree *tree, t_token **token)
 		tree->fd_out = ft_redir(shell, (*token)->next->data, (*token)->type);
 		(*token) = (*token)->next->next;
 	}
-	else if((*token)->type == HEREDOC)
-	{
-		tree->fd_in_type == (*token)->type;
-		tree->fd_in = open(".heredoc_temp", O_WRONLY | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		if (tree->fd_in == -1)
-		{
-			shell->exit_status = 1;
-			ft_printf(STDERR_FILENO, "%s", strerror(errno));
-		}
-	}
-	
 }
 
 int	ft_redir_out(t_shell *shell, char *filename, t_token_type type)
@@ -94,10 +82,10 @@ char	**build_args(t_token **tokens)
 		temp = temp->next;
 		arg_count++;
 	}
-	args = (char **)malloc((arg_count * sizeof(char *)) + 1);
+	args = (char **)malloc((arg_count + 2) * sizeof(char *));
 	if (!args)
 		return (NULL);
-	i = 0;
+	i = 1;
 	while ((*tokens) && (*tokens)->type == CMD_ARG)
 	{
 		args[i] = ft_strdup((*tokens)->data);

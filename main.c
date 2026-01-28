@@ -12,9 +12,12 @@
 
 #include "headers/minishell.h"
 
+int	g_sig;
+
 int	main(int argc, char **argv, char *envp[])
 {
 	t_shell	*shell;
+	char	*input;
 
 	if (argc != 1)
 	{
@@ -23,10 +26,8 @@ int	main(int argc, char **argv, char *envp[])
 	}
 	else
 	{
-		*init_shell();
-		init_signals();
-		shell_control(shell); //doing em src ...
-		free_shell(shell);
+		shell = init_shell();
+		shell_control(shell, input); //doing em src ...
 	}
 	return (EXIT_SUCCESS);
 }

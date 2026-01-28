@@ -27,7 +27,7 @@ void	ft_unset(t_shell *shell, char **cmd_args)
 	int		j;
 	size_t	var_len;
 
-	i = 0;
+	i = 1;
 	while (cmd_args[i])
 	{
 		j = 0;

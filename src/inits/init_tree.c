@@ -29,6 +29,7 @@ t_tree	*init_tree_node(t_shell *shell)
 	tree->fd_in = NULL;
 	tree->fd_out_type = NULL;
 	tree->fd_out = 1;
+	tree->heredoc_name = NULL;
 	tree->left = NULL;
 	tree->right = NULL;
 	tree->type = NULL;

@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/20 17:04:58 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:37:37 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_tree
 {
 	char			*data;
 	char			**cmd_args;
+	char			*heredoc_name;
 	t_token_type	type;
 	t_token_type	fd_in_type;
 	t_token_type	fd_out_type;
@@ -73,6 +74,8 @@ typedef struct s_shell
 	char	**envp_cpy;
 	char	*cwd;
 	int		exit_status;
+	int		heredoc_count;
+	t_cmd	*cmd;
 	t_xcmd	*xcmd;
 	t_token	*token;
 	t_tree	*tree;

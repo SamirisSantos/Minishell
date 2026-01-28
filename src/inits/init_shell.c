@@ -25,7 +25,9 @@ t_shell	*init_shell(void)
 	shell->cwd = NULL;
 	shell->envp_cpy = NULL;
 	shell->exit_status = 0;
+	shell->heredoc_count = 0;
 	shell->orig_input = NULL;
+	shell->cmd = NULL;
 	shell->xcmd = NULL;
 	shell->token = NULL;
 	shell->tree = NULL;

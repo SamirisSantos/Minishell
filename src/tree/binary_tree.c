@@ -17,8 +17,11 @@ t_tree	*build_node(t_shell *shell, t_token *tokens)
 	t_tree	*tree;
 
 	tree = init_tree_node(shell);
-	if (tokens->type == REDIR_IN_FILE || tokens->type == REDIR_OUT)
+	if (tokens->type == REDIR_IN_FILE || tokens->type == REDIR_OUT
+		|| tokens->type == APPEND)
 		check_redir(shell, tree, &tokens);
+	if (tokens->type == HEREDOC && tokens->next->type == DELIMITER)
+		handle_heredoc(shell, tree, &tokens);
 	if (tokens->type == CMD)
 	{
 		tree->data = tokens->data;
@@ -26,7 +29,11 @@ t_tree	*build_node(t_shell *shell, t_token *tokens)
 		tokens = tokens->next;
 	}
 	if (tokens->type == CMD_ARG)
+	{
 		tree->cmd_args = build_args(&tokens);
+		if (tree->data)
+			tree->cmd_args[0] = ft_strdup(tree->data);
+	}
 	return (tree);
 }
 

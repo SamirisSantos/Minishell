@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   free_pids.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/23 14:30:32 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/28 17:04:56 by sade-ara         ###   ########.fr       */
+/*   Created: 2026/01/13 17:36:39 by cpinho-c          #+#    #+#             */
+/*   Updated: 2026/01/13 17:36:39 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
-void	init_data(&shell, envp)
+void	close_pipes(t_shell *shell)
 {
-	// TODO
-}
+	int	i;
 
-void	init_signals(void)
-{
-	// TODO
+	i = 0;
+	while (i < shell->xcmd->cmd_count - 1)
+	{
+		close(shell->xcmd->pipe_fd[i][0]);
+		close(shell->xcmd->pipe_fd[i][1]);
+		free(shell->xcmd->pipe_fd[i]);
+		i++;
+	}
 }
