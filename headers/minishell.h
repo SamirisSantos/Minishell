@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/26 11:01:09 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/28 15:43:12 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,11 @@ char	*remove_quotes(char *str);
 
 //expansion
 void	expand_tokens(t_token *token_list, t_shell *shell);
+char	*get_env_value(char *name, char **envp);
+char	*get_var_value(char *str, t_shell *shell, int *var_len);
 int		get_expanded_len(char *str, t_shell *shell);
 void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
+void	process_var_len(char *str, t_shell *shell, int *len, int *i);
 
 //parser
 t_cmd	*init_cmd(void);
