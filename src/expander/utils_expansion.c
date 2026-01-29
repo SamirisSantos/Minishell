@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:48:47 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/27 17:39:44 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/29 15:14:03 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,27 @@ void	process_var_len(char *str, t_shell *shell, int *len, int *i)
 	*i += var_name_len;
 }
 
-static void	process_var_fill(char *new_str, char *old_str, int *i, int *j, t_shell *shell)
+static void	append_value(char *new_str, char *val, int *j)
 {
-	int		var_len;
-	char	*val;
-	int		k;
+	int	k;
 
-	val = get_var_value(&old_str[*i], shell, &var_len);
-	if (val)
+	if (!val)
+		return ;
+	k = 0;
+	while (val[k])
 	{
-		k = 0;
-		while (val[k])
-			new_str[(*j)++] = val[k++];
-		free(val);
+		new_str[*j] = val[k];
+		(*j)++;
+		k++;
 	}
-	*i += var_len;
 }
 
 void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell)
 {
 	int		i;
 	int		j;
+	int		var_len;
+	char	*val;
 	char	quote;
 
 	i = 0;
@@ -54,12 +54,15 @@ void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell)
 	quote = 0;
 	while (old_str[i])
 	{
-		if ((old_str[i] == '\'' || old_str[i] == '"')
+		if ((old_str[i] == '\'' || old_str[i] == '\"')
 			&& (quote == 0 || old_str[i] == quote))
 			quote_flag(old_str[i++], &quote);
 		else if (old_str[i] == '$' && quote != '\'')
 		{
-			process_var_fill(new_str, old_str, &i, &j, shell);
+			val = get_var_value(&old_str[i], shell, &var_len);
+			append_value(new_str, val, &j);
+			free(val);
+			i += var_len;
 		}
 		else
 			new_str[j++] = old_str[i++];
