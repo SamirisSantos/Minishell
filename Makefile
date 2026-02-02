@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+         #
+#    By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/03 16:00:55 by sade-ara          #+#    #+#              #
-#    Updated: 2026/01/20 16:31:08 by cpinho-c         ###   ########.fr        #
+#    Updated: 2026/01/29 15:36:15 by sade-ara         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS = main.c \
 
 		src/expander/expancion.c \
 		src/expander/remove_quotes.c \
+		src/expander/gets.c \
 		src/expander/utils_expansion.c \
 
 		src/free/clear_heredoc.c \
