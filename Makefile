@@ -6,28 +6,30 @@
 #    By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/03 16:00:55 by sade-ara          #+#    #+#              #
-#    Updated: 2026/01/29 15:36:15 by sade-ara         ###   ########.fr        #
+#    Updated: 2026/02/04 16:01:44 by sade-ara         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -lreadline
-SRCS = main.c \
+CFLAGS = -Wall -Wextra -Werror -g
+LDFLAGS = -lreadline
+SRCS = 
+		main.c \
 
 		src/builtins/ft_cd.c \
 		src/builtins/ft_echo.c \
 		src/builtins/ft_env.c \
 		src/builtins/ft_exit.c \
 		src/builtins/ft_export.c \
-		src/builtins/ft_pwd \
-		src/builtins/ft_unset \
+		src/builtins/ft_pwd.c \
+		src/builtins/ft_unset.c \
 
 		src/executor/builtin_exec.c \
 		src/executor/cmd_path.c \
 		src/executor/executor.c \
 
-		src/expander/expancion.c \
+		src/expander/expansion.c \
 		src/expander/remove_quotes.c \
 		src/expander/gets.c \
 		src/expander/utils_expansion.c \
@@ -57,7 +59,6 @@ SRCS = main.c \
 
 		src/parser/parser.c \
 		src/parser/syntax_valid.c \
-		src/parser/unclosed_quotes.c \
 
 		src/tree/binary_tree.c \
 		src/tree/tree_utils.c \
@@ -66,38 +67,51 @@ SRCS = main.c \
 		src/utils/ft_envp.c \
 		src/utils/handle_signals.c \
 
-		src/shell_cibtrik \
+		src/shell_control.c \
 
-		main.c
 
 OBJS = $(SRCS:.c=.o)
 RM = rm -f
-LIBFT = libft/libft.a
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-#VALGRIND
-VALGRIND_FLAGS = --quiet --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes --gen-suppressions=all
-VALGRIND_SUPP = --suppressions=readline.supp
+# Valgrind
+VALGRIND_FLAGS = --quiet --leak-check=full --show-leak-kinds=all \
+				 --track-fds=yes --trace-children=yes --suppressions=readline.supp
 
 
-.Silent:
+# Colors
+GREEN = \033[0;32m
+RESET = \033[0m
+
+.SILENT:
+
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT_DIR)
+	@echo "$(GREEN)✓ libft compilada$(RESET)"
+
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
+	@echo "$(GREEN)✓ minishell compilado com sucesso!$(RESET)"
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-valgrind: all
-	valgrind $(VALGRIND_FLAGS) $(VALGRIND_SUPP) ./$(NAME)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS)
-	$(MAKE) clean
+	@$(RM) $(OBJS)
+	@$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) fclean
+	@$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+valgrind: all
+	@echo "$(YELLOW)Executando valgrind...$(RESET)"
+	@valgrind $(VALGRIND_FLAGS) ./$(NAME)
+
+.PHONY: all clean fclean re valgrind
