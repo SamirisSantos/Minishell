@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   binary_tree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 15:36:21 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/10/29 17:27:13 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:46:10 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,21 @@ t_tree	*build_node(t_shell *shell, t_token *tokens)
 	t_tree	*tree;
 
 	tree = init_tree_node(shell);
+	if (!tokens)
+		return (tree);
 	if (tokens->type == REDIR_IN_FILE || tokens->type == REDIR_OUT
 		|| tokens->type == APPEND)
 		check_redir(shell, tree, &tokens);
-	if (tokens->type == HEREDOC && tokens->next->type == DELIMITER)
+	if (tokens && tokens->type == HEREDOC && tokens->next
+		&& tokens->next->type == DELIMITER)
 		handle_heredoc(shell, tree, &tokens);
-	if (tokens->type == CMD)
+	if (tokens && tokens->type == CMD)
 	{
 		tree->data = tokens->data;
 		tree->type = tokens->type;
 		tokens = tokens->next;
 	}
-	if (tokens->type == CMD_ARG)
+	if (tokens && tokens->type == CMD_ARG)
 	{
 		tree->cmd_args = build_args(&tokens);
 		if (tree->data)
@@ -58,7 +61,6 @@ t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left)
 		tree->right = build_tree(shell, check_pipe->next, false);
 		return (tree);
 	}
-	if (tokens)
-		tree = build_node(shell, tokens);
+	tree = build_node(shell, tokens);
 	return (tree);
 }

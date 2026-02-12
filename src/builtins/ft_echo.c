@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:09:11 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/11 11:26:34 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/09 15:58:22 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_echo(t_shell *shell, t_tree *tree)
 {
 	int		i;
 	bool	with_n;
-	int		fd;
 
 	i = 1;
 	with_n = false;

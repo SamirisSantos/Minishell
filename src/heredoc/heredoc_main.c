@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:57:57 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/01/13 17:57:57 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:12:43 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	heredoc_sig_exit(t_shell *shell, char *line)
 		free(line);
 }
 
-int	open_heredoc(t_shell *shell, t_tree *tree, char *filename)
+int	open_heredoc(t_shell *shell, char *filename)
 {
 	int	fd;
 
@@ -79,11 +79,11 @@ void	handle_heredoc(t_shell *shell, t_tree *tree, t_token **tokens)
 	int		fd;
 
 	shell->heredoc_count++;
-	num = itoa(shell->heredoc_count);
+	num = ft_itoa(shell->heredoc_count);
 	tree->fd_in_type = (*tokens)->type;
 	filename = ft_strjoin(".heredoc_temp_", num);
 	free(num);
-	fd = open_heredoc(shell, tree, filename);
+	fd = open_heredoc(shell, filename);
 	*tokens = (*tokens)->next;
 	fill_heredoc(shell, &fd, (*tokens)->data);
 	*tokens = (*tokens)->next;

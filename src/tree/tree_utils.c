@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 16:19:11 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/18 17:50:36 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/11 12:05:26 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ void	check_redir(t_shell *shell, t_tree *tree, t_token **token)
 {
 	if ((*token)->type == REDIR_IN_FILE)
 	{
-		tree->fd_in_type == (*token)->type;
-		tree->fd_in = ft_redir(shell, (*token)->data);
+		tree->fd_in_type = (*token)->type;
+		tree->fd_in = ft_redir_in(shell, (*token)->next->data);
 		(*token) = (*token)->next->next;
 	}
 	else if ((*token)->type == REDIR_OUT || (*token)->type == APPEND)
 	{
-		tree->fd_out_type == (*token)->type;
-		tree->fd_out = ft_redir(shell, (*token)->next->data, (*token)->type);
+		tree->fd_out_type = (*token)->type;
+		tree->fd_out = ft_redir_out(shell, (*token)->next->data,
+				(*token)->type);
 		(*token) = (*token)->next->next;
 	}
 }
@@ -36,12 +37,12 @@ int	ft_redir_out(t_shell *shell, char *filename, t_token_type type)
 	if (type == REDIR_OUT)
 	{
 		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR
-					| S_IWUSR | S_IRGRP | S_IROTH);
+				| S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	else if (type == APPEND)
 	{
 		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR
-					| S_IWUSR | S_IRGRP | S_IROTH);
+				| S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	if (fd == -1)
 	{
@@ -56,7 +57,7 @@ int	ft_redir_in(t_shell *shell, char *filename)
 	int	fd;
 
 	fd = -1;
-	if (access(filename, F_OK))
+	if (access(filename, F_OK) == 0)
 		fd = open(filename, O_RDONLY);
 	else
 		ft_printf(STDERR_FILENO, "%s", strerror(errno));
@@ -82,10 +83,10 @@ char	**build_args(t_token **tokens)
 		temp = temp->next;
 		arg_count++;
 	}
-	args = (char **)malloc((arg_count + 2) * sizeof(char *));
+	args = (char **)malloc((arg_count + 1) * sizeof(char *));
 	if (!args)
 		return (NULL);
-	i = 1;
+	i = 0;
 	while ((*tokens) && (*tokens)->type == CMD_ARG)
 	{
 		args[i] = ft_strdup((*tokens)->data);

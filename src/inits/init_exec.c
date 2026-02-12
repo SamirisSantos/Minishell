@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:09:07 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/19 14:21:33 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/10 18:00:48 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ void	init_pid(t_shell *shell)
 
 void	init_cmd_path(t_shell *shell)
 {
-	int	i;
-	
-	i = 0;
 	shell->xcmd->cmd_path = (char **)malloc((shell->xcmd->cmd_count + 1) * sizeof(char *));
 	if (!shell->xcmd->cmd_path)
 	{

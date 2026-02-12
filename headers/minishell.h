@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/04 16:51:22 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/10 18:11:21 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <errno.h> //allows use of errno for system error msgs
 # include <string.h> //strerror to get char * with errno msg
 # include <stdbool.h> //bool variables
+//# include <linux/limits.h>
 # include <limits.h> //adds variables to int MAX/MIN, PATH_MAX, etc
 # include <sys/types.h> // pid_t, stat types
 # include <sys/wait.h> // wait, waitpid, wait3, wait4
@@ -36,10 +37,13 @@
 # define EXIT_SIGINT 130
 # define EXIT_SIGQUIT 131
 
+//  rl_replace_line macOS
+void	rl_replace_line(const char *text, int clear_undo);
+
 extern int	g_sig;
 
 //controle shell chamar todo as funções de depois chamar na main
-void	shell_control(t_shell *shell, char *input);
+void	shell_control(t_shell *shell);
 
 //builtins
 	//echo
@@ -69,7 +73,7 @@ void	fork_builtin(t_shell *shell, t_tree *tree, int i);
 
 void	count_cmds(t_tree *temp, int *cmd_count);
 char	*get_path(char **envp);
-char	*find_truepath(t_shell *shell, char *cmd, char *fullpath);
+char	*find_truepath(char *cmd, char *fullpath);
 char	*find_cmd_path(t_shell *shell, t_tree *tree);
 
 void	executor(t_shell *shell, t_tree *tree, int i);
@@ -80,12 +84,16 @@ void	pre_executor(t_shell *shell);
 void	free_array(char **array);
 void	close_pipes(t_shell *shell);
 void	free_pipe_pids(t_shell *shell);
+void	free_pipe(t_shell *shell, int count);
 void	free_all(t_shell *shell, char *input);
 void	free_tree(t_tree *tree);
 void	free_tokens(t_token *token);
 void	free_shell(t_shell *shell);
 void	free_cmd(t_cmd *cmd);
 void	clear_heredoc(t_tree *tree);
+
+//heredoc
+void	handle_heredoc(t_shell *shell, t_tree *tree, t_token **tokens);
 
 //inits
 t_shell	*init_shell(void);
