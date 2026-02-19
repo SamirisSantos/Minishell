@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:48:53 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/19 17:35:50 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:46:03 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char *envp[])
 {
 	t_shell	*shell;
 
+	(void)argv;
 	if (argc != 1)
 	{
 		ft_printf(STDERR_FILENO,"Error: too many arguments.\n");
@@ -26,7 +27,8 @@ int	main(int argc, char **argv, char *envp[])
 	else
 	{
 		shell = init_shell();
-		shell_control(shell, input); //doing em src ...
+		shell->envp_cpy = copy_envp(shell, envp);
+		shell_control(shell);
 	}
 	return (EXIT_SUCCESS);
 }

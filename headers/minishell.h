@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/19 17:37:31 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:46:09 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <errno.h> //allows use of errno for system error msgs
 # include <string.h> //strerror to get char * with errno msg
 # include <stdbool.h> //bool variables
-//# include <linux/limits.h>
+# include <linux/limits.h>
 # include <limits.h> //adds variables to int MAX/MIN, PATH_MAX, etc
 # include <sys/types.h> // pid_t, stat types
 # include <sys/wait.h> // wait, waitpid, wait3, wait4
@@ -36,9 +36,6 @@
 
 # define EXIT_SIGINT 130
 # define EXIT_SIGQUIT 131
-
-//  rl_replace_line macOS
-void	rl_replace_line(const char *text, int clear_undo);
 
 extern int	g_sig;
 
@@ -165,6 +162,6 @@ void	handle_sigint(int sig);
 void	sigint_clear(t_shell *shell, char *input);
 
 //main control
-void	shell_control(t_shell *shell, char *input);
+void	shell_control(t_shell *shell);
 
 #endif

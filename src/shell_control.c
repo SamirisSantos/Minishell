@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/19 17:38:05 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:51:50 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 static void	process_input(t_shell *shell, char *input)
 {
 	shell->token = lexer(input);
-	if (is_syntax_valid(shell->token) == 0)
+	printf("after lexer\n");
+	if (is_syntax_valid(shell->token) != 0)
 	{
+		printf("before tree\n");
 		shell->tree = build_tree(shell, shell->token, false);
+		printf("after tree\n");
 		if (shell->tree)
 		{
 			pre_executor(shell);
@@ -26,7 +29,10 @@ static void	process_input(t_shell *shell, char *input)
 		}
 	}
 	else
+	{
+		printf("else\n");
 		shell->exit_status = 2;
+	}
 	free_tokens(shell->token);
 	shell->token = NULL;
 	free(input);
