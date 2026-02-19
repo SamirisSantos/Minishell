@@ -3,66 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   shell_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/28 17:42:29 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:03:24 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-static void	free_all(t_token tokens, t_cmd cmd, char *input)
+static void	process_input(t_shell *shell, char *input)
 {
-	if (token)
-		free_tokens;
-	if (cmds)
-		free_tree((t_tree *)cmds);
-	if (input)
-		free(input);
-}
-
-static int	is_input_valid(char * input, t_shell *shell)
-{
-	if (!input)
-		return (1);
-	if (*input == '\0')
+	shell->token = lexer(input);
+	if (is_syntax_valid(shell->token) == 0)
 	{
-		free(input);
-		return (1);
+		shell->tree = build_tree(shell, shell->token, false);
+		if (shell->tree)
+		{
+			pre_executor(shell);
+			free_tree(shell->tree);
+			shell->tree = NULL;
+		}
 	}
-	add_history(input);
-	return (0);
+	else
+		shell->exit_status = 2;
+	free_tokens(shell->token);
+	shell->token = NULL;
+	free(input);
 }
 
-void	shell_control(t_shell *shell, char *input)
+void	shell_control(t_shell *shell)
 {
+	char	*input;
+
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
-	g_sig = 0;
-	while(1)
+	while (1)
+	{
+		g_sig = 0;
+		input = readline("minishell$ ");
+		if (!input)
 		{
-			input = readline("minishell$");
-			if (g_sig = SIGINT)
-				sigint_clear(shell, input);
-			if (!input)
-				break;
-			if (is_input_valid(input, shell) != 0 )
-			{
-				free(input);
-				continue ;
-			}
-			shell->token = lexer(input);
-			if (is_syntax_valid(shell->token) != 0)
-			{
-				shell->exit_status = 2;
-				free_tokens(shell->token);
-				free(input);
-				continue ;
-			}
-			cmd = parse_tokens(shell->token); //doing ...
-			build_tree(shell, shell->token, false);
-			pre_executor(shell);
-			free_all(shell, input);
+			ft_printf(1, "exit\n");
+			free_shell(shell);
+			break ;
 		}
+		if (*input == '\0' || g_sig == SIGINT)
+		{
+			free(input);
+			continue ;
+		}
+		add_history(input);
+		process_input(shell, input);
+	}
 }
+

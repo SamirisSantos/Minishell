@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:24:40 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/19 14:20:35 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/10 18:10:00 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ t_tree	*init_tree_node(t_shell *shell)
 		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 		return (NULL);
 	}
-	tree->cmd_args = NULL;
 	tree->data = NULL;
-	tree->fd_in_type = NULL;
-	tree->fd_in = NULL;
-	tree->fd_out_type = NULL;
-	tree->fd_out = 1;
+	tree->cmd_args = NULL;
 	tree->heredoc_name = NULL;
 	tree->left = NULL;
 	tree->right = NULL;
-	tree->type = NULL;
+	tree->fd_in = 0;
+	tree->fd_out = 1;
+	tree->type = 0;
+	tree->fd_in_type = 0;
+	tree->fd_out_type = 0;
+
 	return (tree);
 }

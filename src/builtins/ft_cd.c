@@ -6,12 +6,11 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:25:22 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/19 14:33:20 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/09 15:57:48 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-# include <linux/limits.h> 
 
 void	update_pwd(t_shell *shell, char *newpath)
 {
@@ -38,7 +37,7 @@ void	ft_cd(t_shell *shell, char *data)
 {
 	char	newpath[PATH_MAX];
 
-	newpath = NULL;
+	//newpath = NULL;
 	if (chdir(data) == 0)
 	{
 		setenv("PWD", data, 1);

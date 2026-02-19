@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:48 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 15:50:03 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/09 16:07:04 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 	{
 		shell->xcmd->cmd_path[*i] = find_cmd_path(shell, tree);
 		if(is_builtin(tree) && shell->xcmd->cmd_count > 1)
-			fork_builtin(shell, tree, i);
+			fork_builtin(shell, tree, *i);
 		else if (is_builtin(tree) && shell->xcmd->cmd_count == 1)
 			exec_builtin(shell, tree);
 		else
-			executor(shell, tree, i);
+			executor(shell, tree, *i);
 		(*i)++;
 	}
 	start_exe(shell, tree->left, i);
