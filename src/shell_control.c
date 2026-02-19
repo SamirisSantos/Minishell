@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/12 15:59:41 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:03:24 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,4 @@ void	shell_control(t_shell *shell)
 		process_input(shell, input);
 	}
 }
+
