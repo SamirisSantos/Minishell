@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/18 22:52:45 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:25:30 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ t_token	*handle_redirects(t_token *token, t_cmd *cmd);
 
 //tree
 t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);
-t_tree	*build_node(t_shell *shell, t_token *tokens);
+t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree);
+t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree, t_token *tokens, t_token *pipe);
 char	**build_args(t_token **tokens);
 int		ft_redir_in(t_shell *shell, char *filename);
 int		ft_redir_out(t_shell *shell, char *filename, t_token_type type);
