@@ -6,53 +6,56 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:26:55 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/19 13:38:10 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:38:05 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-static int	is_input_valid(char * input, t_shell *shell)
+static void	process_input(t_shell *shell, char *input)
 {
-	if (!input)
-		return (1);
-	if (*input == '\0')
+	shell->token = lexer(input);
+	if (is_syntax_valid(shell->token) == 0)
 	{
-		free_all(shell, input);
-		return (1);
+		shell->tree = build_tree(shell, shell->token, false);
+		if (shell->tree)
+		{
+			pre_executor(shell);
+			free_tree(shell->tree);
+			shell->tree = NULL;
+		}
 	}
-	add_history(input);
-	return (0);
+	else
+		shell->exit_status = 2;
+	free_tokens(shell->token);
+	shell->token = NULL;
+	free(input);
 }
 
-void	shell_control(t_shell *shell, char *input)
+void	shell_control(t_shell *shell)
 {
+	char	*input;
+
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
-	g_sig = 0;
-	while(1)
+	while (1)
+	{
+		g_sig = 0;
+		input = readline("minishell$ ");
+		if (!input)
 		{
-			input = readline("minishell$");
-			if (g_sig == SIGINT)
-				sigint_clear(shell, input);
-			if (!input)
-				break;
-			if (is_input_valid(input, shell) != 0 )
-			{
-				free(input);
-				continue ;
-			}
-			shell->token = lexer(input);
-			if (is_syntax_valid(shell->token) != 0)
-			{
-				shell->exit_status = 2;
-				free_tokens(shell->token);
-				free(input);
-				continue ;
-			}
-			//cmd = parse_tokens(shell->token);
-			pre_executor(shell);
-			// free_all(shell, input);
+			ft_printf(1, "exit\n");
+			free_shell(shell);
+			break ;
 		}
+		if (*input == '\0' || g_sig == SIGINT)
+		{
+			free(input);
+			continue ;
+		}
+		add_history(input);
+		process_input(shell, input);
+	}
 }
+
 

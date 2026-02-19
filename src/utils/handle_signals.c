@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 16:04:11 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/02/18 22:21:04 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:43:03 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,5 @@ void	sigint_clear(t_shell *shell, char *input)
 {
 	shell->exit_status = EXIT_SIGINT;
 	g_sig = 0;
-	if (input)
-		free(input);
 	free_all(shell, input);
 }

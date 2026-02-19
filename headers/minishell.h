@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/19 16:25:30 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:37:31 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <errno.h> //allows use of errno for system error msgs
 # include <string.h> //strerror to get char * with errno msg
 # include <stdbool.h> //bool variables
-# include <linux/limits.h>
+//# include <linux/limits.h>
 # include <limits.h> //adds variables to int MAX/MIN, PATH_MAX, etc
 # include <sys/types.h> // pid_t, stat types
 # include <sys/wait.h> // wait, waitpid, wait3, wait4
@@ -36,6 +36,9 @@
 
 # define EXIT_SIGINT 130
 # define EXIT_SIGQUIT 131
+
+//  rl_replace_line macOS
+void	rl_replace_line(const char *text, int clear_undo);
 
 extern int	g_sig;
 
@@ -68,6 +71,7 @@ void	fork_builtin(t_shell *shell, t_tree *tree, int i);
 void	count_cmds(t_tree *temp, int *cmd_count);
 char	*get_path(char **envp);
 char	*find_truepath(char *cmd, char *fullpath);
+char	*find_truepath(char *cmd, char *fullpath);
 char	*find_cmd_path(t_shell *shell, t_tree *tree);
 
 void	executor(t_shell *shell, t_tree *tree, int i);
@@ -78,6 +82,7 @@ void	pre_executor(t_shell *shell);
 void	free_array(char **array);
 void	close_pipes(t_shell *shell, int pipe_count);
 void	free_pipe_pids(t_shell *shell);
+void	free_pipe(t_shell *shell, int count);
 void	free_all(t_shell *shell, char *input);
 void	free_tree(t_tree *tree);
 void	free_tokens(t_token *token);
@@ -113,6 +118,7 @@ int		is_metachar(char c);
 int		is_space(char c);
 int		is_quote(char c);
 t_token	*handle_operator(char **input, t_token **head);
+t_token	*handle_operator(char **input, t_token **head);
 t_token	*handle_word(char **input, t_token **head, t_token *last_token);
 
 //remove_quotes
@@ -120,6 +126,12 @@ void	quote_flag(char c, char *quote_char);
 char	*remove_quotes(char *str);
 
 //expansion
+void	expand_tokens(t_token *token_list, t_shell *shell);
+char	*get_env_value(char *name, char **envp);
+char	*get_var_value(char *str, t_shell *shell, int *var_len);
+int		get_expanded_len(char *str, t_shell *shell);
+void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
+void	process_var_len(char *str, t_shell *shell, int *len, int *i);
 void	expand_tokens(t_token *token_list, t_shell *shell);
 char	*get_env_value(char *name, char **envp);
 char	*get_var_value(char *str, t_shell *shell, int *var_len);

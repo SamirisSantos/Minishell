@@ -6,12 +6,11 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:25:22 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/02/18 21:48:48 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:38:24 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-# include <linux/limits.h> 
 
 void	update_pwd(t_shell *shell, char *newpath)
 {
