@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:24:40 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/19 14:20:35 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/18 22:18:30 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_tree	*init_tree_node(t_shell *shell)
 	}
 	tree->cmd_args = NULL;
 	tree->data = NULL;
-	tree->fd_in_type = NULL;
-	tree->fd_in = NULL;
-	tree->fd_out_type = NULL;
-	tree->fd_out = 1;
+	tree->fd_in_type = 0;
+	tree->fd_in = 0;
+	tree->fd_out_type = 0;
+	tree->fd_out = 0;
 	tree->heredoc_name = NULL;
 	tree->left = NULL;
 	tree->right = NULL;
-	tree->type = NULL;
+	tree->type = 0;
 	return (tree);
 }

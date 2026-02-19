@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 13:56:33 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 16:26:06 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:43:47 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	add_token(t_token **list, t_token *new)
 	t_token	*current;
 
 	if (!list || !new)
-		return;
+		return ;
 	if (*list == NULL)
 		*list = new;
 	else

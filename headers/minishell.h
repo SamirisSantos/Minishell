@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/20 16:28:51 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/18 22:52:45 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@
 
 extern int	g_sig;
 
-//controle shell chamar todo as funções de depois chamar na main
-void	shell_control(t_shell *shell, char *input);
-
 //builtins
 	//echo
 void	ft_echo(t_shell *shell, t_tree *tree);
@@ -70,7 +67,7 @@ void	fork_builtin(t_shell *shell, t_tree *tree, int i);
 
 void	count_cmds(t_tree *temp, int *cmd_count);
 char	*get_path(char **envp);
-char	*find_truepath(t_shell *shell, char *cmd, char *fullpath);
+char	*find_truepath(char *cmd, char *fullpath);
 char	*find_cmd_path(t_shell *shell, t_tree *tree);
 
 void	executor(t_shell *shell, t_tree *tree, int i);
@@ -79,7 +76,7 @@ void	pre_executor(t_shell *shell);
 
 //free
 void	free_array(char **array);
-void	close_pipes(t_shell *shell);
+void	close_pipes(t_shell *shell, int pipe_count);
 void	free_pipe_pids(t_shell *shell);
 void	free_all(t_shell *shell, char *input);
 void	free_tree(t_tree *tree);
@@ -88,12 +85,18 @@ void	free_shell(t_shell *shell);
 void	free_cmd(t_cmd *cmd);
 void	clear_heredoc(t_tree *tree);
 
+//heredoc
+void	handle_heredoc_sig(int sig);
+void	heredoc_sig_exit(t_shell *shell, char *line);
+int	open_heredoc(t_shell *shell, char *filename);
+void	fill_heredoc(t_shell *shell, int *fd, char *eof);
+void	handle_heredoc(t_shell *shell, t_tree *tree, t_token **tokens);
+
 //inits
 t_shell	*init_shell(void);
 t_tree	*init_tree_node(t_shell *shell);
 void	init_pipes(t_shell *shell);
 void	init_pid(t_shell *shell);
-void	init_signals(void);
 void	init_cmd_path(t_shell *shell);
 void	init_xcmd(t_shell *shell);
 t_cmd	*init_cmd(void);
@@ -109,18 +112,20 @@ t_token	*lexer(char *input);
 int		is_metachar(char c);
 int		is_space(char c);
 int		is_quote(char c);
-t_token	*handle_operador(char **input, t_token **head);
+t_token	*handle_operator(char **input, t_token **head);
 t_token	*handle_word(char **input, t_token **head, t_token *last_token);
 
 //remove_quotes
 void	quote_flag(char c, char *quote_char);
 char	*remove_quotes(char *str);
-int		unclosed_quotes(char *input);
 
 //expansion
-void	expand_tokens(t_token *token_list, char **envp);
-int		get_expanded_len(char *str, char **envp);
-void	fill_expanded_str(char *new_str, char *old_str, char **envp);
+void	expand_tokens(t_token *token_list, t_shell *shell);
+char	*get_env_value(char *name, char **envp);
+char	*get_var_value(char *str, t_shell *shell, int *var_len);
+int		get_expanded_len(char *str, t_shell *shell);
+void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
+void	process_var_len(char *str, t_shell *shell, int *len, int *i);
 
 //parser
 t_cmd	*init_cmd(void);
@@ -142,7 +147,11 @@ char	**copy_envp(t_shell *shell, char *envp[]);
 char	**ft_realloc_envp(char **envp, size_t old_size);
 size_t	ft_find_var_name(char *arg);
 
+//signal
 void	handle_sigint(int sig);
 void	sigint_clear(t_shell *shell, char *input);
+
+//main control
+void	shell_control(t_shell *shell, char *input);
 
 #endif

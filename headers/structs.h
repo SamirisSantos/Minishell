@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 15:18:20 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:37:37 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include <stdbool.h>
-
-typedef struct s_cmd
-{
-	char			**args;			// lista de argumentos
-	char			*input_file;	// <
-	char			*output_file;	// >
-	int				append;			// >>
-	int				heredoc;		// << 
-	struct s_cmd	*next;			// pipes
-}			t_cmd;
 
 typedef enum e_token_type
 {
@@ -39,11 +29,21 @@ typedef enum e_token_type
 	SPACE_TOKEN
 }			t_token_type;
 
+typedef struct s_cmd
+{
+	char			**args;			// lista de argumentos
+	char			*input_file;	// <
+	char			*output_file;	// >
+	int				append;			// >>
+	int				heredoc;		// <<
+	struct s_cmd	*next;			// pipes
+}			t_cmd;
+
 typedef struct s_token
 {
 	char			*data;
 	t_token_type	type;
-	t_token			*next;
+	struct s_token			*next;
 }			t_token;
 
 typedef struct s_tree
@@ -56,8 +56,8 @@ typedef struct s_tree
 	t_token_type	fd_out_type;
 	int				fd_in;
 	int				fd_out;
-	t_tree			*left;
-	t_tree			*right;
+	struct s_tree			*left;
+	struct s_tree			*right;
 }			t_tree;
 
 typedef struct s_xcmd

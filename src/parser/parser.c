@@ -6,11 +6,11 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 14:26:53 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:00:56 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
 static int	count_args(t_token *token)
 {
@@ -79,7 +79,6 @@ t_cmd	*parse_tokens(t_token *tokens)
 	t_cmd	*head;
 	t_cmd	*current;
 	t_cmd	*new;
-	int		i;
 
 	head = NULL;
 	current = NULL;
@@ -91,7 +90,7 @@ t_cmd	*parse_tokens(t_token *tokens)
 			free_cmd(new);
 			return (NULL);
 		}
-		fill_cmd_content(new, &tokens);
+		fill_cmd(new, &tokens);
 		if (!head)
 			head = new;
 		else

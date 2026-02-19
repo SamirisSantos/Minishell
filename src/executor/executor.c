@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:48 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 15:50:03 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/18 22:51:37 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	executor(t_shell *shell, t_tree *tree, int i)
 				dup2(shell->xcmd->pipe_fd[i - 1][0], STDIN_FILENO);
 			if (i < shell->xcmd->cmd_count - 1)
 				dup2(shell->xcmd->pipe_fd[i][1], STDOUT_FILENO);
-			close_pipes(shell);
+			close_pipes(shell, shell->xcmd->cmd_count);
 			execve(shell->xcmd->cmd_path[i],tree->cmd_args,shell->envp_cpy);
 			ft_printf(STDERR_FILENO, "%s: %s", tree->data, strerror(errno));
 			free_shell(shell);
@@ -56,15 +56,25 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 	{
 		shell->xcmd->cmd_path[*i] = find_cmd_path(shell, tree);
 		if(is_builtin(tree) && shell->xcmd->cmd_count > 1)
-			fork_builtin(shell, tree, i);
+			fork_builtin(shell, tree, *i);
 		else if (is_builtin(tree) && shell->xcmd->cmd_count == 1)
 			exec_builtin(shell, tree);
 		else
-			executor(shell, tree, i);
+			executor(shell, tree, *i);
 		(*i)++;
 	}
 	start_exe(shell, tree->left, i);
 	start_exe(shell, tree->right, i);
+}
+
+static void	exec_inits(t_shell *shell)
+{
+	shell->tree = build_tree(shell, shell->token, false);
+	init_xcmd(shell);
+	count_cmds(shell->tree, &shell->xcmd->cmd_count);
+	init_pipes(shell);
+	init_pid(shell);
+	init_cmd_path(shell);
 }
 
 void	pre_executor(t_shell *shell)
@@ -73,11 +83,7 @@ void	pre_executor(t_shell *shell)
 	int	status;
 
 	i = 0;
-	init_xcmd(shell);
-	count_cmds(shell->tree, &shell->xcmd->cmd_count);
-	init_pipes(shell);
-	init_pid(shell);
-	init_cmd_path(shell);
+	exec_inits(shell);
 	start_exe(shell, shell->tree, &i);
 	i = 0;
 	while (i < shell->xcmd->cmd_count - 1)

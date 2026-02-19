@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:09:07 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/19 14:21:33 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/18 22:15:42 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_pipes(t_shell *shell)
 		{
 			shell->exit_status = 12;
 			ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
-			free_pipe(shell, i + 1);
+			close_pipes(shell, i + 1);
 			return ;
 		}
 		i++;
@@ -56,9 +56,6 @@ void	init_pid(t_shell *shell)
 
 void	init_cmd_path(t_shell *shell)
 {
-	int	i;
-	
-	i = 0;
 	shell->xcmd->cmd_path = (char **)malloc((shell->xcmd->cmd_count + 1) * sizeof(char *));
 	if (!shell->xcmd->cmd_path)
 	{

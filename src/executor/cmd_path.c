@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:21:20 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/19 15:32:05 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/18 21:51:14 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*get_path(char **envp)
 	return (NULL);
 }
 
-char	*find_truepath(t_shell *shell, char *cmd, char *fullpath)
+char	*find_truepath(char *cmd, char *fullpath)
 {
 	char	**splitpath;
 	char	*truepath;
@@ -72,7 +72,7 @@ char	*find_cmd_path(t_shell *shell, t_tree *tree)
 	else
 	{
 		cmd_path = get_path(shell->envp_cpy);
-		cmd_path = find_truepath(shell, tree->data, cmd_path);
+		cmd_path = find_truepath(tree->data, cmd_path);
 		return (cmd_path);
 	}
 	return (NULL);

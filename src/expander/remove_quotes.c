@@ -6,11 +6,19 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:09:59 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 15:30:47 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:31:06 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+void	quote_flag(char c, char *quote_char)
+{
+	if (*quote_char == 0)
+		*quote_char = c;
+	else if (*quote_char == c)
+		*quote_char = 0;
+}
 
 char	*remove_quotes(char *str)
 {
@@ -29,8 +37,8 @@ char	*remove_quotes(char *str)
 		return (NULL);
 	while (str[i])
 	{
-		if ((str[i] == '\'' || str[i] == '"') && 
-			(quote_char == 0 || str[i] == quote_char))
+		if ((str[i] == '\'' || str[i] == '"')
+			&& (quote_char == 0 || str[i] == quote_char))
 			quote_flag(str[i++], &quote_char);
 		else
 			clean_str[j++] = str[i++];
