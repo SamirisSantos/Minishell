@@ -23,6 +23,7 @@ SRCS = main.c \
 	src/builtins/ft_pwd.c \
 	src/builtins/ft_unset.c \
 	src/executor/builtin_exec.c \
+	src/executor/check_cmd.c \
 	src/executor/cmd_path.c \
 	src/executor/executor.c \
 	src/expander/expansion.c \

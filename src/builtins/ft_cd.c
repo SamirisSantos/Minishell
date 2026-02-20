@@ -47,7 +47,7 @@ void	ft_cd(t_shell *shell, char *data)
 	}
 	else
 	{
-		ft_printf(STDERR_FILENO, "%s", strerror(errno));
+		ft_printf(STDERR_FILENO, ": %s \n", strerror(errno));
 		shell->exit_status = 1;
 	}
 }

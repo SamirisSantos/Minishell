@@ -16,7 +16,7 @@ void	handle_sigint(int sig)
 {
 	(void)sig;
 	g_sig = SIGINT;
-	ft_printf(1, "^C\n");
+	ft_printf(1, "^C \n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 }

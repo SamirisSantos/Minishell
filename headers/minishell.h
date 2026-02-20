@@ -72,6 +72,7 @@ char	*find_truepath(char *cmd, char *fullpath);
 char	*find_cmd_path(t_shell *shell, t_tree *tree);
 
 void	executor(t_shell *shell, t_tree *tree, int i);
+int		check_cmd(t_shell *shell, t_tree *tree, int i);
 void	start_exe(t_shell *shell, t_tree *tree, int *i);
 void	pre_executor(t_shell *shell);
 
@@ -82,7 +83,7 @@ void	free_pipe_pids(t_shell *shell);
 void	free_pipe(t_shell *shell, int count);
 void	free_all(t_shell *shell, char *input);
 void	free_tree(t_tree *tree);
-void	free_tokens(t_token *token);
+void	free_tokens(t_token *list);
 void	free_shell(t_shell *shell);
 void	free_cmd(t_cmd *cmd);
 void	clear_heredoc(t_tree *tree);
@@ -90,7 +91,7 @@ void	clear_heredoc(t_tree *tree);
 //heredoc
 void	handle_heredoc_sig(int sig);
 void	heredoc_sig_exit(t_shell *shell, char *line);
-int	open_heredoc(t_shell *shell, char *filename);
+int		open_heredoc(t_shell *shell, char *filename);
 void	fill_heredoc(t_shell *shell, int *fd, char *eof);
 void	handle_heredoc(t_shell *shell, t_tree *tree, t_token **tokens);
 
@@ -115,7 +116,6 @@ int		is_metachar(char c);
 int		is_space(char c);
 int		is_quote(char c);
 t_token	*handle_operator(char **input, t_token **head);
-t_token	*handle_operator(char **input, t_token **head);
 t_token	*handle_word(char **input, t_token **head, t_token *last_token);
 
 //remove_quotes
@@ -129,16 +129,8 @@ char	*get_var_value(char *str, t_shell *shell, int *var_len);
 int		get_expanded_len(char *str, t_shell *shell);
 void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
 void	process_var_len(char *str, t_shell *shell, int *len, int *i);
-void	expand_tokens(t_token *token_list, t_shell *shell);
-char	*get_env_value(char *name, char **envp);
-char	*get_var_value(char *str, t_shell *shell, int *var_len);
-int		get_expanded_len(char *str, t_shell *shell);
-void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
-void	process_var_len(char *str, t_shell *shell, int *len, int *i);
 
 //parser
-t_cmd	*init_cmd(void);
-t_cmd	*parse_tokens(t_token *tokens);
 int		is_syntax_valid(t_token *tokens);
 t_cmd	*parse_tokens(t_token *tokens);
 t_token	*handle_redirects(t_token *token, t_cmd *cmd);
