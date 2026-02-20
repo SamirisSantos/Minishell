@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:35:11 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/10 14:52:19 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:39:26 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
 
 void	free_shell(t_shell *shell)
 {

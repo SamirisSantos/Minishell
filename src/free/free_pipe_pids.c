@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_pipe_pids.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:41:18 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/10 17:59:29 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:39:12 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_pipe_pids(t_shell *shell)
 {
 	if (shell->xcmd->pipe_fd)
 	{
-		close_pipes(shell);
+		close_pipes(shell, shell->xcmd->cmd_count);
 		free(shell->xcmd->pipe_fd);
 	}
 	if (shell->xcmd->pids)

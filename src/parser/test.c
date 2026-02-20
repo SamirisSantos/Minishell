@@ -2,44 +2,6 @@
 
 extern char **environ;
 
-// Inicializa uma nova estrutura de comando limpa
-t_cmd	*init_cmd(void)
-{
-	t_cmd	*cmd;
-
-	cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	cmd->args = NULL;
-	cmd->input_file = NULL;
-	cmd->output_file = NULL;
-	cmd->append = 0;
-	cmd->heredoc = 0;
-	cmd->next = NULL;
-	return (cmd);
-}
-
-// Libera a memória de um único comando (usado em caso de erro no parser)
-void	free_cmd(t_cmd *cmd)
-{
-	int	i;
-
-	if (!cmd)
-		return ;
-	if (cmd->args)
-	{
-		i = 0;
-		while (cmd->args[i])
-			free(cmd->args[i++]);
-		free(cmd->args);
-	}
-	if (cmd->input_file)
-		free(cmd->input_file);
-	if (cmd->output_file)
-		free(cmd->output_file);
-	free(cmd);
-}
-
 // --- MOCK SHELL (Igual ao anterior) ---
 t_shell *init_mock_shell(void)
 {
@@ -47,29 +9,6 @@ t_shell *init_mock_shell(void)
 	if (!shell) return (NULL);
 	shell->exit_status = 0;
 	return (shell);
-}
-
-// --- FUNÇÃO PARA LIMPAR COMANDOS (Para o teste não vazar memória) ---
-void free_commands(t_cmd *cmd)
-{
-	t_cmd *tmp;
-	int i;
-
-	while (cmd)
-	{
-		tmp = cmd->next;
-		if (cmd->args)
-		{
-			i = 0;
-			while (cmd->args[i])
-				free(cmd->args[i++]);
-			free(cmd->args);
-		}
-		if (cmd->input_file) free(cmd->input_file);
-		if (cmd->output_file) free(cmd->output_file);
-		free(cmd);
-		cmd = tmp;
-	}
 }
 
 // --- VISUALIZADOR DO PARSER ---

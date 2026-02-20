@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:35 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/10 18:11:21 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:46:09 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <errno.h> //allows use of errno for system error msgs
 # include <string.h> //strerror to get char * with errno msg
 # include <stdbool.h> //bool variables
-//# include <linux/limits.h>
+# include <linux/limits.h>
 # include <limits.h> //adds variables to int MAX/MIN, PATH_MAX, etc
 # include <sys/types.h> // pid_t, stat types
 # include <sys/wait.h> // wait, waitpid, wait3, wait4
@@ -37,13 +37,7 @@
 # define EXIT_SIGINT 130
 # define EXIT_SIGQUIT 131
 
-//  rl_replace_line macOS
-void	rl_replace_line(const char *text, int clear_undo);
-
 extern int	g_sig;
-
-//controle shell chamar todo as funções de depois chamar na main
-void	shell_control(t_shell *shell);
 
 //builtins
 	//echo
@@ -74,6 +68,7 @@ void	fork_builtin(t_shell *shell, t_tree *tree, int i);
 void	count_cmds(t_tree *temp, int *cmd_count);
 char	*get_path(char **envp);
 char	*find_truepath(char *cmd, char *fullpath);
+char	*find_truepath(char *cmd, char *fullpath);
 char	*find_cmd_path(t_shell *shell, t_tree *tree);
 
 void	executor(t_shell *shell, t_tree *tree, int i);
@@ -82,7 +77,7 @@ void	pre_executor(t_shell *shell);
 
 //free
 void	free_array(char **array);
-void	close_pipes(t_shell *shell);
+void	close_pipes(t_shell *shell, int pipe_count);
 void	free_pipe_pids(t_shell *shell);
 void	free_pipe(t_shell *shell, int count);
 void	free_all(t_shell *shell, char *input);
@@ -93,6 +88,10 @@ void	free_cmd(t_cmd *cmd);
 void	clear_heredoc(t_tree *tree);
 
 //heredoc
+void	handle_heredoc_sig(int sig);
+void	heredoc_sig_exit(t_shell *shell, char *line);
+int	open_heredoc(t_shell *shell, char *filename);
+void	fill_heredoc(t_shell *shell, int *fd, char *eof);
 void	handle_heredoc(t_shell *shell, t_tree *tree, t_token **tokens);
 
 //inits
@@ -100,7 +99,6 @@ t_shell	*init_shell(void);
 t_tree	*init_tree_node(t_shell *shell);
 void	init_pipes(t_shell *shell);
 void	init_pid(t_shell *shell);
-void	init_signals(void);
 void	init_cmd_path(t_shell *shell);
 void	init_xcmd(t_shell *shell);
 t_cmd	*init_cmd(void);
@@ -117,6 +115,7 @@ int		is_metachar(char c);
 int		is_space(char c);
 int		is_quote(char c);
 t_token	*handle_operator(char **input, t_token **head);
+t_token	*handle_operator(char **input, t_token **head);
 t_token	*handle_word(char **input, t_token **head, t_token *last_token);
 
 //remove_quotes
@@ -124,6 +123,12 @@ void	quote_flag(char c, char *quote_char);
 char	*remove_quotes(char *str);
 
 //expansion
+void	expand_tokens(t_token *token_list, t_shell *shell);
+char	*get_env_value(char *name, char **envp);
+char	*get_var_value(char *str, t_shell *shell, int *var_len);
+int		get_expanded_len(char *str, t_shell *shell);
+void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
+void	process_var_len(char *str, t_shell *shell, int *len, int *i);
 void	expand_tokens(t_token *token_list, t_shell *shell);
 char	*get_env_value(char *name, char **envp);
 char	*get_var_value(char *str, t_shell *shell, int *var_len);
@@ -140,7 +145,8 @@ t_token	*handle_redirects(t_token *token, t_cmd *cmd);
 
 //tree
 t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);
-t_tree	*build_node(t_shell *shell, t_token *tokens);
+t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree);
+t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree, t_token *tokens, t_token *pipe);
 char	**build_args(t_token **tokens);
 int		ft_redir_in(t_shell *shell, char *filename);
 int		ft_redir_out(t_shell *shell, char *filename, t_token_type type);
@@ -151,7 +157,11 @@ char	**copy_envp(t_shell *shell, char *envp[]);
 char	**ft_realloc_envp(char **envp, size_t old_size);
 size_t	ft_find_var_name(char *arg);
 
+//signal
 void	handle_sigint(int sig);
 void	sigint_clear(t_shell *shell, char *input);
+
+//main control
+void	shell_control(t_shell *shell);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:09:07 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/02/10 18:00:48 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:39:39 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_pipes(t_shell *shell)
 		{
 			shell->exit_status = 12;
 			ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
-			free_pipe(shell, i + 1);
+			close_pipes(shell, i + 1);
 			return ;
 		}
 		i++;

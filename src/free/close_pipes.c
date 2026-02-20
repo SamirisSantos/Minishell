@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_pids.c                                        :+:      :+:    :+:   */
+/*   close_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:36:39 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/01/13 17:36:39 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/18 22:13:23 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	close_pipes(t_shell *shell)
+void	close_pipes(t_shell *shell, int pipe_count)
 {
 	int	i;
 
 	i = 0;
-	while (i < shell->xcmd->cmd_count - 1)
+	while (i < pipe_count - 1)
 	{
 		close(shell->xcmd->pipe_fd[i][0]);
 		close(shell->xcmd->pipe_fd[i][1]);

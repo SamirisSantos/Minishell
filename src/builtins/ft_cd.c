@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:25:22 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/02/09 15:57:48 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:38:24 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_cd(t_shell *shell, char *data)
 {
 	char	newpath[PATH_MAX];
 
-	//newpath = NULL;
 	if (chdir(data) == 0)
 	{
 		setenv("PWD", data, 1);
