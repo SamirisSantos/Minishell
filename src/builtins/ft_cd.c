@@ -14,40 +14,56 @@
 
 void	update_pwd(t_shell *shell, char *newpath)
 {
-	int	i;
+	char	*tmp;
+	int		i;
 
 	i = 0;
 	while (shell && shell->envp_cpy && shell->envp_cpy[i])
 	{
 		if (ft_strncmp(shell->envp_cpy[i], "PWD=", 4) == 0)
 		{
-			shell->envp_cpy[i] = ft_strdup("PWD=");
-			shell->envp_cpy[i] = ft_strjoin(shell->envp_cpy[i], newpath);
-			if (shell->envp_cpy[i] == NULL)
+			tmp = ft_strjoin("PWD=", newpath);
+			if (!tmp)
 			{
 				shell->exit_status = 12;
 				ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+				return ;
 			}
+			free(shell->envp_cpy[i]);
+			shell->envp_cpy[i] = tmp;
 		}
 		i++;
 	}
+}
+
+static void	cd_error(t_shell *shell, char *data)
+{
+	ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+	ft_putstr_fd(data, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	shell->exit_status = 1;
 }
 
 void	ft_cd(t_shell *shell, char *data)
 {
 	char	newpath[PATH_MAX];
 
-	if (chdir(data) == 0)
+	if (!data || *data == '\0')
+		data = get_env_value("HOME", shell->envp_cpy);
+	if (!data)
 	{
-		setenv("PWD", data, 1);
-		getcwd(newpath, sizeof(newpath));
-		shell->cwd = newpath;
-		update_pwd(shell, newpath);
-		shell->exit_status = 0;
-	}
-	else
-	{
-		ft_printf(STDERR_FILENO, ": %s \n", strerror(errno));
+		ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
 		shell->exit_status = 1;
+		return ;
 	}
+	if (chdir(data) != 0)
+		return (cd_error(shell, data));
+	getcwd(newpath, sizeof(newpath));
+	if (shell->cwd)
+		free(shell->cwd);
+	shell->cwd = ft_strdup(newpath);
+	update_pwd(shell, newpath);
+	shell->exit_status = 0;
 }

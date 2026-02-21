@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:30:06 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/01/13 17:30:06 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/21 22:44:31 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,17 @@ bool	is_builtin(t_tree *tree)
 
 void	exec_builtin(t_shell *shell, t_tree *tree)
 {
+	 if (tree->fd_in > 0)
+		dup2(tree->fd_in, STDIN_FILENO);
+	if (tree->fd_out != STDOUT_FILENO)
+		dup2(tree->fd_out, STDOUT_FILENO);
 	if (strncmp(tree->data, "cd", 2) == 0 && ft_strlen(tree->data) == 2)
-		ft_cd(shell, tree->cmd_args[0]);
+		{
+	if (tree->cmd_args && tree->cmd_args[1])
+		ft_cd(shell, tree->cmd_args[1]);
+	else
+		ft_cd(shell, NULL);
+	}
 	else if (strncmp(tree->data, "echo", 4) == 0 && ft_strlen(tree->data) == 4)
 		ft_echo(shell, tree);
 	else if (strncmp(tree->data, "env", 3) == 0 && ft_strlen(tree->data) == 3)

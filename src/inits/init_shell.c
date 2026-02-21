@@ -22,7 +22,7 @@ t_shell	*init_shell(void)
 		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 		return (NULL);
 	}
-	shell->cwd = NULL;
+	shell->cwd = getcwd(NULL, 0);
 	shell->envp_cpy = NULL;
 	shell->exit_status = 0;
 	shell->heredoc_count = 0;

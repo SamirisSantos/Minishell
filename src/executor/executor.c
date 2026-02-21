@@ -23,6 +23,10 @@ void	executor(t_shell *shell, t_tree *tree, int i)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (tree->fd_in > 0)
+			dup2(tree->fd_in, STDIN_FILENO);
+		if (tree->fd_out != STDOUT_FILENO)
+			dup2(tree->fd_out, STDOUT_FILENO);
 		if (i > 0)
 			dup2(shell->xcmd->pipe_fd[i - 1][0], STDIN_FILENO);
 		if (i < shell->xcmd->cmd_count - 1)

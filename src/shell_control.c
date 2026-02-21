@@ -15,6 +15,7 @@
 static void	process_input(t_shell *shell, char *input)
 {
 	shell->token = lexer(input);
+	expand_tokens(shell->token, shell);
 	if (is_syntax_valid(shell->token) == 1)
 	{
 		shell->tree = build_tree(shell, shell->token, false);

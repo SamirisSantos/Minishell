@@ -14,6 +14,9 @@
 
 void	ft_exit(t_shell *shell)
 {
-	free_shell(shell);
-	exit(shell->exit_status);
+	int	status;
+
+	status = shell->exit_status;
+	ft_printf(1, "exit\n");
+	exit(status);
 }

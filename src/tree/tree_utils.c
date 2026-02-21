@@ -83,10 +83,11 @@ char	**build_args(t_token **tokens)
 		temp = temp->next;
 		arg_count++;
 	}
-	args = (char **)malloc((arg_count + 1) * sizeof(char *));
+	args = (char **)malloc((arg_count + 2) * sizeof(char *));
 	if (!args)
 		return (NULL);
-	i = 0;
+	args[0] = NULL;
+	i = 1;
 	while ((*tokens) && (*tokens)->type == CMD_ARG)
 	{
 		args[i] = ft_strdup((*tokens)->data);
