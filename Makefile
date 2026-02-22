@@ -26,6 +26,7 @@ SRCS = main.c \
 	src/executor/check_cmd.c \
 	src/executor/cmd_path.c \
 	src/executor/executor.c \
+	src/executor/utils_exec.c \
 	src/expander/expansion.c \
 	src/expander/remove_quotes.c \
 	src/expander/gets.c \

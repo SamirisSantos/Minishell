@@ -14,19 +14,23 @@
 
 void	check_redir(t_shell *shell, t_tree *tree, t_token **token)
 {
-	if ((*token)->type == REDIR_IN_FILE)
+	if ((*token)->type == REDIR_IN || (*token)->type == REDIR_IN_FILE)
 	{
 		tree->fd_in_type = (*token)->type;
-		tree->fd_in = ft_redir_in(shell, (*token)->next->data);
-		(*token) = (*token)->next->next;
+		if ((*token)->type == REDIR_IN)
+			(*token) = (*token)->next;
+		tree->fd_in = ft_redir_in(shell, (*token)->data);
+		(*token) = (*token)->next;
 	}
 	else if ((*token)->type == REDIR_OUT || (*token)->type == APPEND)
 	{
 		tree->fd_out_type = (*token)->type;
-		tree->fd_out = ft_redir_out(shell, (*token)->next->data,
-				(*token)->type);
-		(*token) = (*token)->next->next;
+		(*token) = (*token)->next;
+		tree->fd_out = ft_redir_out(shell, (*token)->data, tree->fd_out_type);
+		(*token) = (*token)->next;
 	}
+	else if ((*token)->type == HEREDOC)
+		(*token) = (*token)->next->next;
 }
 
 int	ft_redir_out(t_shell *shell, char *filename, t_token_type type)
@@ -35,19 +39,17 @@ int	ft_redir_out(t_shell *shell, char *filename, t_token_type type)
 
 	fd = -1;
 	if (type == REDIR_OUT)
-	{
-		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR
-				| S_IWUSR | S_IRGRP | S_IROTH);
-	}
+		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (type == APPEND)
-	{
-		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR
-				| S_IWUSR | S_IRGRP | S_IROTH);
-	}
+		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		shell->exit_status = 1;
-		ft_printf(STDERR_FILENO, "%s", strerror(errno));
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(filename, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
 	}
 	return (fd);
 }
@@ -59,12 +61,14 @@ int	ft_redir_in(t_shell *shell, char *filename)
 	fd = -1;
 	if (access(filename, F_OK) == 0)
 		fd = open(filename, O_RDONLY);
-	else
-		ft_printf(STDERR_FILENO, "%s", strerror(errno));
 	if (fd == -1)
 	{
 		shell->exit_status = 1;
-		ft_printf(STDERR_FILENO, "%s", strerror(errno));
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(filename, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
 	}
 	return (fd);
 }

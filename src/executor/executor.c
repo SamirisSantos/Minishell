@@ -12,30 +12,41 @@
 
 #include "../../headers/minishell.h"
 
+static void	apply_redirects(t_shell *shell, t_tree *tree, int i)
+{
+	if (tree->fd_in > 0)
+	{
+		dup2(tree->fd_in, STDIN_FILENO);
+		close(tree->fd_in);
+	}
+	if (tree->fd_out != STDOUT_FILENO)
+	{
+		dup2(tree->fd_out, STDOUT_FILENO);
+		close(tree->fd_out);
+	}
+	if (i > 0)
+		dup2(shell->xcmd->pipe_fd[i - 1][0], STDIN_FILENO);
+	if (i < shell->xcmd->cmd_count - 1)
+		dup2(shell->xcmd->pipe_fd[i][1], STDOUT_FILENO);
+}
+
 void	executor(t_shell *shell, t_tree *tree, int i)
 {
 	pid_t	pid;
 
 	if (check_cmd(shell, tree, i) != 0)
 		return ;
+	if (tree->fd_in == -1 || tree->fd_out == -1)
+		return ;
 	if (i >= shell->xcmd->cmd_count)
 		return ;
 	pid = fork();
 	if (pid == 0)
 	{
-		if (tree->fd_in > 0)
-			dup2(tree->fd_in, STDIN_FILENO);
-		if (tree->fd_out != STDOUT_FILENO)
-			dup2(tree->fd_out, STDOUT_FILENO);
-		if (i > 0)
-			dup2(shell->xcmd->pipe_fd[i - 1][0], STDIN_FILENO);
-		if (i < shell->xcmd->cmd_count - 1)
-			dup2(shell->xcmd->pipe_fd[i][1], STDOUT_FILENO);
-		close_pipes(shell, shell->xcmd->cmd_count);
+		apply_redirects(shell, tree, i);
+		close_pipes_child(shell);
 		execve(shell->xcmd->cmd_path[i], tree->cmd_args, shell->envp_cpy);
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
-		free_shell(shell);
-		exit(126);
+		execve_error(shell, tree);
 	}
 	else if (pid > 0)
 		shell->xcmd->pids[i] = pid;
@@ -96,8 +107,11 @@ void	pre_executor(t_shell *shell)
 	i = 0;
 	while (i < shell->xcmd->cmd_count)
 	{
-		waitpid(shell->xcmd->pids[i], &status, 0);
-		shell->exit_status = status >> 8;
+		if (shell->xcmd->pids[i] != -1)
+		{
+			waitpid(shell->xcmd->pids[i], &status, 0);
+			shell->exit_status = status >> 8;
+		}
 		i++;
 	}
 }

@@ -21,7 +21,6 @@ void	close_pipes(t_shell *shell, int pipe_count)
 	{
 		close(shell->xcmd->pipe_fd[i][0]);
 		close(shell->xcmd->pipe_fd[i][1]);
-		free(shell->xcmd->pipe_fd[i]);
 		i++;
 	}
 }

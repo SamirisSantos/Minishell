@@ -12,29 +12,42 @@
 
 #include "../../headers/minishell.h"
 
+static void	handle_cmd_arg(t_tree *tree, t_token **tokens)
+{
+	tree->cmd_args = build_args(tokens);
+	if (tree->data && tree->cmd_args)
+		tree->cmd_args[0] = ft_strdup(tree->data);
+}
+
+static int	is_redir(t_token_type type)
+{
+	return (type == REDIR_OUT || type == APPEND
+		|| type == REDIR_IN || type == REDIR_IN_FILE
+		|| type == HEREDOC);
+}
+
 t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree)
 {
-	if ((tokens) && (tokens->type == REDIR_IN_FILE || tokens->type == REDIR_OUT
-		|| tokens->type == APPEND))
-		check_redir(shell, tree, &tokens);
-	// if (tokens->type == HEREDOC && tokens->next->type == DELIMITER)
-	// 	handle_heredoc(shell, tree, &tokens);
-	if ((tokens) && tokens->type == CMD)
+	while (tokens && tokens->type != PIPE)
 	{
-		tree->data = tokens->data;
-		tree->type = tokens->type;
-		tokens = tokens->next;
-	}
-	if ((tokens) && tokens->type == CMD_ARG)
-	{
-		tree->cmd_args = build_args(&tokens);
-		if (tree->data)
-			tree->cmd_args[0] = ft_strdup(tree->data);
+		if (is_redir(tokens->type))
+			check_redir(shell, tree, &tokens);
+		else if (tokens->type == CMD)
+		{
+			tree->data = tokens->data;
+			tree->type = tokens->type;
+			tokens = tokens->next;
+		}
+		else if (tokens->type == CMD_ARG)
+			handle_cmd_arg(tree, &tokens);
+		else
+			tokens = tokens->next;
 	}
 	return (tree);
 }
 
-t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree, t_token *tokens, t_token *pipe)
+t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree, t_token *tokens,
+		t_token *pipe)
 {
 	t_token	*cut;
 

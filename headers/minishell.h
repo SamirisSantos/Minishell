@@ -64,6 +64,10 @@ void	ft_unset(t_shell *shell, char **cmd_args);
 bool	is_builtin(t_tree *tree);
 void	exec_builtin(t_shell *shell, t_tree *tree);
 void	fork_builtin(t_shell *shell, t_tree *tree, int i);
+void	restore_fds(int saved_stdout, int saved_stdin);
+int		save_and_redirect(t_tree *tree, int *saved_stdin);
+void	close_pipes_child(t_shell *shell);
+void	execve_error(t_shell *shell, t_tree *tree);
 
 void	count_cmds(t_tree *temp, int *cmd_count);
 char	*get_path(char **envp);

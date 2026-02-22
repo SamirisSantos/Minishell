@@ -52,6 +52,8 @@ void	shell_control(t_shell *shell)
 		}
 		if (*input == '\0' || g_sig == SIGINT)
 		{
+			 if (g_sig == SIGINT)
+				shell->exit_status = 130;
 			free(input);
 			continue ;
 		}

@@ -20,14 +20,6 @@ static void	cmd_not_found(t_shell *shell, t_tree *tree)
 	shell->exit_status = 127;
 }
 
-static void	cmd_no_permission(t_shell *shell, t_tree *tree)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(tree->data, STDERR_FILENO);
-	ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
-	shell->exit_status = 126;
-}
-
 static void	cmd_is_dir(t_shell *shell, t_tree *tree)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -48,11 +40,6 @@ int	check_cmd(t_shell *shell, t_tree *tree, int i)
 	if (stat(shell->xcmd->cmd_path[i], &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
 		cmd_is_dir(shell, tree);
-		return (126);
-	}
-	if (access(shell->xcmd->cmd_path[i], X_OK) != 0)
-	{
-		cmd_no_permission(shell, tree);
 		return (126);
 	}
 	return (0);
