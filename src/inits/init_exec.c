@@ -43,6 +43,7 @@ void	init_pipes(t_shell *shell)
 void	init_pid(t_shell *shell)
 {
 	pid_t	*pids;
+	int		i;
 
 	pids = malloc(sizeof(pid_t) * shell->xcmd->cmd_count);
 	if (!pids)
@@ -51,6 +52,9 @@ void	init_pid(t_shell *shell)
 		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 		return ;
 	}
+	i = 0;
+	while (i < shell->xcmd->cmd_count)
+		pids[i++] = -1;
 	shell->xcmd->pids = pids;
 }
 
