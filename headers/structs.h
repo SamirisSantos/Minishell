@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/28 17:37:37 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/24 14:59:37 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,22 @@ typedef struct s_token
 	struct s_token			*next;
 }			t_token;
 
+typedef struct s_redir
+{
+	char			*filename;
+	t_token_type	type;
+	struct s_redir	*next;
+}			t_redir;
+
 typedef struct s_tree
 {
 	char			*data;
 	char			**cmd_args;
-	char			*heredoc_name;
+	char			*heredoc_eof;
 	t_token_type	type;
-	t_token_type	fd_in_type;
-	t_token_type	fd_out_type;
-	int				fd_in;
-	int				fd_out;
-	struct s_tree			*left;
-	struct s_tree			*right;
+	t_redir			*redir;
+	struct s_tree	*left;
+	struct s_tree	*right;
 }			t_tree;
 
 typedef struct s_xcmd

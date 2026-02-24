@@ -14,18 +14,28 @@
 
 void	free_pipe_pids(t_shell *shell)
 {
+	int	i;
+
 	if (shell->xcmd->pipe_fd)
 	{
-		close_pipes(shell, shell->xcmd->cmd_count);
+		i = 0;
+		while (i < shell->xcmd->cmd_count - 1)
+		{
+			if (shell->xcmd->pipe_fd[i])
+				free(shell->xcmd->pipe_fd[i]);
+			i++;
+		}
 		free(shell->xcmd->pipe_fd);
+		shell->xcmd->pipe_fd = NULL;
 	}
 	if (shell->xcmd->pids)
+	{
 		free(shell->xcmd->pids);
-	if (shell->xcmd)
-		free(shell->xcmd);
+		shell->xcmd->pids = NULL;
+	}
 }
 
-void free_pipe(t_shell *shell, int count)
+void	free_pipe(t_shell *shell, int count)
 {
 	int	i;
 

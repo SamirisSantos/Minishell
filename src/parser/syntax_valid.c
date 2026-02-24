@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/28 17:12:37 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/20 15:08:49 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,36 @@ static int	msg_error(char *str)
 
 static int	is_valid_file(t_token_type type)
 {
-	return (type == CMD || type == CMD_ARG || 
-			type == REDIR_IN_FILE || type == REDIR_OUT_FILE || 
-			type == DELIMITER);
+	return (type == CMD || type == CMD_ARG
+		|| type == REDIR_IN_FILE || type == REDIR_OUT_FILE
+		|| type == DELIMITER);
 }
 
 int	is_syntax_valid(t_token *tokens)
 {
+	t_token	*current;
+
 	if (!tokens)
-		return (0);
-	if (tokens->type == PIPE)
+		return (1);
+	current = tokens;
+	if (current->type == PIPE)
 		return (msg_error("|"));
-	while (tokens)
+	while (current)
 	{
-		if (tokens->type == PIPE)
+		if (current->type == PIPE)
 		{
-			if (!tokens->next || tokens->next->type == PIPE)
+			if (!current->next || current->next->type == PIPE)
 				return (msg_error("|"));
 		}
-		else if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT ||
-				 tokens->type == APPEND || tokens->type == HEREDOC)
+		else if (current->type == REDIR_IN || current->type == REDIR_OUT
+			|| current->type == APPEND || current->type == HEREDOC)
 		{
-			if (!tokens->next)
+			if (!current->next)
 				return (msg_error("newline"));
-			if (!is_valid_file(tokens->next->type))
-				return (msg_error(tokens->next->data));
+			if (!is_valid_file(current->next->type))
+				return (msg_error(current->next->data));
 		}
-		tokens = tokens->next;
+		current = current->next;
 	}
 	return (1);
 }

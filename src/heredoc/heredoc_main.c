@@ -12,23 +12,6 @@
 
 #include "../../headers/minishell.h"
 
-void	handle_heredoc_sig(int sig)
-{
-	(void)sig;
-	g_sig = SIGINT;
-	ft_printf(1, "\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-}
-
-void	heredoc_sig_exit(t_shell *shell, char *line)
-{
-	shell->exit_status = EXIT_SIGINT;
-	g_sig = 0;
-	if (line)
-		free(line);
-}
-
 int	open_heredoc(t_shell *shell, char *filename)
 {
 	int	fd;
@@ -72,21 +55,40 @@ void	fill_heredoc(t_shell *shell, int *fd, char *eof)
 	close(*fd);
 }
 
-void	handle_heredoc(t_shell *shell, t_tree *tree, t_token **tokens)
+int	handle_heredoc(t_shell *shell, t_tree *tree)
+{
+	int		fd;
+	t_redir	*temp;
+
+	temp = tree->redir;
+	while (temp->type != HEREDOC)
+		temp = temp->next;
+	fd = open_heredoc(shell, temp->filename);
+	fill_heredoc(shell, &fd, tree->heredoc_eof);
+	return (fd);
+}
+
+char	*get_heredoc_info(t_shell *shell, t_tree *tree, t_token **token)
 {
 	char	*num;
 	char	*filename;
-	int		fd;
 
 	shell->heredoc_count++;
 	num = ft_itoa(shell->heredoc_count);
-	tree->fd_in_type = (*tokens)->type;
+	filename = (char *)malloc((16 + shell->heredoc_count) * sizeof(char));
+	if (!filename)
+	{
+		shell->exit_status = 12;
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
+		return (NULL);
+	}
 	filename = ft_strjoin(".heredoc_temp_", num);
 	free(num);
-	fd = open_heredoc(shell, filename);
-	*tokens = (*tokens)->next;
-	fill_heredoc(shell, &fd, (*tokens)->data);
-	*tokens = (*tokens)->next;
-	tree->fd_in = ft_redir_in(shell, filename);
-	tree->heredoc_name = filename;
+	(*token) = (*token)->next;
+	if ((*token)->type == DELIMITER)
+	{
+		tree->heredoc_eof = ft_strdup((*token)->data);
+		(*token) = (*token)->next;
+	}
+	return (filename);
 }

@@ -1,0 +1,140 @@
+Comandos Simples & Path Absoluto
+bash/bin/ls
+/bin/ls -la
+# pressiona Enter com linha vazia
+   
+asdasdsd
+echo $?   # deve ser 127
+
+Echo
+bashecho hello
+echo -n hello
+echo
+echo ""
+echo hello world foo
+echo "hello   world"
+
+Exit
+bashexit 42
+# relança o minishell
+exit 255
+# relança o minishell
+exit
+
+Return Value ($?)
+bashls > /dev/null
+echo $?        # deve ser 0
+asdasd
+echo $?        # deve ser 127
+ls naoexiste123
+echo $?        # deve ser 2
+expr $? + $?
+
+Sinais
+bash# prompt vazio:
+Ctrl+C         # nova linha com novo prompt
+Ctrl+\         # nao faz nada
+Ctrl+D         # sai do minishell — relança!
+
+# com texto escrito:
+echo hel → Ctrl+C    # limpa buffer
+echo hel → Ctrl+D    # nao faz nada
+echo hel → Ctrl+\    # nao faz nada
+
+# com comando bloqueante:
+cat → Ctrl+C         # termina cat
+cat → Ctrl+\         # termina cat
+cat → Ctrl+D         # termina cat (EOF)
+grep "x" → Ctrl+C
+
+Double Quotes
+bashecho "hello world"
+echo "cat lol.c | cat > lol.c"
+echo "a   b   c"
+export T=42
+echo "val=$T"
+echo ""
+
+Single Quotes
+bashecho 'hello'
+echo '$USER'
+echo ''
+echo 'cat | grep'
+echo 'echo > file'
+echo 'a   b   c'
+
+env / export / unset
+bashenv
+export TESTE42=hello
+env | grep TESTE42   # deve aparecer TESTE42=hello
+echo $TESTE42        # deve ser hello
+export TESTE42=novo
+echo $TESTE42        # deve ser novo
+export TESTE42
+echo $TESTE42        # deve continuar novo (nao apagar!)
+unset TESTE42
+env | grep TESTE42   # nao deve aparecer
+echo $TESTE42        # deve ser vazio
+
+cd / pwd
+bashpwd
+cd /tmp
+pwd               # deve ser /tmp
+cd ..
+pwd               # deve ser /
+cd .
+pwd               # deve continuar /
+cd
+pwd               # deve ser $HOME
+cd naoexiste123   # deve dar erro
+
+Path Relativo
+bashcd /tmp
+ls ..             # deve listar /
+cd /usr/local
+ls ../..          # deve listar /
+
+PATH
+bashls
+wc -l /etc/passwd
+unset PATH
+ls                # deve dar command not found
+export PATH=/bin:/usr/bin
+ls                # deve funcionar de novo
+
+Redirects
+bashecho hello > teste.txt
+cat teste.txt              # deve ter hello
+echo world >> teste.txt
+cat teste.txt              # deve ter hello e world
+cat < teste.txt            # deve mostrar conteudo
+cat < naoexiste.txt        # deve dar erro
+echo novo > teste.txt
+cat teste.txt              # deve ter so novo (truncou)
+
+Pipes
+bashecho hello | cat
+echo hello | cat | cat
+echo hello world | wc -w   # deve ser 2
+ls | wc -l
+ls naoexiste123 | cat
+cat | cat | ls             # comportamento normal
+
+Variáveis de Ambiente
+bashecho $HOME
+echo $PATH
+echo $USER
+export U=mundo
+echo "ola $U"      # deve ser: ola mundo
+echo 'ola $U'      # deve ser: ola $U
+echo $NAOEXISTE    # deve ser vazio
+
+Stress / Go Crazy
+bashdsbksdgbksdghsd
+echo 1 2 3 4 5 6 7 8 9 10
+echo hello > /tmp/pr.txt
+cat /tmp/pr.txt | wc -c    # deve ser 6
+echo a
+echo b
+echo c
+# navega com seta para cima/baixo no histórico

@@ -12,6 +12,24 @@
 
 #include "../../headers/minishell.h"
 
+static void create_pipes(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (i < shell->xcmd->cmd_count - 1)
+	{
+		if (pipe(shell->xcmd->pipe_fd[i]) == -1)
+		{
+			ft_printf(STDERR_FILENO, "%s", strerror(errno));
+			shell->exit_status = 1;
+			close_pipes(shell, i);
+			return ;
+		}
+		i++;
+	}
+}
+
 void	init_pipes(t_shell *shell)
 {
 	int	i;
@@ -23,7 +41,7 @@ void	init_pipes(t_shell *shell)
 	if(!shell->xcmd->pipe_fd)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return ;
 	}
 	while (i < shell->xcmd->cmd_count - 1)
@@ -32,25 +50,30 @@ void	init_pipes(t_shell *shell)
 		if (!shell->xcmd->pipe_fd[i])
 		{
 			shell->exit_status = 12;
-			ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
-			close_pipes(shell, i + 1);
+			ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
+			close_pipes(shell, i);
 			return ;
 		}
 		i++;
 	}
+	create_pipes(shell);
 }
 
 void	init_pid(t_shell *shell)
 {
 	pid_t	*pids;
+	int		i;
 
 	pids = malloc(sizeof(pid_t) * shell->xcmd->cmd_count);
 	if (!pids)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return ;
 	}
+	i = 0;
+	while (i < shell->xcmd->cmd_count)
+		pids[i++] = -1;
 	shell->xcmd->pids = pids;
 }
 
@@ -60,7 +83,7 @@ void	init_cmd_path(t_shell *shell)
 	if (!shell->xcmd->cmd_path)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return ;
 	}
 }
@@ -73,7 +96,7 @@ void	init_xcmd(t_shell *shell)
 	if(!xcmd)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return ;
 	}
 	xcmd->cmd_count = 0;

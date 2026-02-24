@@ -27,12 +27,12 @@ void	ft_echo(t_shell *shell, t_tree *tree)
 	}
 	while (tree->cmd_args[i])
 	{
-		ft_printf(tree->fd_out, "%s", tree->cmd_args[i]);
+		ft_printf(STDOUT_FILENO, "%s", tree->cmd_args[i]);
 		i++;
 		if (tree->cmd_args[i])
-			ft_printf(tree->fd_out, " ");
+			ft_printf(STDOUT_FILENO, " ");
 	}
 	if (!with_n)
-		ft_printf(tree->fd_out, "\n");
+		ft_printf(STDOUT_FILENO, "\n");
 	shell->exit_status = 0;
 }

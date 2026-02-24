@@ -14,79 +14,76 @@
 
 void	check_redir(t_shell *shell, t_tree *tree, t_token **token)
 {
-	if ((*token)->type == REDIR_IN_FILE)
+	t_redir	*temp;
+
+	if (!tree->redir)
+		tree->redir = fill_redir(shell, tree, token);
+	else
 	{
-		tree->fd_in_type = (*token)->type;
-		tree->fd_in = ft_redir_in(shell, (*token)->next->data);
-		(*token) = (*token)->next->next;
+		temp = tree->redir;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = fill_redir(shell, tree, token);
+	}
+}
+
+t_redir	*fill_redir(t_shell *shell, t_tree *tree, t_token **token)
+{
+	t_redir	*redir;
+
+	redir = init_redir(shell);
+	if ((*token)->type == REDIR_IN || (*token)->type == REDIR_IN_FILE)
+	{
+		redir->type = (*token)->type;
+		if ((*token)->type == REDIR_IN)
+			(*token) = (*token)->next;
+		redir->filename = ft_strdup((*token)->data);
+		(*token) = (*token)->next;
 	}
 	else if ((*token)->type == REDIR_OUT || (*token)->type == APPEND)
 	{
-		tree->fd_out_type = (*token)->type;
-		tree->fd_out = ft_redir_out(shell, (*token)->next->data,
-				(*token)->type);
-		(*token) = (*token)->next->next;
+		redir->type = (*token)->type;
+		(*token) = (*token)->next;
+		redir->filename = ft_strdup((*token)->data);
+		(*token) = (*token)->next;
 	}
+	else if ((*token)->type == HEREDOC)
+	{
+		redir->type = (*token)->type;
+		redir->filename = get_heredoc_info(shell, tree, token);
+	}
+	return (redir);
 }
 
-int	ft_redir_out(t_shell *shell, char *filename, t_token_type type)
-{
-	int	fd;
-
-	fd = -1;
-	if (type == REDIR_OUT)
-	{
-		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR
-				| S_IWUSR | S_IRGRP | S_IROTH);
-	}
-	else if (type == APPEND)
-	{
-		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR
-				| S_IWUSR | S_IRGRP | S_IROTH);
-	}
-	if (fd == -1)
-	{
-		shell->exit_status = 1;
-		ft_printf(STDERR_FILENO, "%s", strerror(errno));
-	}
-	return (fd);
-}
-
-int	ft_redir_in(t_shell *shell, char *filename)
-{
-	int	fd;
-
-	fd = -1;
-	if (access(filename, F_OK) == 0)
-		fd = open(filename, O_RDONLY);
-	else
-		ft_printf(STDERR_FILENO, "%s", strerror(errno));
-	if (fd == -1)
-	{
-		shell->exit_status = 1;
-		ft_printf(STDERR_FILENO, "%s", strerror(errno));
-	}
-	return (fd);
-}
-
-char	**build_args(t_token **tokens)
+static char	**create_args_array(t_shell *shell, t_token *tokens)
 {
 	char	**args;
-	t_token	*temp;
 	int		arg_count;
-	int		i;
 
-	temp = *tokens;
 	arg_count = 0;
-	while (temp && temp->type == CMD_ARG)
+	while (tokens && tokens->type == CMD_ARG)
 	{
-		temp = temp->next;
+		tokens = tokens->next;
 		arg_count++;
 	}
-	args = (char **)malloc((arg_count + 1) * sizeof(char *));
+	args = (char **)malloc((arg_count + 2) * sizeof(char *));
 	if (!args)
+	{
+		shell->exit_status = 12;
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return (NULL);
-	i = 0;
+	}
+	return (args);
+}
+
+char	**build_args(t_shell *shell, t_token **tokens)
+{
+	char	**args;
+	int		i;
+
+	args = create_args_array(shell, *tokens);
+	args[0] = NULL;
+	i = 1;
 	while ((*tokens) && (*tokens)->type == CMD_ARG)
 	{
 		args[i] = ft_strdup((*tokens)->data);

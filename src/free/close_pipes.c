@@ -17,11 +17,10 @@ void	close_pipes(t_shell *shell, int pipe_count)
 	int	i;
 
 	i = 0;
-	while (i < pipe_count - 1)
+	while (i < pipe_count)
 	{
 		close(shell->xcmd->pipe_fd[i][0]);
 		close(shell->xcmd->pipe_fd[i][1]);
-		free(shell->xcmd->pipe_fd[i]);
 		i++;
 	}
 }

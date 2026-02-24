@@ -23,8 +23,10 @@ SRCS = main.c \
 	src/builtins/ft_pwd.c \
 	src/builtins/ft_unset.c \
 	src/executor/builtin_exec.c \
+	src/executor/check_cmd.c \
 	src/executor/cmd_path.c \
 	src/executor/executor.c \
+	src/executor/utils_exec.c \
 	src/expander/expansion.c \
 	src/expander/remove_quotes.c \
 	src/expander/gets.c \
@@ -35,12 +37,15 @@ SRCS = main.c \
 	src/free/free_array.c \
 	src/free/free_cmd.c \
 	src/free/free_pipe_pids.c \
+	src/free/free_redir.c \
 	src/free/free_shell.c \
 	src/free/free_tokens.c \
 	src/free/free_tree.c \
 	src/heredoc/heredoc_main.c \
+	src/heredoc/heredoc_signals.c \
 	src/inits/init_cmd.c \
 	src/inits/init_exec.c \
+	src/inits/init_redir.c \
 	src/inits/init_shell.c \
 	src/inits/init_tree.c \
 	src/lexer/extract_word.c \
@@ -54,6 +59,7 @@ SRCS = main.c \
 	src/tree/tree_utils.c \
 	src/utils/ft_envp_utils.c \
 	src/utils/ft_envp.c \
+	src/utils/handle_redir.c \
 	src/utils/handle_signals.c \
 	src/shell_control.c 
 

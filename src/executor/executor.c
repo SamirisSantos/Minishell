@@ -12,30 +12,38 @@
 
 #include "../../headers/minishell.h"
 
+void	close_parent_pipe(t_shell *shell, int i)
+{
+	if (i > 0)
+		close(shell->xcmd->pipe_fd[i - 1][0]);
+	if (i < shell->xcmd->cmd_count - 1)
+		close(shell->xcmd->pipe_fd[i][1]);
+}
+
 void	executor(t_shell *shell, t_tree *tree, int i)
 {
 	pid_t	pid;
-	
-	if (i < shell->xcmd->cmd_count)
+
+	if (check_cmd(shell, tree, i) != 0)
+		return ;
+	if (i >= shell->xcmd->cmd_count)
+		return ;
+	pid = fork();
+	if (pid == 0)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			if (i > 0)
-				dup2(shell->xcmd->pipe_fd[i - 1][0], STDIN_FILENO);
-			if (i < shell->xcmd->cmd_count - 1)
-				dup2(shell->xcmd->pipe_fd[i][1], STDOUT_FILENO);
-			close_pipes(shell, shell->xcmd->cmd_count);
-			execve(shell->xcmd->cmd_path[i],tree->cmd_args,shell->envp_cpy);
-			ft_printf(STDERR_FILENO, "%s: %s", tree->data, strerror(errno));
-			free_shell(shell);
-			if (errno == ENOENT)
-				exit(127);
-			else
-				exit(126);
-		}
-		else if (pid > 0)
-			shell->xcmd->pids[i] = pid;
+		if (i > 0)
+			dup2(shell->xcmd->pipe_fd[i - 1][0], STDIN_FILENO);
+		if (i < shell->xcmd->cmd_count - 1)
+			dup2(shell->xcmd->pipe_fd[i][1], STDOUT_FILENO);
+		apply_child_redirects(shell, tree);
+		close_pipes(shell, shell->xcmd->cmd_count - 1);
+		execve(shell->xcmd->cmd_path[i], tree->cmd_args, shell->envp_cpy);
+		execve_error(shell, tree);
+	}
+	else if (pid > 0)
+	{
+		shell->xcmd->pids[i] = pid;
+		close_parent_pipe(shell, i);
 	}
 }
 
@@ -43,22 +51,13 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 {
 	if (!tree)
 		return ;
-	if (tree->type == PIPE)
-	{
-		if (pipe(shell->xcmd->pipe_fd[*i]) == -1)
-		{
-			ft_printf(STDERR_FILENO, "%s", strerror(errno));
-			shell->exit_status = 1;
-			return ;
-		}
-	}
-	if(tree->type == CMD)
+	if (tree->type == CMD)
 	{
 		shell->xcmd->cmd_path[*i] = find_cmd_path(shell, tree);
-		if(is_builtin(tree) && shell->xcmd->cmd_count > 1)
+		if (is_builtin(tree) && shell->xcmd->cmd_count > 1)
 			fork_builtin(shell, tree, *i);
 		else if (is_builtin(tree) && shell->xcmd->cmd_count == 1)
-			exec_builtin(shell, tree);
+			exec_builtin(shell, tree, false);
 		else
 			executor(shell, tree, *i);
 		(*i)++;
@@ -69,7 +68,6 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 
 static void	exec_inits(t_shell *shell)
 {
-	shell->tree = build_tree(shell, shell->token, false);
 	init_xcmd(shell);
 	count_cmds(shell->tree, &shell->xcmd->cmd_count);
 	init_pipes(shell);
@@ -95,8 +93,11 @@ void	pre_executor(t_shell *shell)
 	i = 0;
 	while (i < shell->xcmd->cmd_count)
 	{
-		waitpid(shell->xcmd->pids[i], &status, 0);
-		shell->exit_status = status >> 8;
+		if (shell->xcmd->pids[i] != -1)
+		{
+			waitpid(shell->xcmd->pids[i], &status, 0);
+			shell->exit_status = status >> 8;
+		}
 		i++;
 	}
 }

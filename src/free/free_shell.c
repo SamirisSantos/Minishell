@@ -20,11 +20,11 @@ void	free_shell(t_shell *shell)
 		free_array(shell->envp_cpy);
 	if (shell->xcmd)
 	{
-		if(shell->xcmd->cmd_path)
+		if (shell->xcmd->cmd_path)
 			free_array(shell->xcmd->cmd_path);
-		if(shell->xcmd->pids || shell->xcmd->pipe_fd)
-			free_pipe_pids(shell);
+		free_pipe_pids(shell);
 		free(shell->xcmd);
+		shell->xcmd = NULL;
 	}
 	if (shell->cmd)
 		free_cmd(shell->cmd);

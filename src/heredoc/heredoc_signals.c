@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_cmd.c                                         :+:      :+:    :+:   */
+/*   heredoc_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/18 16:10:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/24 12:16:24 by cpinho-c         ###   ########.fr       */
+/*   Created: 2026/02/24 11:17:48 by cpinho-c          #+#    #+#             */
+/*   Updated: 2026/02/24 11:18:06 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-t_cmd	*init_cmd(void)
+void	handle_heredoc_sig(int sig)
 {
-	t_cmd	*cmd;
+	(void)sig;
+	g_sig = SIGINT;
+	ft_printf(1, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+}
 
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (NULL); //fix
-	cmd->args = NULL;
-	cmd->input_file = NULL;
-	cmd->output_file = NULL;
-	cmd->append = 0;
-	cmd->heredoc = 0;
-	cmd->next = NULL;
-	return (cmd);
+void	heredoc_sig_exit(t_shell *shell, char *line)
+{
+	shell->exit_status = EXIT_SIGINT;
+	g_sig = 0;
+	if (line)
+		free(line);
 }

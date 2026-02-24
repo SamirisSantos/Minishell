@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 11:54:11 by cpinho-c          #+#    #+#             */
-/*   Updated: 2025/11/11 11:26:45 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/21 22:05:33 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_env(t_shell *shell)
 	i = 0;
 	while (shell->envp_cpy[i])
 	{
-		ft_printf(1, "%s", shell->envp_cpy[i]);
+		ft_printf(STDOUT_FILENO, "%s\n", shell->envp_cpy[i]);
 		i++;
 	}
 	shell->exit_status = 0;
