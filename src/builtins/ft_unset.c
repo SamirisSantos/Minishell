@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 11:53:56 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/02/24 14:49:56 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/24 14:53:20 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static void	unset_var(t_shell *shell, char *var)
 void	ft_unset(t_shell *shell, char **cmd_args)
 {
 	int		i;
-	int		j;
-	size_t	var_len;
 
 	if (!cmd_args)
 	{
