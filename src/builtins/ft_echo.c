@@ -12,15 +12,41 @@
 
 #include "../../headers/minishell.h"
 
+static bool	is_n_flag(char *arg)
+{
+	int	i;
+
+	if (!arg || arg[0] != '-' || arg[1] != 'n')
+		return (false);
+	i = 1;
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static bool	echo_no_args(t_shell *shell, t_tree *tree)
+{
+	if (tree->cmd_args)
+		return (false);
+	ft_printf(STDOUT_FILENO, "\n");
+	shell->exit_status = 0;
+	return (true);
+}
+
 void	ft_echo(t_shell *shell, t_tree *tree)
 {
 	int		i;
 	bool	with_n;
 
+	if (echo_no_args(shell, tree))
+		return ;
 	i = 1;
 	with_n = false;
-	while (tree->cmd_args[i] && (ft_strncmp(tree->cmd_args[i], "-n", 2) == 0)
-		&& (ft_strlen(tree->cmd_args[i]) == 2))
+	while (tree->cmd_args[i] && is_n_flag(tree->cmd_args[i]))
 	{
 		i++;
 		with_n = true;
