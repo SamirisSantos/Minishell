@@ -38,7 +38,7 @@ void	update_pwd(t_shell *shell, char *newpath)
 
 static void	cd_error(t_shell *shell, char *data)
 {
-	ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+	ft_putstr_fd("minishell$ cd: ", STDERR_FILENO);
 	ft_putstr_fd(data, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd(strerror(errno), STDERR_FILENO);

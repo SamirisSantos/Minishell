@@ -32,12 +32,7 @@ bool	is_builtin(t_tree *tree)
 static void	run_builtin(t_shell *shell, t_tree *tree)
 {
 	if (strncmp(tree->data, "cd", 2) == 0 && ft_strlen(tree->data) == 2)
-	{
-		if (tree->cmd_args && tree->cmd_args[1])
-			ft_cd(shell, tree->cmd_args[1]);
-		else
-			ft_cd(shell, NULL);
-	}
+		exec_cd(shell, tree);
 	else if (strncmp(tree->data, "echo", 4) == 0 && ft_strlen(tree->data) == 4)
 		ft_echo(shell, tree);
 	else if (strncmp(tree->data, "env", 3) == 0 && ft_strlen(tree->data) == 3)

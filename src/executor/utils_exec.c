@@ -63,3 +63,16 @@ void	execve_error(t_shell *shell, t_tree *tree)
 		exit(126);
 	exit(127);
 }
+
+void	exec_cd(t_shell *shell, t_tree *tree)
+{
+	if (tree->cmd_args && tree->cmd_args[1] && tree->cmd_args[2])
+	{
+		ft_printf(STDERR_FILENO, "minishell: cd: too many arguments\n");
+		shell->exit_status = 1;
+	}
+	else if (tree->cmd_args && tree->cmd_args[1])
+		ft_cd(shell, tree->cmd_args[1]);
+	else
+		ft_cd(shell, NULL);
+}
