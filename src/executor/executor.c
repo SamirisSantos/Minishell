@@ -99,4 +99,10 @@ void	pre_executor(t_shell *shell)
 		}
 		i++;
 	}
+	if (shell->xcmd->cmd_path)
+		free_array(shell->xcmd->cmd_path);
+	shell->xcmd->cmd_path = NULL;
+	free_pipe_pids(shell);
+	free(shell->xcmd);
+	shell->xcmd = NULL;
 }

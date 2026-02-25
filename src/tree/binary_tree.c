@@ -50,15 +50,19 @@ t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree, t_token *tokens,
 		t_token *pipe)
 {
 	t_token	*cut;
+	t_token	*pipe_next;
 
 	cut = tokens;
 	while (cut && cut->next && cut->next->type != PIPE)
 		cut = cut->next;
 	if (cut && cut->next && cut->next->type == PIPE)
 		cut->next = NULL;
+	pipe_next = pipe->next;
 	tree->data = ft_strdup(pipe->data);
 	tree->type = PIPE;
-	tree->right = build_tree(shell, pipe->next, false);
+	free(pipe->data);
+	free(pipe);
+	tree->right = build_tree(shell, pipe_next, false);
 	tree->left = build_tree(shell, tokens, true);
 	return (tree);
 }
