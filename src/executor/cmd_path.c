@@ -42,6 +42,10 @@ static char	*find_truepath(char *cmd, char *fullpath)
 	char		*truepath;
 	char		*temp;
 	int			i;
+	char		**splitpath;
+	char		*truepath;
+	char		*temp;
+	int			i;
 
 	splitpath = ft_split(fullpath, ':');
 	i = 0;
@@ -51,6 +55,7 @@ static char	*find_truepath(char *cmd, char *fullpath)
 		temp = truepath;
 		truepath = ft_strjoin(temp, cmd);
 		free(temp);
+		if (access(truepath, F_OK) == 0)
 		if (access(truepath, F_OK) == 0)
 		{
 			free_array(splitpath);
@@ -66,6 +71,7 @@ static char	*find_truepath(char *cmd, char *fullpath)
 char	*find_cmd_path(t_shell *shell, t_tree *tree)
 {
 	char	*fullpath;
+	char	*fullpath;
 	char	*cmd_path;
 
 	if (is_builtin(tree))
@@ -74,7 +80,15 @@ char	*find_cmd_path(t_shell *shell, t_tree *tree)
 		return (ft_strdup(tree->data));
 	fullpath = get_path(shell->envp_cpy);
 	if (!fullpath)
+	if (is_builtin(tree))
 		return (NULL);
+	if (tree->data[0] == '/' || (tree->data[0] == '.' && tree->data[1] == '/'))
+		return (ft_strdup(tree->data));
+	fullpath = get_path(shell->envp_cpy);
+	if (!fullpath)
+		return (NULL);
+	cmd_path = find_truepath(tree->data, fullpath);
+	return (cmd_path);
 	cmd_path = find_truepath(tree->data, fullpath);
 	return (cmd_path);
 }

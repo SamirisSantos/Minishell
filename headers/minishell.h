@@ -73,6 +73,7 @@ char	*find_cmd_path(t_shell *shell, t_tree *tree);
 	//executor
 void	close_parent_pipe(t_shell *shell, int i);
 void	executor(t_shell *shell, t_tree *tree, int i);
+int		check_cmd(t_shell *shell, t_tree *tree, int i);
 void	start_exe(t_shell *shell, t_tree *tree, int *i);
 void	pre_executor(t_shell *shell);
 	//utils_exec
@@ -89,6 +90,7 @@ void	free_pipe_pids(t_shell *shell);
 void	free_pipe(t_shell *shell, int count);
 void	free_tree(t_tree *tree);
 void	free_tokens(t_token *list);
+void	free_tokens(t_token *list);
 void	free_shell(t_shell *shell);
 void	free_cmd(t_cmd *cmd);
 void	clear_heredoc(t_tree *tree);
@@ -97,6 +99,7 @@ void	free_redir(t_redir *redir);
 //heredoc
 void	handle_heredoc_sig(int sig);
 void	heredoc_sig_exit(t_shell *shell, char *line);
+int		open_heredoc(t_shell *shell, char *filename);
 int		open_heredoc(t_shell *shell, char *filename);
 void	fill_heredoc(t_shell *shell, int *fd, char *eof);
 int		handle_heredoc(t_shell *shell, t_tree *tree);

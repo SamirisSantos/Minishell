@@ -63,6 +63,7 @@ void	init_pid(t_shell *shell)
 {
 	pid_t	*pids;
 	int		i;
+	int		i;
 
 	pids = ft_calloc(shell->xcmd->cmd_count, sizeof(pid_t));
 	if (!pids)
@@ -71,6 +72,9 @@ void	init_pid(t_shell *shell)
 		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return ;
 	}
+	i = 0;
+	while (i < shell->xcmd->cmd_count)
+		pids[i++] = -1;
 	i = 0;
 	while (i < shell->xcmd->cmd_count)
 		pids[i++] = -1;

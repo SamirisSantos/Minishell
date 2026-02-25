@@ -24,26 +24,34 @@ bool	is_builtin(t_tree *tree)
 			&& ft_strlen(tree->data) == 3)
 		|| ((strncmp(tree->data, "unset", 5) == 0)
 			&& ft_strlen(tree->data) == 5))
+	if (((strncmp(tree->data, "cd", 2) == 0) && ft_strlen(tree->data) == 2)
+		|| ((strncmp(tree->data, "echo", 4) == 0) && ft_strlen(tree->data) == 4)
+		|| ((strncmp(tree->data, "env", 3) == 0) && ft_strlen(tree->data) == 3)
+		|| ((strncmp(tree->data, "exit", 4) == 0) && ft_strlen(tree->data) == 4)
+		|| ((strncmp(tree->data, "export", 6) == 0)
+			&& ft_strlen(tree->data) == 6)
+		|| ((strncmp(tree->data, "pwd", 3) == 0)
+			&& ft_strlen(tree->data) == 3)
+		|| ((strncmp(tree->data, "unset", 5) == 0)
+			&& ft_strlen(tree->data) == 5))
 		return (true);
 	else
 		return (false);
 }
 
 static void	run_builtin(t_shell *shell, t_tree *tree)
+static void	run_builtin(t_shell *shell, t_tree *tree)
 {
 	if (strncmp(tree->data, "cd", 2) == 0 && ft_strlen(tree->data) == 2)
-	{
-		if (tree->cmd_args && tree->cmd_args[1])
-			ft_cd(shell, tree->cmd_args[1]);
-		else
-			ft_cd(shell, NULL);
-	}
+		exec_cd(shell, tree);
 	else if (strncmp(tree->data, "echo", 4) == 0 && ft_strlen(tree->data) == 4)
 		ft_echo(shell, tree);
 	else if (strncmp(tree->data, "env", 3) == 0 && ft_strlen(tree->data) == 3)
 		ft_env(shell);
 	else if (strncmp(tree->data, "exit", 4) == 0 && ft_strlen(tree->data) == 4)
 		ft_exit(shell);
+	else if (strncmp(tree->data, "export", 6) == 0
+		&& ft_strlen(tree->data) == 6)
 	else if (strncmp(tree->data, "export", 6) == 0
 		&& ft_strlen(tree->data) == 6)
 		ft_export(shell, tree->cmd_args);
