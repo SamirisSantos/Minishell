@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/24 14:59:37 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:39:23 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_token
 {
 	char			*data;
 	t_token_type	type;
-	struct s_token			*next;
+	struct s_token	*next;
 }			t_token;
 
 typedef struct s_redir

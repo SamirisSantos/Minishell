@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:38:26 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/19 13:42:40 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:40:26 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-static void	free_args(char **args)
-{
-	int	i;
-
-	i = 0;
-	if (!args)
-		return ;
-	while (args[i])
-	{
-		free(args[i]);
-		i++;
-	}
-	free(args);
-}
 
 void	free_cmd(t_cmd *cmd)
 {
@@ -36,7 +21,7 @@ void	free_cmd(t_cmd *cmd)
 		tmp = cmd->next;
 		
 		if (cmd->args)
-			free_args(cmd->args);
+			free_array(cmd->args);
 		if (cmd->input_file)
 			free(cmd->input_file);
 		if (cmd->output_file)

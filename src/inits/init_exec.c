@@ -37,7 +37,7 @@ void	init_pipes(t_shell *shell)
 	i = 0;
 	if (shell->xcmd->cmd_count - 1 <= 0)
 		return ;
-	shell->xcmd->pipe_fd = malloc((shell->xcmd->cmd_count - 1) * sizeof(int *));
+	shell->xcmd->pipe_fd = ft_calloc((shell->xcmd->cmd_count - 1), sizeof(int *));
 	if(!shell->xcmd->pipe_fd)
 	{
 		shell->exit_status = 12;
@@ -46,7 +46,7 @@ void	init_pipes(t_shell *shell)
 	}
 	while (i < shell->xcmd->cmd_count - 1)
 	{
-		shell->xcmd->pipe_fd[i] = malloc(2 * sizeof(int));
+		shell->xcmd->pipe_fd[i] = ft_calloc(2, sizeof(int));
 		if (!shell->xcmd->pipe_fd[i])
 		{
 			shell->exit_status = 12;
@@ -64,7 +64,7 @@ void	init_pid(t_shell *shell)
 	pid_t	*pids;
 	int		i;
 
-	pids = malloc(sizeof(pid_t) * shell->xcmd->cmd_count);
+	pids = ft_calloc(shell->xcmd->cmd_count, sizeof(pid_t));
 	if (!pids)
 	{
 		shell->exit_status = 12;
@@ -79,7 +79,7 @@ void	init_pid(t_shell *shell)
 
 void	init_cmd_path(t_shell *shell)
 {
-	shell->xcmd->cmd_path = (char **)malloc((shell->xcmd->cmd_count + 1) * sizeof(char *));
+	shell->xcmd->cmd_path = (char **)ft_calloc((shell->xcmd->cmd_count + 1), sizeof(char *));
 	if (!shell->xcmd->cmd_path)
 	{
 		shell->exit_status = 12;

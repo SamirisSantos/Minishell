@@ -16,11 +16,11 @@ static void	process_input(t_shell *shell, char *input)
 {
 	shell->token = lexer(input);
 	expand_tokens(shell->token, shell);
+	free_cmd(shell->cmd);
+	shell->cmd = NULL;
 	if (is_syntax_valid(shell->token) == 1)
 	{
 		shell->tree = build_tree(shell, shell->token, false);
-		free_tokens(shell->token);
-		shell->token = NULL;
 		if (shell->tree)
 		{
 			pre_executor(shell);
@@ -29,9 +29,8 @@ static void	process_input(t_shell *shell, char *input)
 		}
 	}
 	else
-	{
 		shell->exit_status = 2;
-	}
+	free_tokens(shell->token);
 	shell->token = NULL;
 	free(input);
 }
