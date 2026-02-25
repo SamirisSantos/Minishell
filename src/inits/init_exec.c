@@ -37,7 +37,7 @@ void	init_pipes(t_shell *shell)
 	i = 0;
 	if (shell->xcmd->cmd_count - 1 <= 0)
 		return ;
-	shell->xcmd->pipe_fd = ft_calloc((shell->xcmd->cmd_count - 1), sizeof(int *));
+	shell->xcmd->pipe_fd = (int **)ft_calloc((shell->xcmd->cmd_count - 1), sizeof(int *));
 	if(!shell->xcmd->pipe_fd)
 	{
 		shell->exit_status = 12;
