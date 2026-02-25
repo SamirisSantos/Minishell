@@ -61,7 +61,6 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 	{
 		shell->xcmd->cmd_path[*i] = find_cmd_path(shell, tree);
 		if (is_builtin(tree) && shell->xcmd->cmd_count > 1)
-		if (is_builtin(tree) && shell->xcmd->cmd_count > 1)
 			fork_builtin(shell, tree, *i);
 		else if (is_builtin(tree) && shell->xcmd->cmd_count == 1)
 			exec_builtin(shell, tree, false);
@@ -92,12 +91,6 @@ void	pre_executor(t_shell *shell)
 	start_exe(shell, shell->tree, &i);
 	i = 0;
 	while (i < shell->xcmd->cmd_count)
-	{
-		if (shell->xcmd->pids[i] != -1)
-		{
-			waitpid(shell->xcmd->pids[i], &status, 0);
-			shell->exit_status = status >> 8;
-		}
 	{
 		if (shell->xcmd->pids[i] != -1)
 		{

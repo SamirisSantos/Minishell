@@ -12,10 +12,21 @@
 
 #include "../../headers/minishell.h"
 
+void	exec_cd(t_shell *shell, t_tree *tree)
+{
+	if (tree->cmd_args && tree->cmd_args[1] && tree->cmd_args[2])
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
+		shell->exit_status = 1;
+	}
+	else if (tree->cmd_args && tree->cmd_args[1])
+		ft_cd(shell, tree->cmd_args[1]);
+	else
+		ft_cd(shell, NULL);
+}
+
 void	update_pwd(t_shell *shell, char *newpath)
 {
-	char	*tmp;
-	int		i;
 	char	*tmp;
 	int		i;
 
@@ -26,15 +37,11 @@ void	update_pwd(t_shell *shell, char *newpath)
 		{
 			tmp = ft_strjoin("PWD=", newpath);
 			if (!tmp)
-			tmp = ft_strjoin("PWD=", newpath);
-			if (!tmp)
 			{
 				shell->exit_status = 12;
-				ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
+				ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
 				return ;
 			}
-			free(shell->envp_cpy[i]);
-			shell->envp_cpy[i] = tmp;
 			free(shell->envp_cpy[i]);
 			shell->envp_cpy[i] = tmp;
 		}
@@ -59,23 +66,11 @@ void	ft_cd(t_shell *shell, char *data)
 	if (!data || *data == '\0')
 		data = get_env_value("HOME", shell->envp_cpy);
 	if (!data)
-	if (!data || *data == '\0')
-		data = get_env_value("HOME", shell->envp_cpy);
-	if (!data)
 	{
-		ft_printf(STDERR_FILENO, "minishell: cd: HOME not set\n");
+		ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
 		shell->exit_status = 1;
 		return ;
-		return ;
 	}
-	if (chdir(data) != 0)
-		return (cd_error(shell, data));
-	getcwd(newpath, sizeof(newpath));
-	if (shell->cwd)
-		free(shell->cwd);
-	shell->cwd = ft_strdup(newpath);
-	update_pwd(shell, newpath);
-	shell->exit_status = 0;
 	if (chdir(data) != 0)
 		return (cd_error(shell, data));
 	getcwd(newpath, sizeof(newpath));

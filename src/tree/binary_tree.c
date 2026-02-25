@@ -48,8 +48,6 @@ t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree)
 
 t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree, t_token *tokens,
 		t_token *pipe)
-t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree, t_token *tokens,
-		t_token *pipe)
 {
 	t_token	*cut;
 

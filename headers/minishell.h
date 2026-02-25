@@ -43,6 +43,7 @@ extern int	g_sig;
 	//echo
 void	ft_echo(t_shell *shell, t_tree *tree);
 	//cd
+void	exec_cd(t_shell *shell, t_tree *tree);
 void	update_pwd(t_shell *shell, char *newpath);
 void	ft_cd(t_shell *shell, char *path);
 	//env

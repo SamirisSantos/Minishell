@@ -23,7 +23,6 @@ t_shell	*init_shell(void)
 		return (NULL);
 	}
 	shell->cwd = getcwd(NULL, 0);
-	shell->cwd = getcwd(NULL, 0);
 	shell->envp_cpy = NULL;
 	shell->exit_status = 0;
 	shell->heredoc_count = 0;
