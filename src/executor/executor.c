@@ -51,6 +51,7 @@ void	executor(t_shell *shell, t_tree *tree, int i)
 		shell->xcmd->pids[i] = pid;
 		close_parent_pipe(shell, i);
 	}
+	close_pipes(shell, shell->xcmd->cmd_count - 1);
 }
 
 void	start_exe(t_shell *shell, t_tree *tree, int *i)

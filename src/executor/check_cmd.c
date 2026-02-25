@@ -35,11 +35,13 @@ int	check_cmd(t_shell *shell, t_tree *tree, int i)
 	if (!shell->xcmd->cmd_path[i])
 	{
 		cmd_not_found(shell, tree);
+		close_parent_pipe(shell, i);
 		return (127);
 	}
 	if (stat(shell->xcmd->cmd_path[i], &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
 		cmd_is_dir(shell, tree);
+		close_parent_pipe(shell, i);
 		return (126);
 	}
 	return (0);
