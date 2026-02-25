@@ -14,10 +14,16 @@
 
 void	close_parent_pipe(t_shell *shell, int i)
 {
-	if (i > 0)
+	if ((i > 0) && (shell->xcmd->pipe_fd[i - 1][0] > 2))
+	{
 		close(shell->xcmd->pipe_fd[i - 1][0]);
-	if (i < shell->xcmd->cmd_count - 1)
+		shell->xcmd->pipe_fd[i - 1][0] = -1;
+	}
+	if ((i < shell->xcmd->cmd_count - 1) && (shell->xcmd->pipe_fd[i][1] > 2))
+	{
 		close(shell->xcmd->pipe_fd[i][1]);
+		shell->xcmd->pipe_fd[i][1] = -1;
+	}
 }
 
 void	executor(t_shell *shell, t_tree *tree, int i)
@@ -83,13 +89,6 @@ void	pre_executor(t_shell *shell)
 	i = 0;
 	exec_inits(shell);
 	start_exe(shell, shell->tree, &i);
-	i = 0;
-	while (i < shell->xcmd->cmd_count - 1)
-	{
-		close(shell->xcmd->pipe_fd[i][0]);
-		close(shell->xcmd->pipe_fd[i][1]);
-		i++;
-	}
 	i = 0;
 	while (i < shell->xcmd->cmd_count)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:15:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/28 17:00:56 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:43:13 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	fill_cmd(t_cmd *new, t_token **token)
 	int	i;
 
 	i = 0;
-	new->args = malloc(sizeof(char *) * (count_args(*token) + 1));
+	new->args = ft_calloc((count_args(*token) + 1), sizeof(char *));
 	if (!new->args)
 		return ;
 	while (*token && (*token)->type != PIPE)

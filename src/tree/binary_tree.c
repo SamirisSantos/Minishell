@@ -34,7 +34,7 @@ t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree)
 			check_redir(shell, tree, &tokens);
 		else if (tokens->type == CMD)
 		{
-			tree->data = tokens->data;
+			tree->data = ft_strdup(tokens->data);
 			tree->type = tokens->type;
 			tokens = tokens->next;
 		}
@@ -56,7 +56,7 @@ t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree, t_token *tokens,
 		cut = cut->next;
 	if (cut && cut->next && cut->next->type == PIPE)
 		cut->next = NULL;
-	tree->data = pipe->data;
+	tree->data = ft_strdup(pipe->data);
 	tree->type = PIPE;
 	tree->right = build_tree(shell, pipe->next, false);
 	tree->left = build_tree(shell, tokens, true);

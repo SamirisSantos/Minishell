@@ -29,6 +29,7 @@ int	main(int argc, char **argv, char *envp[])
 		shell = init_shell();
 		shell->envp_cpy = copy_envp(shell, envp);
 		shell_control(shell);
+		free_shell(shell);
 	}
 	return (EXIT_SUCCESS);
 }

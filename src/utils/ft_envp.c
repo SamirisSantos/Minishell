@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:02:29 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/02/24 11:36:29 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:24:36 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**copy_envp(t_shell *shell, char *envp[])
 	i = 0;
 	while (envp[i])
 		i++;
-	temp = (char **)malloc((i + 1) * sizeof(char *));
+	temp = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (!temp)
 	{
 		shell->exit_status = 12;
@@ -36,16 +36,3 @@ char	**copy_envp(t_shell *shell, char *envp[])
 	temp[i] = NULL;
 	return (temp);
 }
-
-// int main(int ac, char **av, char *envp[])
-// {
-// 	(void)ac;
-// 	(void)av;
-// 	char **envp_cpy = copy_envp(envp);
-// 	int i = 0;
-// 	while (envp_cpy[i])
-// 	{
-// 		ft_printf(1, "%s\n", envp_cpy[i]);
-// 		i++;
-// 	}
-// }

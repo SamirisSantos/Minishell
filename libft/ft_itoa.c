@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-03 18:46:41 by cpinho-c          #+#    #+#             */
-/*   Updated: 2024-11-03 18:46:41 by cpinho-c         ###   ########.fr       */
+/*   Created: 2024/11/03 18:46:41 by cpinho-c          #+#    #+#             */
+/*   Updated: 2026/02/25 11:33:30 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 static size_t	check_n_len(long int n);
@@ -22,11 +23,10 @@ char	*ft_itoa(int n)
 	str_len = check_n_len(n);
 	if (n == 0)
 	{
-		n_str = (char *) malloc (2);
+		n_str = (char *) ft_calloc(2, sizeof(char));
 		if (!n_str)
 			return (NULL);
 		n_str[0] = '0';
-		n_str[1] = '\0';
 		return (n_str);
 	}
 	n_str = (char *) malloc (str_len + 1);

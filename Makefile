@@ -33,7 +33,6 @@ SRCS = main.c \
 	src/expander/utils_expansion.c \
 	src/free/clear_heredoc.c \
 	src/free/close_pipes.c \
-	src/free/free_all.c \
 	src/free/free_array.c \
 	src/free/free_cmd.c \
 	src/free/free_pipe_pids.c \

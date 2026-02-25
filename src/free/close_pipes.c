@@ -19,8 +19,16 @@ void	close_pipes(t_shell *shell, int pipe_count)
 	i = 0;
 	while (i < pipe_count)
 	{
-		close(shell->xcmd->pipe_fd[i][0]);
-		close(shell->xcmd->pipe_fd[i][1]);
+		if (shell->xcmd->pipe_fd[i][0] > 2)
+		{
+			close(shell->xcmd->pipe_fd[i][0]);
+			shell->xcmd->pipe_fd[i][0] = -1;
+		}
+		if (shell->xcmd->pipe_fd[i][1] > 2)
+		{
+			close(shell->xcmd->pipe_fd[i][1]);
+			shell->xcmd->pipe_fd[i][1] = -1;
+		}
 		i++;
 	}
 }

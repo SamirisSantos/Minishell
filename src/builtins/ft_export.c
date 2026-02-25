@@ -27,7 +27,7 @@ void	ft_add_var(t_shell *shell, char *arg)
 	size = 0;
 	while (shell->envp_cpy[size])
 		size++;
-	new_envp = ft_realloc_envp(shell->envp_cpy, size);
+	new_envp = ft_realloc_envp(shell, shell->envp_cpy, size);
 	if (!new_envp)
 	{
 		shell->exit_status = 12;

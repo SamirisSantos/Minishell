@@ -66,7 +66,7 @@ static char	**create_args_array(t_shell *shell, t_token *tokens)
 		tokens = tokens->next;
 		arg_count++;
 	}
-	args = (char **)malloc((arg_count + 2) * sizeof(char *));
+	args = (char **)ft_calloc(arg_count + 2, sizeof(char *));
 	if (!args)
 	{
 		shell->exit_status = 12;

@@ -87,7 +87,6 @@ void	free_array(char **array);
 void	close_pipes(t_shell *shell, int pipe_count);
 void	free_pipe_pids(t_shell *shell);
 void	free_pipe(t_shell *shell, int count);
-void	free_all(t_shell *shell, char *input);
 void	free_tree(t_tree *tree);
 void	free_tokens(t_token *list);
 void	free_shell(t_shell *shell);
@@ -156,7 +155,7 @@ t_redir	*fill_redir(t_shell *shell, t_tree *tree, t_token **token);
 int		ft_redir_in(t_shell *shell, char *filename);
 int		ft_redir_out(t_shell *shell, char *filename, t_token_type type);
 char	**copy_envp(t_shell *shell, char *envp[]);
-char	**ft_realloc_envp(char **envp, size_t old_size);
+char	**ft_realloc_envp(t_shell *shell, char **envp, size_t old_size);
 size_t	ft_find_var_name(char *arg);
 
 //signal
