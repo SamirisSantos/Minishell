@@ -74,7 +74,6 @@ static void	export_var(t_shell *shell, char **cmd_args, int i)
 void	ft_export(t_shell *shell, char **cmd_args)
 {
 	int	i;
-	int	k;
 
 	if (!cmd_args || !cmd_args[1])
 	{
