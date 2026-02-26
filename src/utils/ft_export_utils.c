@@ -12,7 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-void ft_print_export(t_shell *shell)
+void	ft_print_export(t_shell *shell)
 {
 	int i;
 	int k;

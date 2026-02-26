@@ -55,6 +55,7 @@ SRCS = main.c \
 	src/tree/binary_tree.c \
 	src/tree/tree_utils.c \
 	src/utils/ft_envp_utils.c \
+	src/utils/ft_export_utils.c \
 	src/utils/ft_envp.c \
 	src/utils/handle_redir.c \
 	src/utils/handle_signals.c \

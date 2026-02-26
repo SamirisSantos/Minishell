@@ -159,6 +159,7 @@ int		ft_redir_out(t_shell *shell, char *filename, t_token_type type);
 char	**copy_envp(t_shell *shell, char *envp[]);
 char	**ft_realloc_envp(t_shell *shell, char **envp, size_t old_size);
 size_t	ft_find_var_name(char *arg);
+void	ft_print_export(t_shell *shell);
 
 //signal
 void	handle_sigint(int sig);
