@@ -96,6 +96,7 @@ void	free_tokens(t_token *list);
 void	free_shell(t_shell *shell);
 void	clear_heredoc(t_tree *tree);
 void	free_redir(t_redir *redir);
+void	free_cmd_path(t_shell *shell);
 
 //heredoc
 void	handle_heredoc_sig(int sig);

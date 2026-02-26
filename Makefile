@@ -25,6 +25,7 @@ SRCS = main.c \
 	src/executor/builtin_exec.c \
 	src/executor/check_cmd.c \
 	src/executor/cmd_path.c \
+	src/executor/pre_executor.c \
 	src/executor/executor.c \
 	src/executor/utils_exec.c \
 	src/expander/expansion.c \
