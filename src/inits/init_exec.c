@@ -79,15 +79,14 @@ void	init_pid(t_shell *shell)
 
 void	init_cmd_path(t_shell *shell)
 {
-	int	i;
-
-	shell->xcmd->cmd_path = (char **)malloc((shell->xcmd->cmd_count + 1)
-			* sizeof(char *));
+	shell->xcmd->cmd_path = (char **)ft_calloc((shell->xcmd->cmd_count + 1),
+			sizeof(char *));
 	if (!shell->xcmd->cmd_path)
+	{
+		shell->exit_status = 12;
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return ;
-	i = 0;
-	while (i <= shell->xcmd->cmd_count)
-		shell->xcmd->cmd_path[i++] = NULL;
+	}
 }
 
 void	init_xcmd(t_shell *shell)

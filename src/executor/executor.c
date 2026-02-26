@@ -67,6 +67,11 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 			exec_builtin(shell, tree, false);
 		else
 			executor(shell, tree, *i);
+		if(shell->xcmd->cmd_path[*i])
+		{
+			free(shell->xcmd->cmd_path[*i]);
+			shell->xcmd->cmd_path[*i] = NULL;
+		}
 		(*i)++;
 	}
 	start_exe(shell, tree->left, i);
