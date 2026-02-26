@@ -29,16 +29,6 @@ typedef enum e_token_type
 	SPACE_TOKEN
 }			t_token_type;
 
-typedef struct s_cmd
-{
-	char			**args;			// lista de argumentos
-	char			*input_file;	// <
-	char			*output_file;	// >
-	int				append;			// >>
-	int				heredoc;		// <<
-	struct s_cmd	*next;			// pipes
-}			t_cmd;
-
 typedef struct s_token
 {
 	char			*data;
@@ -79,7 +69,6 @@ typedef struct s_shell
 	char	*cwd;
 	int		exit_status;
 	int		heredoc_count;
-	t_cmd	*cmd;
 	t_xcmd	*xcmd;
 	t_token	*token;
 	t_tree	*tree;

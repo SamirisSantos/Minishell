@@ -34,7 +34,6 @@ SRCS = main.c \
 	src/free/clear_heredoc.c \
 	src/free/close_pipes.c \
 	src/free/free_array.c \
-	src/free/free_cmd.c \
 	src/free/free_pipe_pids.c \
 	src/free/free_redir.c \
 	src/free/free_shell.c \
@@ -42,7 +41,6 @@ SRCS = main.c \
 	src/free/free_tree.c \
 	src/heredoc/heredoc_main.c \
 	src/heredoc/heredoc_signals.c \
-	src/inits/init_cmd.c \
 	src/inits/init_exec.c \
 	src/inits/init_redir.c \
 	src/inits/init_shell.c \
@@ -52,7 +50,6 @@ SRCS = main.c \
 	src/lexer/lexer.c \
 	src/lexer/tokens.c \
 	src/lexer/utils_tokens.c \
-	src/parser/parser.c \
 	src/parser/syntax_valid.c \
 	src/tree/binary_tree.c \
 	src/tree/tree_utils.c \

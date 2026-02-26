@@ -72,7 +72,6 @@ int		check_cmd(t_shell *shell, t_tree *tree, int i);
 void	count_cmds(t_tree *temp, int *cmd_count);
 char	*find_cmd_path(t_shell *shell, t_tree *tree);
 	//executor
-void	close_parent_pipe(t_shell *shell, int i);
 void	executor(t_shell *shell, t_tree *tree, int i);
 int		check_cmd(t_shell *shell, t_tree *tree, int i);
 void	start_exe(t_shell *shell, t_tree *tree, int *i);
@@ -87,13 +86,14 @@ int		apply_redirects(t_shell *shell, t_tree *tree);
 //free
 void	free_array(char **array);
 void	close_pipes(t_shell *shell, int pipe_count);
+void	close_parent_pipe(t_shell *shell, int i);
+void	close_pipes_child(t_shell *shell, int pipe_count);
 void	free_pipe_pids(t_shell *shell);
 void	free_pipe(t_shell *shell, int count);
 void	free_tree(t_tree *tree);
 void	free_tokens(t_token *list);
 void	free_tokens(t_token *list);
 void	free_shell(t_shell *shell);
-void	free_cmd(t_cmd *cmd);
 void	clear_heredoc(t_tree *tree);
 void	free_redir(t_redir *redir);
 
@@ -113,7 +113,6 @@ void	init_pipes(t_shell *shell);
 void	init_pid(t_shell *shell);
 void	init_cmd_path(t_shell *shell);
 void	init_xcmd(t_shell *shell);
-t_cmd	*init_cmd(void);
 t_redir	*init_redir(t_shell *shell);
 
 //tokens
@@ -144,8 +143,6 @@ void	process_var_len(char *str, t_shell *shell, int *len, int *i);
 
 //parser
 int		is_syntax_valid(t_token *tokens);
-t_cmd	*parse_tokens(t_token *tokens);
-t_token	*handle_redirects(t_token *token, t_cmd *cmd);
 
 //tree
 t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);

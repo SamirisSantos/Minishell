@@ -16,8 +16,6 @@ static void	process_input(t_shell *shell, char *input)
 {
 	shell->token = lexer(input);
 	expand_tokens(shell->token, shell);
-	free_cmd(shell->cmd);
-	shell->cmd = NULL;
 	if (is_syntax_valid(shell->token) == 1)
 	{
 		shell->tree = build_tree(shell, shell->token, false);
@@ -31,7 +29,7 @@ static void	process_input(t_shell *shell, char *input)
 	}
 	else
 		shell->exit_status = 2;
-	if (shell->token)	
+	if (shell->token)
 	{
 		free_tokens(shell->token);
 		shell->token = NULL;
@@ -56,9 +54,7 @@ void	shell_control(t_shell *shell)
 		}
 		if (*input == '\0' || g_sig == SIGINT)
 		{
-			 if (g_sig == SIGINT)
-				shell->exit_status = 130;
-			 if (g_sig == SIGINT)
+			if (g_sig == SIGINT)
 				shell->exit_status = 130;
 			free(input);
 			continue ;
