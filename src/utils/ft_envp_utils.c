@@ -21,7 +21,7 @@ size_t	ft_find_var_name(char *arg)
 	{
 		if (arg[i] == '=')
 			return (i);
-		i++;
+		i++ ;
 	}
 	return (i);
 }

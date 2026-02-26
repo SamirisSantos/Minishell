@@ -18,7 +18,6 @@ int	save_and_redirect(int *saved_stdin)
 
 	*saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
-
 	return (saved_stdout);
 }
 
@@ -45,7 +44,7 @@ void	execve_error(t_shell *shell, t_tree *tree)
 
 void	apply_child_redirects(t_shell *shell, t_tree *tree)
 {
-	int	fd;
+	int		fd;
 	t_redir	*temp;
 
 	temp = tree->redir;
@@ -73,7 +72,7 @@ void	apply_child_redirects(t_shell *shell, t_tree *tree)
 
 int	apply_redirects(t_shell *shell, t_tree *tree)
 {
-	int	fd;
+	int		fd;
 	t_redir	*temp;
 
 	temp = tree->redir;

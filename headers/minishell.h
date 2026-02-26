@@ -148,7 +148,8 @@ int		is_syntax_valid(t_token *tokens);
 //tree
 t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);
 t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree);
-t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree, t_token *tokens, t_token *pipe);
+t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree,
+			t_token *tokens, t_token *pipe);
 char	**build_args(t_shell *shell, t_token **tokens);
 void	check_redir(t_shell *shell, t_tree *tree, t_token **token);
 t_redir	*fill_redir(t_shell *shell, t_tree *tree, t_token **token);

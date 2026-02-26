@@ -18,7 +18,7 @@ void	free_redir(t_redir *redir)
 
 	if (!redir)
 		return ;
-	while(redir)
+	while (redir)
 	{
 		temp = redir->next;
 		free(redir->filename);

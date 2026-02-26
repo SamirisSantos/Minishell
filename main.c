@@ -21,8 +21,8 @@ int	main(int argc, char **argv, char *envp[])
 	(void)argv;
 	if (argc != 1)
 	{
-		ft_printf(STDERR_FILENO,"Error: too many arguments.\n");
-		exit(0);
+		ft_printf (STDERR_FILENO, "Error: too many arguments.\n");
+		exit (0);
 	}
 	else
 	{

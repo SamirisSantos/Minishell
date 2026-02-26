@@ -14,19 +14,19 @@
 
 void	ft_print_export(t_shell *shell)
 {
-	int i;
-	int k;
+	int	i;
+	int	k;
 
 	i = 0;
 	while (shell->envp_cpy[i])
 	{
 		k = 0;
-		ft_printf(1,"declare -x ");
+		ft_printf (1, "declare -x ");
 		while (shell->envp_cpy[i][k] && shell->envp_cpy[i][k] != '=')
-			ft_printf(1,"%c", shell->envp_cpy[i][k++]);
+			ft_printf (1, "%c", shell->envp_cpy[i][k++]);
 		if (shell->envp_cpy[i][k] == '=')
-			ft_printf(1,"=\"%s\"", &shell->envp_cpy[i][k + 1]);
-		ft_printf(1,"\n");
+			ft_printf (1, "=\"%s\"", &shell->envp_cpy[i][k + 1]);
+		ft_printf (1, "\n");
 		i++;
 	}
 }

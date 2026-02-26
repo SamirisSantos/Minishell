@@ -14,7 +14,7 @@
 
 void	free_tree(t_tree *tree)
 {
-	if(!tree)
+	if (!tree)
 		return ;
 	free_tree(tree->left);
 	free_tree(tree->right);

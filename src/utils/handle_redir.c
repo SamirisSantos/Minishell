@@ -24,7 +24,8 @@ int	ft_redir_out(t_shell *shell, char *filename, t_token_type type)
 	if (fd == -1)
 	{
 		shell->exit_status = 1;
-		ft_printf(STDERR_FILENO, "minishell: %s: %s\n", filename, strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: %s: %s\n",
+			filename, strerror(errno));
 	}
 	return (fd);
 }
@@ -39,7 +40,8 @@ int	ft_redir_in(t_shell *shell, char *filename)
 	if (fd == -1)
 	{
 		shell->exit_status = 1;
-		ft_printf(STDERR_FILENO, "minishell: %s: %s\n", filename, strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: %s: %s\n",
+			filename, strerror(errno));
 	}
 	return (fd);
 }

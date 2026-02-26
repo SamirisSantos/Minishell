@@ -43,6 +43,7 @@ SRCS = main.c \
 	src/heredoc/heredoc_main.c \
 	src/heredoc/heredoc_signals.c \
 	src/inits/init_exec.c \
+	src/inits/init_pipes.c \
 	src/inits/init_redir.c \
 	src/inits/init_shell.c \
 	src/inits/init_tree.c \
