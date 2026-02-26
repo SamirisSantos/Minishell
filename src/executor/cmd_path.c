@@ -22,7 +22,7 @@ void	count_cmds(t_tree *temp, int *cmd_count)
 	count_cmds(temp->right, cmd_count);
 }
 
-static char	*get_path(char **envp)
+char	*get_path(char **envp)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ static char	*get_path(char **envp)
 	return (NULL);
 }
 
-static char	*find_truepath(char *cmd, char *fullpath)
+char	*find_truepath(char *cmd, char *fullpath)
 {
 	char		**splitpath;
 	char		*truepath;
@@ -68,12 +68,6 @@ char	*find_cmd_path(t_shell *shell, t_tree *tree)
 	char	*fullpath;
 	char	*cmd_path;
 
-	if (is_builtin(tree))
-		return (NULL);
-	if (tree->data[0] == '/' || (tree->data[0] == '.' && tree->data[1] == '/'))
-		return (ft_strdup(tree->data));
-	fullpath = get_path(shell->envp_cpy);
-	if (!fullpath)
 	if (is_builtin(tree))
 		return (NULL);
 	if (tree->data[0] == '/' || (tree->data[0] == '.' && tree->data[1] == '/'))

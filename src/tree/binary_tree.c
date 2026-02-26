@@ -28,6 +28,9 @@ static int	is_redir(t_token_type type)
 
 t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree)
 {
+	t_token	*head;
+
+	head = tokens;
 	while (tokens && tokens->type != PIPE)
 	{
 		if (is_redir(tokens->type))
@@ -43,6 +46,7 @@ t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree)
 		else
 			tokens = tokens->next;
 	}
+	free_tokens(head);
 	return (tree);
 }
 

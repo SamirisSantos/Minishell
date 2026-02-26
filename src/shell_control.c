@@ -21,6 +21,7 @@ static void	process_input(t_shell *shell, char *input)
 	if (is_syntax_valid(shell->token) == 1)
 	{
 		shell->tree = build_tree(shell, shell->token, false);
+		shell->token = NULL;
 		if (shell->tree)
 		{
 			pre_executor(shell);
@@ -30,8 +31,11 @@ static void	process_input(t_shell *shell, char *input)
 	}
 	else
 		shell->exit_status = 2;
-	free_tokens(shell->token);
-	shell->token = NULL;
+	if (shell->token)	
+	{
+		free_tokens(shell->token);
+		shell->token = NULL;
+	}
 	free(input);
 }
 
