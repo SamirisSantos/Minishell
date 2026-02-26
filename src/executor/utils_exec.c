@@ -51,7 +51,7 @@ void	apply_child_redirects(t_shell *shell, t_tree *tree)
 	temp = tree->redir;
 	while (temp)
 	{
-		if (temp->type == REDIR_IN)
+		if (temp->type == REDIR_IN || temp->type == HEREDOC)
 		{
 			fd = ft_redir_in(shell, temp->filename);
 			if (fd < 0)
@@ -79,7 +79,7 @@ int	apply_redirects(t_shell *shell, t_tree *tree)
 	temp = tree->redir;
 	while (temp)
 	{
-		if (temp->type == REDIR_IN)
+		if (temp->type == REDIR_IN || temp->type == HEREDOC)
 		{
 			fd = ft_redir_in(shell, temp->filename);
 			if (fd < 0)

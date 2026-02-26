@@ -28,8 +28,6 @@ void	free_shell(t_shell *shell)
 	}
 	if (shell->cmd)
 		free_cmd(shell->cmd);
-	if (shell->heredoc_count > 0)
-		clear_heredoc(shell->tree);
 	if (shell->tree)
 		free_tree(shell->tree);
 	if (shell->token)

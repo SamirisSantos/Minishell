@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:03:36 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/02/24 15:05:50 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/02/26 17:56:22 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	free_redir(t_redir *redir)
 	while(redir)
 	{
 		temp = redir->next;
+		if (redir->type == HEREDOC)
+			unlink(redir->filename);
 		free(redir->filename);
 		free(redir);
 		redir = temp;
