@@ -55,16 +55,12 @@ void	fill_heredoc(t_shell *shell, int *fd, char *eof)
 	close(*fd);
 }
 
-int	handle_heredoc(t_shell *shell, t_tree *tree)
+int	handle_heredoc(t_shell *shell, char *filename, char *eof)
 {
 	int		fd;
-	t_redir	*temp;
 
-	temp = tree->redir;
-	while (temp->type != HEREDOC)
-		temp = temp->next;
-	fd = open_heredoc(shell, temp->filename);
-	fill_heredoc(shell, &fd, tree->heredoc_eof);
+	fd = open_heredoc(shell, filename);
+	fill_heredoc(shell, &fd, eof);
 	return (fd);
 }
 
@@ -75,19 +71,13 @@ char	*get_heredoc_info(t_shell *shell, t_tree *tree, t_token **token)
 
 	shell->heredoc_count++;
 	num = ft_itoa(shell->heredoc_count);
-	filename = (char *)malloc((16 + shell->heredoc_count) * sizeof(char));
-	if (!filename)
-	{
-		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
-		return (NULL);
-	}
 	filename = ft_strjoin(".heredoc_temp_", num);
 	free(num);
 	(*token) = (*token)->next;
 	if ((*token)->type == DELIMITER)
 	{
 		tree->heredoc_eof = ft_strdup((*token)->data);
+		handle_heredoc(shell, filename, tree->heredoc_eof);
 		(*token) = (*token)->next;
 	}
 	return (filename);

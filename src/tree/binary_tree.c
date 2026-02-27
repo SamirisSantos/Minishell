@@ -46,6 +46,8 @@ t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree)
 		else
 			tokens = tokens->next;
 	}
+	if (!tree->cmd_args)
+		handle_cmd_no_args(shell, tree);
 	free_tokens(head);
 	return (tree);
 }

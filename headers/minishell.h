@@ -94,7 +94,6 @@ void	free_tree(t_tree *tree);
 void	free_tokens(t_token *list);
 void	free_tokens(t_token *list);
 void	free_shell(t_shell *shell);
-void	clear_heredoc(t_tree *tree);
 void	free_redir(t_redir *redir);
 void	free_cmd_path(t_shell *shell);
 
@@ -104,7 +103,7 @@ void	heredoc_sig_exit(t_shell *shell, char *line);
 int		open_heredoc(t_shell *shell, char *filename);
 int		open_heredoc(t_shell *shell, char *filename);
 void	fill_heredoc(t_shell *shell, int *fd, char *eof);
-int		handle_heredoc(t_shell *shell, t_tree *tree);
+int		handle_heredoc(t_shell *shell, char *filename, char *eof);
 char	*get_heredoc_info(t_shell *shell, t_tree *tree, t_token **token);
 
 //inits
@@ -151,6 +150,7 @@ t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree);
 t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree,
 			t_token *tokens, t_token *pipe);
 char	**build_args(t_shell *shell, t_token **tokens);
+void	handle_cmd_no_args(t_shell *shell, t_tree *tree);
 void	check_redir(t_shell *shell, t_tree *tree, t_token **token);
 t_redir	*fill_redir(t_shell *shell, t_tree *tree, t_token **token);
 

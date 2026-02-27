@@ -12,6 +12,22 @@
 
 #include "../../headers/minishell.h"
 
+void	handle_cmd_no_args(t_shell *shell, t_tree *tree)
+{
+	char	**args;
+
+	args = (char **)ft_calloc(2, sizeof(char *));
+	if (!args)
+	{
+		shell->exit_status = 12;
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
+		return ;
+	}
+	args[0] = ft_strdup(tree->data);
+	args[1] = NULL;
+	tree->cmd_args = args;
+}
+
 void	check_redir(t_shell *shell, t_tree *tree, t_token **token)
 {
 	t_redir	*temp;
