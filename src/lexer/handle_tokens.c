@@ -71,7 +71,8 @@ static	t_token_type	get_word_type(t_token *last_token)
 		return (REDIR_OUT_FILE);
 	if (last_token->type == HEREDOC)
 		return (DELIMITER);
-	if (last_token->type == REDIR_IN_FILE || last_token->type == REDIR_OUT_FILE)
+	if (last_token->type == REDIR_IN_FILE || last_token->type == REDIR_OUT_FILE
+		|| last_token->type == DELIMITER)
 		return (CMD);
 	return (CMD_ARG);
 }
