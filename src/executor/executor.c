@@ -37,7 +37,11 @@ void	executor(t_shell *shell, t_tree *tree, int i)
 {
 	pid_t	pid;
 	char	*fallback[2];
-
+	if (!tree->data)
+	{
+		shell->exit_status = 1;
+		return ;
+	}
 	if (check_cmd(shell, tree, i) != 0)
 		return ;
 	if (i >= shell->xcmd->cmd_count)

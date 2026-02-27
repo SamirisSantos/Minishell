@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 16:54:21 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/27 16:13:02 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/27 12:38:02 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static	t_token_type	get_word_type(t_token *last_token)
 		return (REDIR_OUT_FILE);
 	if (last_token->type == HEREDOC)
 		return (DELIMITER);
+	if (last_token->type == REDIR_IN_FILE || last_token->type == REDIR_OUT_FILE)
+		return (CMD);
 	return (CMD_ARG);
 }
 

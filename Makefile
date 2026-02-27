@@ -39,6 +39,7 @@ SRCS = main.c \
 	src/free/free_shell.c \
 	src/free/free_tokens.c \
 	src/free/free_tree.c \
+	src/free/free_path.c \
 	src/heredoc/heredoc_main.c \
 	src/heredoc/heredoc_signals.c \
 	src/inits/init_exec.c \

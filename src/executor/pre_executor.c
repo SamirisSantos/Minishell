@@ -18,6 +18,12 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 		return ;
 	if (tree->type == CMD)
 	{
+		if (!tree->data)
+		{
+			shell->exit_status = 1;
+			(*i)++;
+			return ;
+		}
 		shell->xcmd->cmd_path[*i] = find_cmd_path(shell, tree);
 		if (is_builtin(tree) && shell->xcmd->cmd_count > 1)
 			fork_builtin(shell, tree, *i);
@@ -59,7 +65,7 @@ void	pre_executor(t_shell *shell)
 		i++;
 	}
 	if (shell->xcmd->cmd_path)
-		free_array(shell->xcmd->cmd_path);
+		free_cmd_path(shell);
 	shell->xcmd->cmd_path = NULL;
 	free_pipe_pids(shell);
 	free(shell->xcmd);

@@ -78,6 +78,8 @@ t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left)
 	t_token	*check_pipe;
 	t_tree	*tree;
 
+	if (!tokens)
+		return (NULL);
 	check_pipe = tokens;
 	tree = init_tree_node(shell);
 	if (!tokens)
