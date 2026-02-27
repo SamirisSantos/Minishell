@@ -12,6 +12,30 @@
 
 #include "../../headers/minishell.h"
 
+static void	handle_no_cmd(t_shell *shell, t_tree *tree, int *i)
+{
+	pid_t	pid;
+
+	if (*i < shell->xcmd->cmd_count - 1)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			close_pipes_child(shell, shell->xcmd->cmd_count - 1);
+			free_shell(shell);
+			exit(0);
+		}
+		else if (pid > 0)
+		{
+			shell->xcmd->pids[*i] = pid;
+			close_parent_pipe(shell, *i);
+		}
+	}
+	(void)tree;
+	shell->exit_status = 1;
+	(*i)++;
+}
+
 void	start_exe(t_shell *shell, t_tree *tree, int *i)
 {
 	if (!tree)
@@ -20,8 +44,7 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 	{
 		if (!tree->data)
 		{
-			shell->exit_status = 1;
-			(*i)++;
+			handle_no_cmd(shell, tree, i);
 			return ;
 		}
 		shell->xcmd->cmd_path[*i] = find_cmd_path(shell, tree);
