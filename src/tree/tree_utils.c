@@ -16,7 +16,7 @@ void	handle_cmd_no_args(t_shell *shell, t_tree *tree)
 {
 	char	**args;
 
-	 if (!tree->data)
+	if (!tree->data)
 	{
 		shell->exit_status = 1;
 		return ;
