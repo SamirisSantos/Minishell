@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-31 17:59:48 by cpinho-c          #+#    #+#             */
-/*   Updated: 2024-10-31 17:59:48 by cpinho-c         ###   ########.fr       */
+/*   Created: 2024/10/31 17:59:48 by cpinho-c          #+#    #+#             */
+/*   Updated: 2026/02/26 17:01:48 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -21,7 +22,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
 	f_len = s1_len + s2_len;
-	str = (char *)malloc(s1_len + s2_len + 1);
+	str = (char *)ft_calloc((s1_len + s2_len + 1), sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	ft_memcpy(str, s1, s1_len);

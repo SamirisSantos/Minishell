@@ -20,17 +20,14 @@ t_tree	*init_tree_node(t_shell *shell)
 	if (!tree)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return (NULL);
 	}
 	tree->data = NULL;
 	tree->cmd_args = NULL;
 	tree->data = NULL;
-	tree->fd_in_type = 0;
-	tree->fd_in = 0;
-	tree->fd_out_type = 0;
-	tree->fd_out = 1;
-	tree->heredoc_name = NULL;
+	tree->redir = NULL;
+	tree->heredoc_eof = NULL;
 	tree->left = NULL;
 	tree->right = NULL;
 	tree->type = 0;

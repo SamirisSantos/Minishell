@@ -12,6 +12,19 @@
 
 #include "../../headers/minishell.h"
 
+void	exec_cd(t_shell *shell, t_tree *tree)
+{
+	if (tree->cmd_args && tree->cmd_args[1] && tree->cmd_args[2])
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
+		shell->exit_status = 1;
+	}
+	else if (tree->cmd_args && tree->cmd_args[1])
+		ft_cd(shell, tree->cmd_args[1]);
+	else
+		ft_cd(shell, NULL);
+}
+
 void	update_pwd(t_shell *shell, char *newpath)
 {
 	char	*tmp;
@@ -38,7 +51,7 @@ void	update_pwd(t_shell *shell, char *newpath)
 
 static void	cd_error(t_shell *shell, char *data)
 {
-	ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+	ft_putstr_fd("minishell$ cd: ", STDERR_FILENO);
 	ft_putstr_fd(data, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd(strerror(errno), STDERR_FILENO);

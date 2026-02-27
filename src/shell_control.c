@@ -19,6 +19,7 @@ static void	process_input(t_shell *shell, char *input)
 	if (is_syntax_valid(shell->token) == 1)
 	{
 		shell->tree = build_tree(shell, shell->token, false);
+		shell->token = NULL;
 		if (shell->tree)
 		{
 			pre_executor(shell);
@@ -27,10 +28,12 @@ static void	process_input(t_shell *shell, char *input)
 		}
 	}
 	else
-	{
 		shell->exit_status = 2;
+	if (shell->token)
+	{
+		free_tokens(shell->token);
+		shell->token = NULL;
 	}
-	shell->token = NULL;
 	free(input);
 }
 
@@ -47,12 +50,11 @@ void	shell_control(t_shell *shell)
 		if (!input)
 		{
 			ft_printf(1, "exit\n");
-			free_shell(shell);
 			break ;
 		}
 		if (*input == '\0' || g_sig == SIGINT)
 		{
-			 if (g_sig == SIGINT)
+			if (g_sig == SIGINT)
 				shell->exit_status = 130;
 			free(input);
 			continue ;
@@ -61,5 +63,3 @@ void	shell_control(t_shell *shell)
 		process_input(shell, input);
 	}
 }
-
-

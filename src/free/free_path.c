@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_heredoc.c                                    :+:      :+:    :+:   */
+/*   free_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/20 16:22:17 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/01/20 16:26:58 by cpinho-c         ###   ########.fr       */
+/*   Created: 2026/02/26 17:32:12 by sade-ara          #+#    #+#             */
+/*   Updated: 2026/02/26 17:32:12 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	clear_heredoc(t_tree *tree)
+void	free_cmd_path(t_shell *shell)
 {
-	if (!tree)
-		return ;
-	if (tree->heredoc_name)
+	int	i;
+
+	i = 0;
+	while (i < shell->xcmd->cmd_count)
 	{
-		unlink(tree->heredoc_name);
-		free(tree->heredoc_name);
+		if (shell->xcmd->cmd_path[i])
+			free(shell->xcmd->cmd_path[i]);
+		i++;
 	}
-	clear_heredoc(tree->left);
-	clear_heredoc(tree->right);
+	free(shell->xcmd->cmd_path);
+	shell->xcmd->cmd_path = NULL;
 }

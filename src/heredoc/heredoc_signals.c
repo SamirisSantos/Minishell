@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   heredoc_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 15:38:19 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/01/28 17:44:39 by sade-ara         ###   ########.fr       */
+/*   Created: 2026/02/24 11:17:48 by cpinho-c          #+#    #+#             */
+/*   Updated: 2026/02/24 11:18:06 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	free_all(t_shell *shell, char *input)
+void	handle_heredoc_sig(int sig)
 {
-	free(input);
-	free_shell(shell);
+	(void)sig;
+	g_sig = SIGINT;
+	ft_printf(1, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+}
+
+void	heredoc_sig_exit(t_shell *shell, char *line)
+{
+	shell->exit_status = EXIT_SIGINT;
+	g_sig = 0;
+	if (line)
+		free(line);
 }

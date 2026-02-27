@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:09:59 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/27 17:31:06 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:40:33 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*remove_quotes(char *str)
 	i = 0;
 	j = 0;
 	quote_char = 0;
-	clean_str = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	clean_str = (char *)ft_calloc((ft_strlen(str) + 1), sizeof(char));
 	if (!clean_str)
 		return (NULL);
 	while (str[i])

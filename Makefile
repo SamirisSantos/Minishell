@@ -25,24 +25,26 @@ SRCS = main.c \
 	src/executor/builtin_exec.c \
 	src/executor/check_cmd.c \
 	src/executor/cmd_path.c \
+	src/executor/pre_executor.c \
 	src/executor/executor.c \
 	src/executor/utils_exec.c \
 	src/expander/expansion.c \
 	src/expander/remove_quotes.c \
 	src/expander/gets.c \
 	src/expander/utils_expansion.c \
-	src/free/clear_heredoc.c \
 	src/free/close_pipes.c \
-	src/free/free_all.c \
 	src/free/free_array.c \
-	src/free/free_cmd.c \
 	src/free/free_pipe_pids.c \
+	src/free/free_redir.c \
 	src/free/free_shell.c \
 	src/free/free_tokens.c \
 	src/free/free_tree.c \
+	src/free/free_path.c \
 	src/heredoc/heredoc_main.c \
-	src/inits/init_cmd.c \
+	src/heredoc/heredoc_signals.c \
 	src/inits/init_exec.c \
+	src/inits/init_pipes.c \
+	src/inits/init_redir.c \
 	src/inits/init_shell.c \
 	src/inits/init_tree.c \
 	src/lexer/extract_word.c \
@@ -50,12 +52,13 @@ SRCS = main.c \
 	src/lexer/lexer.c \
 	src/lexer/tokens.c \
 	src/lexer/utils_tokens.c \
-	src/parser/parser.c \
 	src/parser/syntax_valid.c \
 	src/tree/binary_tree.c \
 	src/tree/tree_utils.c \
 	src/utils/ft_envp_utils.c \
+	src/utils/ft_export_utils.c \
 	src/utils/ft_envp.c \
+	src/utils/handle_redir.c \
 	src/utils/handle_signals.c \
 	src/shell_control.c 
 

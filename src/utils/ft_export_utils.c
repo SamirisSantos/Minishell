@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_cmd.c                                         :+:      :+:    :+:   */
+/*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/18 16:10:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/11/18 16:12:15 by sade-ara         ###   ########.fr       */
+/*   Created: 2026/02/26 18:23:18 by sade-ara          #+#    #+#             */
+/*   Updated: 2026/02/26 18:23:18 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-t_cmd	*init_cmd(void)
+void	ft_print_export(t_shell *shell)
 {
-	t_cmd	*cmd;
+	int	i;
+	int	k;
 
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	cmd->args = NULL;
-	cmd->input_file = NULL;
-	cmd->output_file = NULL;
-	cmd->append = 0;
-	cmd->heredoc = 0;
-	cmd->next = NULL;
-	return (cmd);
+	i = 0;
+	while (shell->envp_cpy[i])
+	{
+		k = 0;
+		ft_printf (1, "declare -x ");
+		while (shell->envp_cpy[i][k] && shell->envp_cpy[i][k] != '=')
+			ft_printf (1, "%c", shell->envp_cpy[i][k++]);
+		if (shell->envp_cpy[i][k] == '=')
+			ft_printf (1, "=\"%s\"", &shell->envp_cpy[i][k + 1]);
+		ft_printf (1, "\n");
+		i++;
+	}
 }

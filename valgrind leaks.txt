@@ -1,0 +1,407 @@
+make valgrind
+Executando valgrind...
+minishell$ cat Guia.txt |grep shell
+==17189== File descriptor 4: file descriptor 4 is already closed
+==17189==    at 0x49E5124: close (close.c:27)
+==17189==    by 0x10BC7B: close_pipes (close_pipes.c:23)
+==17189==    by 0x10AC1C: executor (executor.c:39)
+==17189==    by 0x10AD98: start_exe (executor.c:62)
+==17189==    by 0x10ADDD: start_exe (executor.c:66)
+==17189==    by 0x10AE95: pre_executor (executor.c:85)
+==17189==    by 0x10E442: process_input (shell_control.c:24)
+==17189==    by 0x10E55D: shell_control (shell_control.c:61)
+==17189==    by 0x1094F8: main (main.c:31)
+==17189==  Previously closed
+==17189==    at 0x49E5124: close (close.c:27)
+==17189==    by 0x10AB1C: close_parent_pipe (executor.c:20)
+==17189==    by 0x10AC9D: executor (executor.c:46)
+==17189==    by 0x10AD98: start_exe (executor.c:62)
+==17189==    by 0x10ADC2: start_exe (executor.c:65)
+==17189==    by 0x10AE95: pre_executor (executor.c:85)
+==17189==    by 0x10E442: process_input (shell_control.c:24)
+==17189==    by 0x10E55D: shell_control (shell_control.c:61)
+==17189==    by 0x1094F8: main (main.c:31)
+==17189==  Originally opened
+==17189==    at 0x49EA0BD: pipe (pipe.c:29)
+==17189==    by 0x10C76C: create_pipes (init_exec.c:22)
+==17189==    by 0x10C92C: init_pipes (init_exec.c:59)
+==17189==    by 0x10AE2D: exec_inits (executor.c:73)
+==17189==    by 0x10AE7A: pre_executor (executor.c:84)
+==17189==    by 0x10E442: process_input (shell_control.c:24)
+==17189==    by 0x10E55D: shell_control (shell_control.c:61)
+==17189==    by 0x1094F8: main (main.c:31)
+Mapa do Minishell: 4 Fases
+==17189== 6 bytes in 1 blocks are still reachable in loss record 1 of 15
+==17189==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x12851E: ??? (in /usr/bin/grep)
+==17189==    by 0x10E763: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 16 bytes in 1 blocks are still reachable in loss record 2 of 15
+==17189==    at 0x4850110: reallocarray (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x11CDAA: ??? (in /usr/bin/grep)
+==17189==    by 0x121B30: ??? (in /usr/bin/grep)
+==17189==    by 0x11ACA4: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 52 bytes in 1 blocks are still reachable in loss record 3 of 15
+==17189==    at 0x484FBE3: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x121212: ??? (in /usr/bin/grep)
+==17189==    by 0x11ACA4: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 52 bytes in 1 blocks are still reachable in loss record 4 of 15
+==17189==    at 0x484FBE3: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x121A51: ??? (in /usr/bin/grep)
+==17189==    by 0x11ACA4: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 72 bytes in 1 blocks are still reachable in loss record 5 of 15
+==17189==    at 0x484FBE3: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x119EA9: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 72 bytes in 1 blocks are still reachable in loss record 6 of 15
+==17189==    at 0x484FE10: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x11CFA3: ??? (in /usr/bin/grep)
+==17189==    by 0x121B30: ??? (in /usr/bin/grep)
+==17189==    by 0x11ACA4: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 120 bytes in 1 blocks are still reachable in loss record 7 of 15
+==17189==    at 0x484FE10: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x111DCF: ??? (in /usr/bin/grep)
+==17189==    by 0x10E796: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 128 bytes in 1 blocks are still reachable in loss record 8 of 15
+==17189==    at 0x484FE10: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x11CA97: ??? (in /usr/bin/grep)
+==17189==    by 0x11AD14: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 128 bytes in 1 blocks are possibly lost in loss record 9 of 15
+==17189==    at 0x484FE10: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x11A819: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 312 bytes in 1 blocks are still reachable in loss record 10 of 15
+==17189==    at 0x484FBE3: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x120AB7: ??? (in /usr/bin/grep)
+==17189==    by 0x11ACA4: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 768 bytes in 6 blocks are still reachable in loss record 11 of 15
+==17189==    at 0x484FE10: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x11C6BD: ??? (in /usr/bin/grep)
+==17189==    by 0x120F02: ??? (in /usr/bin/grep)
+==17189==    by 0x11ACA4: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 2,336 bytes in 1 blocks are still reachable in loss record 12 of 15
+==17189==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x119EC3: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 2,464 bytes in 1 blocks are still reachable in loss record 13 of 15
+==17189==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x116D9E: ??? (in /usr/bin/grep)
+==17189==    by 0x11A32C: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 4,064 bytes in 1 blocks are still reachable in loss record 14 of 15
+==17189==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x1283DC: ??? (in /usr/bin/grep)
+==17189==    by 0x116DD0: ??? (in /usr/bin/grep)
+==17189==    by 0x1199AC: ??? (in /usr/bin/grep)
+==17189==    by 0x11A410: ??? (in /usr/bin/grep)
+==17189==    by 0x10E047: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+==17189== 102,408 bytes in 1 blocks are still reachable in loss record 15 of 15
+==17189==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17189==    by 0x10E12A: ??? (in /usr/bin/grep)
+==17189==    by 0x49363B7: (below main) (libc_start_call_main.h:58)
+==17189== 
+minishell$ 
+exit
+==17185== Conditional jump or move depends on uninitialised value(s)
+==17185==    at 0x10BCE9: free_array (free_array.c:22)
+==17185==    by 0x10C136: free_shell (free_shell.c:24)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10C0CF: free_shell (free_shell.c:17)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b050 is 16 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10C0DC: free_shell (free_shell.c:18)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b050 is 16 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid free() / delete / delete[] / realloc()
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C0E7: free_shell (free_shell.c:18)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1c100 is 0 bytes inside a block of size 31 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C0E7: free_shell (free_shell.c:18)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x484FE10: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x49E973B: getcwd (getcwd.c:86)
+==17185==    by 0x10CBF3: init_shell (init_shell.c:25)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10C0EC: free_shell (free_shell.c:19)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b048 is 8 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10C0F9: free_shell (free_shell.c:20)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b048 is 8 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10BCE3: free_array (free_array.c:22)
+==17185==    by 0x10C104: free_shell (free_shell.c:20)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1c160 is 0 bytes inside a block of size 472 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10BCF6: free_array (free_array.c:27)
+==17185==    by 0x10C104: free_shell (free_shell.c:20)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10E862: ft_calloc (ft_calloc.c:20)
+==17185==    by 0x10E105: copy_envp (ft_envp.c:23)
+==17185==    by 0x1094E4: main (main.c:30)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10BCC0: free_array (free_array.c:24)
+==17185==    by 0x10C104: free_shell (free_shell.c:20)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1c160 is 0 bytes inside a block of size 472 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10BCF6: free_array (free_array.c:27)
+==17185==    by 0x10C104: free_shell (free_shell.c:20)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10E862: ft_calloc (ft_calloc.c:20)
+==17185==    by 0x10E105: copy_envp (ft_envp.c:23)
+==17185==    by 0x1094E4: main (main.c:30)
+==17185== 
+==17185== Invalid free() / delete / delete[] / realloc()
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10BCCA: free_array (free_array.c:24)
+==17185==    by 0x10C104: free_shell (free_shell.c:20)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1c380 is 0 bytes inside a block of size 32 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10BCCA: free_array (free_array.c:24)
+==17185==    by 0x10C104: free_shell (free_shell.c:20)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10E862: ft_calloc (ft_calloc.c:20)
+==17185==    by 0x10E7B2: ft_strdup (ft_strdup.c:22)
+==17185==    by 0x10E18D: copy_envp (ft_envp.c:33)
+==17185==    by 0x1094E4: main (main.c:30)
+==17185== 
+==17185== Invalid free() / delete / delete[] / realloc()
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10BCF6: free_array (free_array.c:27)
+==17185==    by 0x10C104: free_shell (free_shell.c:20)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1c160 is 0 bytes inside a block of size 472 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10BCF6: free_array (free_array.c:27)
+==17185==    by 0x10C104: free_shell (free_shell.c:20)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10E862: ft_calloc (ft_calloc.c:20)
+==17185==    by 0x10E105: copy_envp (ft_envp.c:23)
+==17185==    by 0x1094E4: main (main.c:30)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10C109: free_shell (free_shell.c:21)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b068 is 40 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10C163: free_shell (free_shell.c:29)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b060 is 32 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid read of size 4
+==17185==    at 0x10C180: free_shell (free_shell.c:31)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b05c is 28 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10C19B: free_shell (free_shell.c:33)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b078 is 56 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid read of size 8
+==17185==    at 0x10C1B8: free_shell (free_shell.c:35)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b070 is 48 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== Invalid free() / delete / delete[] / realloc()
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x109504: main (main.c:32)
+==17185==  Address 0x4b1b040 is 0 bytes inside a block of size 64 free'd
+==17185==    at 0x484B8BF: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10C1DC: free_shell (free_shell.c:37)
+==17185==    by 0x10E502: shell_control (shell_control.c:50)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185==  Block was alloc'd at
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10CBA8: init_shell (init_shell.c:19)
+==17185==    by 0x1094CD: main (main.c:29)
+==17185== 
+==17185== 2 bytes in 1 blocks are indirectly lost in loss record 1 of 82
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10E928: ft_substr (ft_substr.c:33)
+==17185==    by 0x10CFE6: handle_operator (handle_tokens.c:50)
+==17185==    by 0x10D1B4: next_token (lexer.c:50)
+==17185==    by 0x10D262: lexer (lexer.c:71)
+==17185==    by 0x10E3D1: process_input (shell_control.c:17)
+==17185==    by 0x10E55D: shell_control (shell_control.c:61)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185== 
+==17185== 24 bytes in 4 blocks are indirectly lost in loss record 19 of 82
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10E862: ft_calloc (ft_calloc.c:20)
+==17185==    by 0x10B27F: expand_string (expansion.c:23)
+==17185==    by 0x10B38D: process_token (expansion.c:51)
+==17185==    by 0x10B3F4: expand_tokens (expansion.c:69)
+==17185==    by 0x10E3F0: process_input (shell_control.c:18)
+==17185==    by 0x10E55D: shell_control (shell_control.c:61)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185== 
+==17185== 61 (24 direct, 37 indirect) bytes in 1 blocks are definitely lost in loss record 24 of 82
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10D2CD: new_token (tokens.c:19)
+==17185==    by 0x10D132: handle_word (handle_tokens.c:87)
+==17185==    by 0x10D1D1: next_token (lexer.c:52)
+==17185==    by 0x10D262: lexer (lexer.c:71)
+==17185==    by 0x10E3D1: process_input (shell_control.c:17)
+==17185==    by 0x10E55D: shell_control (shell_control.c:61)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185== 
+==17185== 72 bytes in 3 blocks are indirectly lost in loss record 25 of 82
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10D2CD: new_token (tokens.c:19)
+==17185==    by 0x10D132: handle_word (handle_tokens.c:87)
+==17185==    by 0x10D1D1: next_token (lexer.c:52)
+==17185==    by 0x10D262: lexer (lexer.c:71)
+==17185==    by 0x10E3D1: process_input (shell_control.c:17)
+==17185==    by 0x10E55D: shell_control (shell_control.c:61)
+==17185==    by 0x1094F8: main (main.c:31)
+==17185== 
+==17185== 85 (24 direct, 61 indirect) bytes in 1 blocks are definitely lost in loss record 27 of 82
+==17185==    at 0x4848858: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17185==    by 0x10D2CD: new_token (tokens.c:19)
+==17185==    by 0x10D009: handle_operator (handle_tokens.c:53)
+==17185==    by 0x10D1B4: next_token (lexer.c:50)
+==17185==    by 0x10D262: lexer (lexer.c:71)
+==17185==    by 0x10E3D1: process_input (shell_control.c:17)
+==17185==    by 0x10E55D: shell_control (shell_control.c:61)
+==17185==    by 0x1094F8: main (main.c:31)
+

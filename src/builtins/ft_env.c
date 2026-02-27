@@ -19,7 +19,7 @@ void	ft_env(t_shell *shell)
 	i = 0;
 	while (shell->envp_cpy[i])
 	{
-		ft_printf(1, "%s", shell->envp_cpy[i]);
+		ft_printf(STDOUT_FILENO, "%s\n", shell->envp_cpy[i]);
 		i++;
 	}
 	ft_printf(1, "\n");

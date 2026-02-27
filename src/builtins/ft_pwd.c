@@ -12,7 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-void	ft_pwd(t_shell *shell, t_tree *tree)
+void	ft_pwd(t_shell *shell)
 {
 	int	i;
 
@@ -21,7 +21,7 @@ void	ft_pwd(t_shell *shell, t_tree *tree)
 	{
 		if (ft_strncmp(shell->envp_cpy[i], "PWD=", 4) == 0)
 		{
-			ft_printf(tree->fd_out, "%s\n", shell->envp_cpy[i] + 4);
+			ft_printf(STDOUT_FILENO, "%s\n", shell->envp_cpy[i] + 4);
 			shell->exit_status = 0;
 			return ;
 		}

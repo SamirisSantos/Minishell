@@ -1,0 +1,18 @@
+valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+
+echo hello | cat | wc -c - dont pass
+cat bad adress - corrected problem 
+explicação
+no leak
+----------------------
+ls | grep src | wc -l - ok
+
+------------------------------------------------------------
+cat Guia.txt | grep Lexer | wc -l - ok
+------------------------------------------------------
+export TESTE=123 - ok
+echo $TESTE - ok 
+------------------------------------------------------
+exit
+minishell$ exit - ok
+exit

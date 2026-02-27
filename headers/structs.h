@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:40:29 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/28 17:37:37 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:39:23 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,35 +29,29 @@ typedef enum e_token_type
 	SPACE_TOKEN
 }			t_token_type;
 
-typedef struct s_cmd
-{
-	char			**args;			// lista de argumentos
-	char			*input_file;	// <
-	char			*output_file;	// >
-	int				append;			// >>
-	int				heredoc;		// <<
-	struct s_cmd	*next;			// pipes
-}			t_cmd;
-
 typedef struct s_token
 {
 	char			*data;
 	t_token_type	type;
-	struct s_token			*next;
+	struct s_token	*next;
 }			t_token;
+
+typedef struct s_redir
+{
+	char			*filename;
+	t_token_type	type;
+	struct s_redir	*next;
+}			t_redir;
 
 typedef struct s_tree
 {
 	char			*data;
 	char			**cmd_args;
-	char			*heredoc_name;
+	char			*heredoc_eof;
 	t_token_type	type;
-	t_token_type	fd_in_type;
-	t_token_type	fd_out_type;
-	int				fd_in;
-	int				fd_out;
-	struct s_tree			*left;
-	struct s_tree			*right;
+	t_redir			*redir;
+	struct s_tree	*left;
+	struct s_tree	*right;
 }			t_tree;
 
 typedef struct s_xcmd
@@ -75,7 +69,6 @@ typedef struct s_shell
 	char	*cwd;
 	int		exit_status;
 	int		heredoc_count;
-	t_cmd	*cmd;
 	t_xcmd	*xcmd;
 	t_token	*token;
 	t_tree	*tree;

@@ -12,44 +12,16 @@
 
 #include "../../headers/minishell.h"
 
-void	init_pipes(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	if (shell->xcmd->cmd_count - 1 <= 0)
-		return ;
-	shell->xcmd->pipe_fd = malloc((shell->xcmd->cmd_count - 1) * sizeof(int *));
-	if(!shell->xcmd->pipe_fd)
-	{
-		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
-		return ;
-	}
-	while (i < shell->xcmd->cmd_count - 1)
-	{
-		shell->xcmd->pipe_fd[i] = malloc(2 * sizeof(int));
-		if (!shell->xcmd->pipe_fd[i])
-		{
-			shell->exit_status = 12;
-			ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
-			close_pipes(shell, i + 1);
-			return ;
-		}
-		i++;
-	}
-}
-
 void	init_pid(t_shell *shell)
 {
 	pid_t	*pids;
 	int		i;
 
-	pids = malloc(sizeof(pid_t) * shell->xcmd->cmd_count);
+	pids = ft_calloc(shell->xcmd->cmd_count, sizeof(pid_t));
 	if (!pids)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return ;
 	}
 	i = 0;
@@ -60,11 +32,12 @@ void	init_pid(t_shell *shell)
 
 void	init_cmd_path(t_shell *shell)
 {
-	shell->xcmd->cmd_path = (char **)malloc((shell->xcmd->cmd_count + 1) * sizeof(char *));
+	shell->xcmd->cmd_path = (char **)ft_calloc((shell->xcmd->cmd_count + 1),
+			sizeof(char *));
 	if (!shell->xcmd->cmd_path)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return ;
 	}
 }
@@ -74,10 +47,10 @@ void	init_xcmd(t_shell *shell)
 	t_xcmd	*xcmd;
 
 	xcmd = malloc(sizeof(t_xcmd));
-	if(!xcmd)
+	if (!xcmd)
 	{
 		shell->exit_status = 12;
-		ft_printf(STDERR_FILENO, "malloc: %s", strerror(errno));
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
 		return ;
 	}
 	xcmd->cmd_count = 0;
