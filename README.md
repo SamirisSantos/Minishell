@@ -8,7 +8,6 @@ The goal of this project is to understand how a Unix shell works internally. It 
 Minishell implements redirections and pipes, as well as environment variable expansions. It also includes the following built-in commands: `cd`, `echo`, `env`, `exit`, `export`, `pwd`, and `unset`.
 
 Through this project, we explored process management using `fork`, `execve`, and `waitpid`, `handled signals` such as `Ctrl+C` and `Ctrl+D`, and worked with environment variables and memory management in C, following the 42 Norm (Norminette).
-### Struct
 
 ## Instructions
 ### Compilation
@@ -55,6 +54,7 @@ To better understand the project structure and common implementation strategies,
 
 - https://medium.com/@laamirimarouane8/42-minishell-guide-53600f49742b  
 - https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218
+- https://pubs.opengroup.org/onlinepubs/007908799/xcu/chap2.html
 
 ### Project Management
 

@@ -83,10 +83,15 @@ void	ft_export(t_shell *shell, char **cmd_args)
 		return ;
 	}
 	i = 1;
+	if (check_options(shell, cmd_args))
+		return ;
+	if (invalid_export(shell, cmd_args))
+		return ;
 	while (cmd_args[i])
 	{
 		if (ft_strchr(cmd_args[i], '='))
 			export_var(shell, cmd_args, i);
 		i++;
 	}
+	shell->exit_status = 0;
 }

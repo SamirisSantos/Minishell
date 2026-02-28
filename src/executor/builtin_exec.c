@@ -36,14 +36,14 @@ static void	run_builtin(t_shell *shell, t_tree *tree)
 	else if (strncmp(tree->data, "echo", 4) == 0 && ft_strlen(tree->data) == 4)
 		ft_echo(shell, tree);
 	else if (strncmp(tree->data, "env", 3) == 0 && ft_strlen(tree->data) == 3)
-		ft_env(shell);
+		ft_env(shell, tree);
 	else if (strncmp(tree->data, "exit", 4) == 0 && ft_strlen(tree->data) == 4)
 		ft_exit(shell);
 	else if (strncmp(tree->data, "export", 6) == 0
 		&& ft_strlen(tree->data) == 6)
 		ft_export(shell, tree->cmd_args);
 	else if (strncmp(tree->data, "pwd", 3) == 0 && ft_strlen(tree->data) == 3)
-		ft_pwd(shell);
+		ft_pwd(shell, tree);
 	else if (strncmp(tree->data, "unset", 5) == 0 && ft_strlen(tree->data) == 5)
 		ft_unset(shell, tree->cmd_args);
 }

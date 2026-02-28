@@ -47,7 +47,7 @@ void	exec_cd(t_shell *shell, t_tree *tree);
 void	update_pwd(t_shell *shell, char *newpath);
 void	ft_cd(t_shell *shell, char *path);
 	//env
-void	ft_env(t_shell *shell);
+void	ft_env(t_shell *shell, t_tree *tree);
 	//exit
 void	ft_exit(t_shell *shell);
 	//export
@@ -56,7 +56,7 @@ void	ft_add_var(t_shell *shell, char *arg);
 bool	check_var_exists(t_shell *shell, char *cmd_arg, size_t size, int j);
 void	ft_export(t_shell *shell, char **cmd_args);
 	//pwd
-void	ft_pwd(t_shell *shell);
+void	ft_pwd(t_shell *shell, t_tree *tree);
 	//unset
 void	ft_fix_envp(t_shell *shell, int j);
 void	ft_unset(t_shell *shell, char **cmd_args);
@@ -161,6 +161,8 @@ char	**copy_envp(t_shell *shell, char *envp[]);
 char	**ft_realloc_envp(t_shell *shell, char **envp, size_t old_size);
 size_t	ft_find_var_name(char *arg);
 void	ft_print_export(t_shell *shell);
+bool	invalid_export(t_shell *shell, char **cmd_args);
+bool	check_options(t_shell *shell, char **args);
 
 //signal
 void	handle_sigint(int sig);

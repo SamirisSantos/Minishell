@@ -27,7 +27,6 @@ SRCS = main.c \
 	src/executor/cmd_path.c \
 	src/executor/pre_executor.c \
 	src/executor/executor.c \
-	src/executor/utils_exec.c \
 	src/expander/expansion.c \
 	src/expander/remove_quotes.c \
 	src/expander/gets.c \
@@ -56,9 +55,11 @@ SRCS = main.c \
 	src/tree/binary_tree.c \
 	src/tree/tree_utils.c \
 	src/utils/ft_envp_utils.c \
-	src/utils/ft_export_utils.c \
+	src/utils/ft_builtin_utils.c \
 	src/utils/ft_envp.c \
 	src/utils/handle_redir.c \
+	src/utils/redirection_utils.c \
+	src/utils/utils_exec.c \
 	src/utils/handle_signals.c \
 	src/shell_control.c 
 

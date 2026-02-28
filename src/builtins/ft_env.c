@@ -12,11 +12,20 @@
 
 #include "../../headers/minishell.h"
 
-void	ft_env(t_shell *shell)
+void	ft_env(t_shell *shell, t_tree *tree)
 {
 	int	i;
 
 	i = 0;
+	if (check_options(shell, tree->cmd_args))
+		return ;
+	if (tree->cmd_args[1])
+	{
+		ft_printf(STDOUT_FILENO, "env: '%s': No such file or directory\n",
+			tree->cmd_args[1]);
+		shell->exit_status = 127;
+		return ;
+	}
 	while (shell->envp_cpy[i])
 	{
 		ft_printf(STDOUT_FILENO, "%s\n", shell->envp_cpy[i]);

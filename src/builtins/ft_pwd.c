@@ -12,20 +12,27 @@
 
 #include "../../headers/minishell.h"
 
-void	ft_pwd(t_shell *shell)
+void	ft_pwd(t_shell *shell, t_tree *tree)
 {
 	int	i;
 
 	i = 0;
-	while (shell->envp_cpy[i])
+	if (check_options(shell, tree->cmd_args))
+		return ;
+	if (tree->cmd_args && tree->cmd_args[1])
+		ft_printf(STDOUT_FILENO, "pwd: too many arguments\n");
+	else
 	{
-		if (ft_strncmp(shell->envp_cpy[i], "PWD=", 4) == 0)
+		while (shell->envp_cpy[i])
 		{
-			ft_printf(STDOUT_FILENO, "%s\n", shell->envp_cpy[i] + 4);
-			shell->exit_status = 0;
-			return ;
+			if (ft_strncmp(shell->envp_cpy[i], "PWD=", 4) == 0)
+			{
+				ft_printf(STDOUT_FILENO, "%s\n", shell->envp_cpy[i] + 4);
+				shell->exit_status = 0;
+				return ;
+			}
+			i++;
 		}
-		i++;
 	}
 	shell->exit_status = 1;
 }

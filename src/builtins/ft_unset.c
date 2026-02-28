@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 11:53:56 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/02/24 14:53:20 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:49:41 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ void	ft_unset(t_shell *shell, char **cmd_args)
 		return ;
 	}
 	i = 1;
+	if (check_options(shell, cmd_args))
+		return ;
+	if (!cmd_args[1])
+	{
+		ft_printf(STDOUT_FILENO, "unset: not enough arguments\n");
+		shell->exit_status = 1;
+		return ;
+	}
 	while (cmd_args[i])
 		unset_var(shell, cmd_args[i++]);
 	shell->exit_status = 0;
