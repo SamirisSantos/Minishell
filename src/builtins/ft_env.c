@@ -22,6 +22,5 @@ void	ft_env(t_shell *shell)
 		ft_printf(STDOUT_FILENO, "%s\n", shell->envp_cpy[i]);
 		i++;
 	}
-	ft_printf(1, "\n");
 	shell->exit_status = 0;
 }
