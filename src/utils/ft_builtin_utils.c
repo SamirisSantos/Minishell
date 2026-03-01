@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 18:23:18 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/28 17:59:14 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/03/01 11:08:55 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,17 @@ void	ft_print_export(t_shell *shell)
 	}
 }
 
-bool	invalid_export(t_shell *shell, char **cmd_args)
+bool	invalid_export(t_shell *shell, char **cmd_args, int i)
 {
-	if (cmd_args[1] && (ft_strncmp(cmd_args[1], "=", 1) == 0))
-	{
-		if (ft_strlen(cmd_args[1]) == 1)
-			ft_printf(STDOUT_FILENO, "minishell: bad assignment\n");
-		else
-		{
-			ft_printf(STDOUT_FILENO, "minishell: %s not found\n",
-				cmd_args[1] + 1);
-			
-		}
-		shell->exit_status = 1;
-		return (true);
-	}
-	return (false);
+	char	*found;
+
+	found = ft_strchr(cmd_args[i], '=');
+	if (found && (ft_strncmp(cmd_args[i], found, 1) != 0))
+		return (false);
+	ft_printf(STDOUT_FILENO, "minishell: export: %s: not a valid identifier.\n",
+		cmd_args[i]);
+	shell->exit_status = 1;
+	return (true);
 }
 
 bool	check_options(t_shell *shell, char **args)

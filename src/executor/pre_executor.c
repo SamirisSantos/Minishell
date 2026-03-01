@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_executor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 17:34:46 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/02/26 17:34:46 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/03/01 12:07:57 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	handle_no_cmd(t_shell *shell, t_tree *tree, int *i)
 		pid = fork();
 		if (pid == 0)
 		{
+			apply_child_redirects(shell, tree);
 			close_pipes_child(shell, shell->xcmd->cmd_count - 1);
 			free_shell(shell);
 			exit(0);
@@ -31,6 +32,8 @@ static void	handle_no_cmd(t_shell *shell, t_tree *tree, int *i)
 			close_parent_pipe(shell, *i);
 		}
 	}
+	else
+		apply_redirects(shell, tree);
 	(void)tree;
 	shell->exit_status = 1;
 	(*i)++;
@@ -40,13 +43,13 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 {
 	if (!tree)
 		return ;
+	if (!tree->data)
+	{
+		handle_no_cmd(shell, tree, i);
+		return ;
+	}
 	if (tree->type == CMD)
 	{
-		if (!tree->data)
-		{
-			handle_no_cmd(shell, tree, i);
-			return ;
-		}
 		shell->xcmd->cmd_path[*i] = find_cmd_path(shell, tree);
 		if (is_builtin(tree) && shell->xcmd->cmd_count > 1)
 			fork_builtin(shell, tree, *i);

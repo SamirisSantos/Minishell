@@ -161,7 +161,7 @@ char	**copy_envp(t_shell *shell, char *envp[]);
 char	**ft_realloc_envp(t_shell *shell, char **envp, size_t old_size);
 size_t	ft_find_var_name(char *arg);
 void	ft_print_export(t_shell *shell);
-bool	invalid_export(t_shell *shell, char **cmd_args);
+bool	invalid_export(t_shell *shell, char **cmd_args, int i);
 bool	check_options(t_shell *shell, char **args);
 
 //signal
