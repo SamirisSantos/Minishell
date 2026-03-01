@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 18:23:18 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/03/01 12:26:26 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/03/01 17:42:01 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ bool	invalid_export(t_shell *shell, char **cmd_args, int i)
 	found = ft_strchr(cmd_args[i], '=');
 	if (found && (ft_strncmp(cmd_args[i], found, 1) != 0))
 		return (false);
+	else if (!found && ft_isdigit(cmd_args[i][0]) == 0)
+	{
+		shell->exit_status = 0;
+		return (true);
+	}
 	ft_printf(STDOUT_FILENO, "minishell: export: %s: not a valid identifier.\n",
 		cmd_args[i]);
 	shell->exit_status = 1;

@@ -36,6 +36,21 @@ static void	process_input(t_shell *shell, char *input)
 	}
 	free(input);
 }
+static bool	valid_input(t_shell *shell, char *input)
+{
+	if (g_sig == SIGINT)
+	{
+		shell->exit_status = 130;
+		free(input);
+		return (true) ;
+	}
+	if (*input == '\0')
+	{
+		free(input);
+		return (true);
+	}
+	return (false);
+}
 
 void	shell_control(t_shell *shell)
 {
@@ -52,13 +67,8 @@ void	shell_control(t_shell *shell)
 			ft_printf(1, "exit\n");
 			break ;
 		}
-		if (*input == '\0' || g_sig == SIGINT)
-		{
-			if (g_sig == SIGINT)
-				shell->exit_status = 130;
-			free(input);
-			continue ;
-		}
+		if (valid_input(shell, input))
+			continue;
 		add_history(input);
 		process_input(shell, input);
 	}

@@ -6,11 +6,25 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 17:34:46 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/03/01 12:26:06 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/03/01 16:27:54 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+static void handle_no_cmd_parent(t_shell *shell, t_tree *tree)
+{
+	int	saved_stdout;
+	int	saved_stdin;
+	char    buf[4096];
+    ssize_t n;
+
+	saved_stdout = save_and_redirect(&saved_stdin);
+	apply_redirects(shell, tree);
+	while ((n = read(STDIN_FILENO, buf, sizeof(buf))) > 0)
+        write(STDOUT_FILENO, buf, n);
+	restore_fds(saved_stdout, saved_stdin);
+}
 
 static void	handle_no_cmd(t_shell *shell, t_tree *tree, int *i)
 {
@@ -33,9 +47,9 @@ static void	handle_no_cmd(t_shell *shell, t_tree *tree, int *i)
 		}
 	}
 	else
-		apply_redirects(shell, tree);
+		handle_no_cmd_parent(shell, tree);
 	(void)tree;
-	shell->exit_status = 1;
+	shell->exit_status = 0;
 	(*i)++;
 }
 
@@ -48,7 +62,7 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 		handle_no_cmd(shell, tree, i);
 		return ;
 	}
-	if (tree->type == CMD)
+	else if (tree->type == CMD)
 	{
 		shell->xcmd->cmd_path[*i] = find_cmd_path(shell, tree);
 		if (is_builtin(tree) && shell->xcmd->cmd_count > 1)

@@ -64,6 +64,9 @@ void	exec_builtin(t_shell *shell, t_tree *tree, bool is_child)
 			return ;
 		}
 	}
+	if (tree && strncmp(tree->data, "exit", 4) == 0
+		&& ft_strlen(tree->data) == 4)
+		restore_fds(saved_stdout, saved_stdin);
 	run_builtin(shell, tree);
 	restore_fds(saved_stdout, saved_stdin);
 }

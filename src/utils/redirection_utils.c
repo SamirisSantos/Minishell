@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 18:28:49 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/03/01 12:20:52 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/03/01 15:48:26 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ static int	valid_redir_out(t_shell *shell, char *filename, t_token_type type)
 	int	fd;
 
 	if (access(filename, F_OK) != 0 || ((access(filename, F_OK) == 0)
-		&& (access(filename, W_OK) == 0)))
+			&& (access(filename, W_OK) == 0)))
 	{
 		fd = ft_redir_out(shell, filename, type);
 		if (fd < 0)
 			return (-2);
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
+		return (0);
 	}
 	ft_printf(STDOUT_FILENO, "minishell: %s: %s\n", filename, strerror(errno));
 	return (-2);

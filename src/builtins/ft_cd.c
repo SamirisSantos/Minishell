@@ -64,16 +64,18 @@ void	ft_cd(t_shell *shell, char *data)
 	char	newpath[PATH_MAX];
 
 	if (!data)
+	{
 		data = get_env_value("HOME", shell->envp_cpy);
+		if (!data)
+		{
+			ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
+			shell->exit_status = 1;
+			return ;
+		}
+	}
 	if (*data == '\0')
 	{
 		shell->exit_status = 0;
-		return ;
-	}
-	if (!data)
-	{
-		ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
-		shell->exit_status = 1;
 		return ;
 	}
 	if (chdir(data) != 0)
