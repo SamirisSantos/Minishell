@@ -49,7 +49,7 @@ void	ft_cd(t_shell *shell, char *path);
 	//env
 void	ft_env(t_shell *shell, t_tree *tree);
 	//exit
-void	ft_exit(t_shell *shell);
+void	ft_exit(t_shell *shell, t_tree *tree);
 	//export
 void	ft_update_envp(t_shell *shell, int i, char *arg);
 void	ft_add_var(t_shell *shell, char *arg);

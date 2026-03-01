@@ -38,7 +38,7 @@ static void	run_builtin(t_shell *shell, t_tree *tree)
 	else if (strncmp(tree->data, "env", 3) == 0 && ft_strlen(tree->data) == 3)
 		ft_env(shell, tree);
 	else if (strncmp(tree->data, "exit", 4) == 0 && ft_strlen(tree->data) == 4)
-		ft_exit(shell);
+		ft_exit(shell, tree);
 	else if (strncmp(tree->data, "export", 6) == 0
 		&& ft_strlen(tree->data) == 6)
 		ft_export(shell, tree->cmd_args);

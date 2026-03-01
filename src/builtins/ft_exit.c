@@ -12,11 +12,13 @@
 
 #include "../../headers/minishell.h"
 
-void	ft_exit(t_shell *shell)
+void	ft_exit(t_shell *shell, t_tree *tree)
 {
 	int	status;
 
 	status = shell->exit_status;
+	if (tree && tree->cmd_args && tree->cmd_args[1])
+		status = ft_atoi(tree->cmd_args[1]);
 	free_shell(shell);
 	ft_printf(1, "exit\n");
 	exit(status);
