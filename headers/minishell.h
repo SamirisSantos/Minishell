@@ -163,6 +163,7 @@ size_t	ft_find_var_name(char *arg);
 void	ft_print_export(t_shell *shell);
 bool	invalid_export(t_shell *shell, char **cmd_args, int i);
 bool	check_options(t_shell *shell, char **args);
+long long	ft_atoll(const char *nptr);
 
 //signal
 void	handle_sigint(int sig);

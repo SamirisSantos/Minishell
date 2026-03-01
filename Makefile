@@ -61,6 +61,7 @@ SRCS = main.c \
 	src/utils/redirection_utils.c \
 	src/utils/utils_exec.c \
 	src/utils/handle_signals.c \
+	src/utils/ft_atoll.c \
 	src/shell_control.c 
 
 OBJS = $(SRCS:.c=.o)

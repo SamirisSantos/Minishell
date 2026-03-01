@@ -23,6 +23,8 @@ static bool validade_arg(t_shell *shell, char **args)
 		shell->exit_status = 1;
 		return (false);
 	}
+	if (args[1][i] == '-' || args[1][i] == '+')
+		i++;
 	while (args[1][i])
 	{
 		if (ft_isdigit(args[1][i]) == 0)
@@ -47,12 +49,13 @@ void	ft_exit(t_shell *shell, t_tree *tree)
 	{
 		if (!validade_arg(shell, tree->cmd_args))
 			return ;
-		status = atoll(tree->cmd_args[1]);
-		if (ft_strlen(tree->cmd_args[1]) > 19 || status > LONG_MAX
-			|| status < LONG_MIN)
+		errno = 0;
+		status = ft_atoll(tree->cmd_args[1]);
+		if (errno == ERANGE)
 		{
 			ft_printf(STDOUT_FILENO,
-				"minishell: exit: %s: numeric argument required\n", tree->cmd_args[1]);
+				"minishell: exit: %s: numeric argument required\n",
+				tree->cmd_args[1]);
 			shell->exit_status = 1;
 			return ;
 		}
