@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:48:47 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/01/29 15:14:03 by sade-ara         ###   ########.fr       */
+/*   Updated: 2026/03/02 12:25:29 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,23 @@ void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell)
 			new_str[j++] = old_str[i++];
 	}
 	new_str[j] = '\0';
+}
+
+char	*expand_string(char *str, t_shell *shell)
+{
+	char	*new_str;
+	int		final_len;
+
+	if (!str)
+		return (NULL);
+	final_len = get_expanded_len(str, shell);
+	new_str = (char *)ft_calloc((final_len + 1), sizeof(char));
+	if (!new_str)
+	{
+		shell->exit_status = 12;
+		ft_printf(STDERR_FILENO, "minishell: malloc: %s", strerror(errno));
+		return (NULL);
+	}
+	fill_expanded_str(new_str, str, shell);
+	return (new_str);
 }

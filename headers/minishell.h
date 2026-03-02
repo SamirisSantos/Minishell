@@ -134,7 +134,8 @@ void	quote_flag(char c, char *quote_char);
 char	*remove_quotes(char *str);
 
 //expansion
-void	expand_tokens(t_token *token_list, t_shell *shell);
+void	expand_tokens(t_token **token_list, t_shell *shell);
+char	*expand_string(char *str, t_shell *shell);
 char	*get_env_value(char *name, char **envp);
 char	*get_var_value(char *str, t_shell *shell, int *var_len);
 int		get_expanded_len(char *str, t_shell *shell);
