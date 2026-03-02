@@ -36,13 +36,14 @@ static void	process_input(t_shell *shell, char *input)
 	}
 	free(input);
 }
+
 static bool	valid_input(t_shell *shell, char *input)
 {
 	if (g_sig == SIGINT)
 	{
 		shell->exit_status = 130;
 		free(input);
-		return (true) ;
+		return (true);
 	}
 	if (*input == '\0')
 	{
@@ -68,7 +69,7 @@ void	shell_control(t_shell *shell)
 			break ;
 		}
 		if (valid_input(shell, input))
-			continue;
+			continue ;
 		add_history(input);
 		process_input(shell, input);
 	}

@@ -41,135 +41,136 @@ extern int	g_sig;
 
 //builtins
 	//echo
-void	ft_echo(t_shell *shell, t_tree *tree);
+void		ft_echo(t_shell *shell, t_tree *tree);
 	//cd
-void	exec_cd(t_shell *shell, t_tree *tree);
-void	update_pwd(t_shell *shell, char *newpath);
-void	ft_cd(t_shell *shell, char *path);
+void		exec_cd(t_shell *shell, t_tree *tree);
+void		update_pwd(t_shell *shell, char *newpath);
+void		ft_cd(t_shell *shell, char *path);
 	//env
-void	ft_env(t_shell *shell, t_tree *tree);
+void		ft_env(t_shell *shell, t_tree *tree);
 	//exit
-void	ft_exit(t_shell *shell, t_tree *tree);
+void		ft_exit(t_shell *shell, t_tree *tree);
 	//export
-void	ft_update_envp(t_shell *shell, int i, char *arg);
-void	ft_add_var(t_shell *shell, char *arg);
-bool	check_var_exists(t_shell *shell, char *cmd_arg, size_t size, int j);
-void	ft_export(t_shell *shell, char **cmd_args);
+void		ft_update_envp(t_shell *shell, int i, char *arg);
+void		ft_add_var(t_shell *shell, char *arg);
+bool		check_var_exists(t_shell *shell, char *cmd_arg, size_t size, int j);
+void		ft_export(t_shell *shell, char **cmd_args);
 	//pwd
-void	ft_pwd(t_shell *shell, t_tree *tree);
+void		ft_pwd(t_shell *shell, t_tree *tree);
 	//unset
-void	ft_fix_envp(t_shell *shell, int j);
-void	ft_unset(t_shell *shell, char **cmd_args);
+void		ft_fix_envp(t_shell *shell, int j);
+void		ft_unset(t_shell *shell, char **cmd_args);
 
 //executor
 	//builtin_exec
-bool	is_builtin(t_tree *tree);
-void	exec_builtin(t_shell *shell, t_tree *tree, bool is_child);
-void	fork_builtin(t_shell *shell, t_tree *tree, int i);
+bool		is_builtin(t_tree *tree);
+void		exec_builtin(t_shell *shell, t_tree *tree, bool is_child);
+void		fork_builtin(t_shell *shell, t_tree *tree, int i);
 	//check_cmd
-int		check_cmd(t_shell *shell, t_tree *tree, int i);
+int			check_cmd(t_shell *shell, t_tree *tree, int i);
 	//cmd_path
-void	count_cmds(t_tree *temp, int *cmd_count);
-char	*find_cmd_path(t_shell *shell, t_tree *tree);
+void		count_cmds(t_tree *temp, int *cmd_count);
+char		*find_cmd_path(t_shell *shell, t_tree *tree);
 	//executor
-void	executor(t_shell *shell, t_tree *tree, int i);
-int		check_cmd(t_shell *shell, t_tree *tree, int i);
-void	start_exe(t_shell *shell, t_tree *tree, int *i);
-void	pre_executor(t_shell *shell);
+void		executor(t_shell *shell, t_tree *tree, int i);
+int			check_cmd(t_shell *shell, t_tree *tree, int i);
+void		start_exe(t_shell *shell, t_tree *tree, int *i);
+void		pre_executor(t_shell *shell);
 	//utils_exec
-int		save_and_redirect(int *saved_stdin);
-void	restore_fds(int saved_stdout, int saved_stdin);
-void	execve_error(t_shell *shell, t_tree *tree);
-void	apply_child_redirects(t_shell *shell, t_tree *tree);
-int		apply_redirects(t_shell *shell, t_tree *tree);
+int			save_and_redirect(int *saved_stdin);
+void		restore_fds(int saved_stdout, int saved_stdin);
+void		execve_error(t_shell *shell, t_tree *tree);
+void		apply_child_redirects(t_shell *shell, t_tree *tree);
+int			apply_redirects(t_shell *shell, t_tree *tree);
 
 //free
-void	free_array(char **array);
-void	close_pipes(t_shell *shell, int pipe_count);
-void	close_parent_pipe(t_shell *shell, int i);
-void	close_pipes_child(t_shell *shell, int pipe_count);
-void	free_pipe_pids(t_shell *shell);
-void	free_pipe(t_shell *shell, int count);
-void	free_tree(t_tree *tree);
-void	free_tokens(t_token *list);
-void	free_tokens(t_token *list);
-void	free_shell(t_shell *shell);
-void	free_redir(t_redir *redir);
-void	free_cmd_path(t_shell *shell);
+void		free_array(char **array);
+void		close_pipes(t_shell *shell, int pipe_count);
+void		close_parent_pipe(t_shell *shell, int i);
+void		close_pipes_child(t_shell *shell, int pipe_count);
+void		free_pipe_pids(t_shell *shell);
+void		free_pipe(t_shell *shell, int count);
+void		free_tree(t_tree *tree);
+void		free_tokens(t_token *list);
+void		free_tokens(t_token *list);
+void		free_shell(t_shell *shell);
+void		free_redir(t_redir *redir);
+void		free_cmd_path(t_shell *shell);
 
 //heredoc
-void	handle_heredoc_sig(int sig);
-void	heredoc_sig_exit(t_shell *shell, char *line);
-int		open_heredoc(t_shell *shell, char *filename);
-int		open_heredoc(t_shell *shell, char *filename);
-void	fill_heredoc(t_shell *shell, int *fd, char *eof);
-int		handle_heredoc(t_shell *shell, char *filename, char *eof);
-char	*get_heredoc_info(t_shell *shell, t_tree *tree, t_token **token);
+void		handle_heredoc_sig(int sig);
+void		heredoc_sig_exit(t_shell *shell, char *line);
+int			open_heredoc(t_shell *shell, char *filename);
+int			open_heredoc(t_shell *shell, char *filename);
+void		fill_heredoc(t_shell *shell, int *fd, char *eof);
+int			handle_heredoc(t_shell *shell, char *filename, char *eof);
+char		*get_heredoc_info(t_shell *shell, t_tree *tree, t_token **token);
 
 //inits
-t_shell	*init_shell(void);
-t_tree	*init_tree_node(t_shell *shell);
-void	init_pipes(t_shell *shell);
-void	init_pid(t_shell *shell);
-void	init_cmd_path(t_shell *shell);
-void	init_xcmd(t_shell *shell);
-t_redir	*init_redir(t_shell *shell);
+t_shell		*init_shell(void);
+t_tree		*init_tree_node(t_shell *shell);
+void		init_pipes(t_shell *shell);
+void		init_pid(t_shell *shell);
+void		init_cmd_path(t_shell *shell);
+void		init_xcmd(t_shell *shell);
+t_redir		*init_redir(t_shell *shell);
 
 //tokens
-t_token	*new_token(char *value, t_token_type type);
-void	add_token(t_token **list, t_token *new);
-void	free_tokens(t_token *list);
+t_token		*new_token(char *value, t_token_type type);
+void		add_token(t_token **list, t_token *new);
+void		free_tokens(t_token *list);
 
 //extract word and lexer
-char	*extract_word(char **s);
-t_token	*lexer(char *input);
-int		is_metachar(char c);
-int		is_space(char c);
-int		is_quote(char c);
-t_token	*handle_operator(char **input, t_token **head);
-t_token	*handle_word(char **input, t_token **head, t_token *last_token);
+char		*extract_word(char **s);
+t_token		*lexer(char *input);
+int			is_metachar(char c);
+int			is_space(char c);
+int			is_quote(char c);
+t_token		*handle_operator(char **input, t_token **head);
+t_token		*handle_word(char **input, t_token **head, t_token *last_token);
 
 //remove_quotes
-void	quote_flag(char c, char *quote_char);
-char	*remove_quotes(char *str);
+void		quote_flag(char c, char *quote_char);
+char		*remove_quotes(char *str);
 
 //expansion
-void	expand_tokens(t_token *token_list, t_shell *shell);
-char	*get_env_value(char *name, char **envp);
-char	*get_var_value(char *str, t_shell *shell, int *var_len);
-int		get_expanded_len(char *str, t_shell *shell);
-void	fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
-void	process_var_len(char *str, t_shell *shell, int *len, int *i);
+void		expand_tokens(t_token *token_list, t_shell *shell);
+char		*get_env_value(char *name, char **envp);
+char		*get_var_value(char *str, t_shell *shell, int *var_len);
+int			get_expanded_len(char *str, t_shell *shell);
+void		fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
+void		process_var_len(char *str, t_shell *shell, int *len, int *i);
 
 //parser
-int		is_syntax_valid(t_token *tokens);
+int			is_syntax_valid(t_token *tokens);
 
 //tree
-t_tree	*build_tree(t_shell *shell, t_token *tokens, bool is_left);
-t_tree	*build_node(t_shell *shell, t_token *tokens, t_tree *tree);
-t_tree	*build_tree_pipe(t_shell *shell, t_tree *tree,
-			t_token *tokens, t_token *pipe);
-char	**build_args(t_shell *shell, t_token **tokens);
-void	handle_cmd_no_args(t_shell *shell, t_tree *tree);
-void	check_redir(t_shell *shell, t_tree *tree, t_token **token);
-t_redir	*fill_redir(t_shell *shell, t_tree *tree, t_token **token);
+t_tree		*build_tree(t_shell *shell, t_token *tokens, bool is_left);
+t_tree		*build_node(t_shell *shell, t_token *tokens, t_tree *tree);
+t_tree		*build_tree_pipe(t_shell *shell, t_tree *tree,
+				t_token *tokens, t_token *pipe);
+char		**build_args(t_shell *shell, t_token **tokens);
+void		handle_cmd_no_args(t_shell *shell, t_tree *tree);
+void		check_redir(t_shell *shell, t_tree *tree, t_token **token);
+t_redir		*fill_redir(t_shell *shell, t_tree *tree, t_token **token);
 
 //utils
-int		ft_redir_in(t_shell *shell, char *filename);
-int		ft_redir_out(t_shell *shell, char *filename, t_token_type type);
-char	**copy_envp(t_shell *shell, char *envp[]);
-char	**ft_realloc_envp(t_shell *shell, char **envp, size_t old_size);
-size_t	ft_find_var_name(char *arg);
-void	ft_print_export(t_shell *shell);
-bool	invalid_export(t_shell *shell, char **cmd_args, int i);
-bool	check_options(t_shell *shell, char **args);
+int			ft_redir_in(t_shell *shell, char *filename);
+int			ft_redir_out(t_shell *shell, char *filename, t_token_type type);
+char		**copy_envp(t_shell *shell, char *envp[]);
+char		**ft_realloc_envp(t_shell *shell, char **envp, size_t old_size);
+size_t		ft_find_var_name(char *arg);
+void		ft_print_export(t_shell *shell);
+bool		invalid_export(t_shell *shell, char **cmd_args, int i);
+bool		check_options(t_shell *shell, char **args);
+int			check_redir_count(t_redir *temp);
 long long	ft_atoll(const char *nptr);
 
 //signal
-void	handle_sigint(int sig);
-void	sigint_clear(t_shell *shell, char *input);
+void		handle_sigint(int sig);
+void		sigint_clear(t_shell *shell, char *input);
 
 //main control
-void	shell_control(t_shell *shell);
+void		shell_control(t_shell *shell);
 
 #endif
