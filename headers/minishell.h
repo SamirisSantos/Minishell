@@ -141,6 +141,7 @@ char		*get_var_value(char *str, t_shell *shell, int *var_len);
 int			get_expanded_len(char *str, t_shell *shell);
 void		fill_expanded_str(char *new_str, char *old_str, t_shell *shell);
 void		process_var_len(char *str, t_shell *shell, int *len, int *i);
+char		*expand_string(char *str, t_shell *shell);
 
 //parser
 int			is_syntax_valid(t_token *tokens);
