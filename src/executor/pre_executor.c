@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 17:34:46 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/03/02 12:40:57 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/03/02 15:07:42 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	handle_no_cmd_parent(t_shell *shell, t_tree *tree)
 	saved_stdout = save_and_redirect(&saved_stdin);
 	if (apply_redirects(shell, tree) == 0)
 	{
-		if (check_redir_count > 0)
+		if (check_redir_count(tree->redir) > 0)
 		{
 			n = read(STDIN_FILENO, buf, sizeof(buf));
 			while (n > 0)
@@ -44,7 +44,7 @@ static void	handle_no_cmd(t_shell *shell, t_tree *tree, int *i)
 		pid = fork();
 		if (pid == 0)
 		{
-			apply_child_redirects(shell, tree);
+			apply_redirects(shell, tree);
 			close_pipes_child(shell, shell->xcmd->cmd_count - 1);
 			free_shell(shell);
 			exit(0);
@@ -58,7 +58,6 @@ static void	handle_no_cmd(t_shell *shell, t_tree *tree, int *i)
 	else
 		handle_no_cmd_parent(shell, tree);
 	(void)tree;
-	shell->exit_status = 0;
 	(*i)++;
 }
 
@@ -77,7 +76,7 @@ void	start_exe(t_shell *shell, t_tree *tree, int *i)
 		if (is_builtin(tree) && shell->xcmd->cmd_count > 1)
 			fork_builtin(shell, tree, *i);
 		else if (is_builtin(tree) && shell->xcmd->cmd_count == 1)
-			exec_builtin(shell, tree, false);
+			exec_builtin(shell, tree);
 		else
 			executor(shell, tree, *i);
 		(*i)++;

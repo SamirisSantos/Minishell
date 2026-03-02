@@ -18,7 +18,9 @@ int	ft_redir_out(t_shell *shell, char *filename, t_token_type type)
 
 	fd = -1;
 	if (type == REDIR_OUT)
+	{
 		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
 	else if (type == APPEND)
 		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)

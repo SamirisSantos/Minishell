@@ -23,14 +23,19 @@ static char	**get_argv(t_tree *tree, char **fallback)
 
 static void	child_executor(t_shell *shell, t_tree *tree, int i, char **argv)
 {
+	int	redir_fail;
+
 	if (i > 0)
 		dup2(shell->xcmd->pipe_fd[i - 1][0], STDIN_FILENO);
 	if (i < shell->xcmd->cmd_count - 1)
 		dup2(shell->xcmd->pipe_fd[i][1], STDOUT_FILENO);
-	apply_child_redirects(shell, tree);
+	redir_fail = apply_redirects(shell, tree);
 	close_pipes_child(shell, shell->xcmd->cmd_count - 1);
-	execve(shell->xcmd->cmd_path[i], argv, shell->envp_cpy);
-	execve_error(shell, tree);
+	if (redir_fail == 0)
+	{
+		execve(shell->xcmd->cmd_path[i], argv, shell->envp_cpy);
+		execve_error(shell, tree);
+	}
 }
 
 void	executor(t_shell *shell, t_tree *tree, int i)

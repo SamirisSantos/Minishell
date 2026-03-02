@@ -64,7 +64,7 @@ void		ft_unset(t_shell *shell, char **cmd_args);
 //executor
 	//builtin_exec
 bool		is_builtin(t_tree *tree);
-void		exec_builtin(t_shell *shell, t_tree *tree, bool is_child);
+void		exec_builtin(t_shell *shell, t_tree *tree);
 void		fork_builtin(t_shell *shell, t_tree *tree, int i);
 	//check_cmd
 int			check_cmd(t_shell *shell, t_tree *tree, int i);
@@ -80,7 +80,6 @@ void		pre_executor(t_shell *shell);
 int			save_and_redirect(int *saved_stdin);
 void		restore_fds(int saved_stdout, int saved_stdin);
 void		execve_error(t_shell *shell, t_tree *tree);
-void		apply_child_redirects(t_shell *shell, t_tree *tree);
 int			apply_redirects(t_shell *shell, t_tree *tree);
 
 //free
@@ -92,7 +91,6 @@ void		free_pipe_pids(t_shell *shell);
 void		free_pipe(t_shell *shell, int count);
 void		free_tree(t_tree *tree);
 void		free_tokens(t_token *list);
-void		free_tokens(t_token *list);
 void		free_shell(t_shell *shell);
 void		free_redir(t_redir *redir);
 void		free_cmd_path(t_shell *shell);
@@ -100,7 +98,6 @@ void		free_cmd_path(t_shell *shell);
 //heredoc
 void		handle_heredoc_sig(int sig);
 void		heredoc_sig_exit(t_shell *shell, char *line);
-int			open_heredoc(t_shell *shell, char *filename);
 int			open_heredoc(t_shell *shell, char *filename);
 void		fill_heredoc(t_shell *shell, int *fd, char *eof);
 int			handle_heredoc(t_shell *shell, char *filename, char *eof);

@@ -48,21 +48,16 @@ static void	run_builtin(t_shell *shell, t_tree *tree)
 		ft_unset(shell, tree->cmd_args);
 }
 
-void	exec_builtin(t_shell *shell, t_tree *tree, bool is_child)
+void	exec_builtin(t_shell *shell, t_tree *tree)
 {
 	int	saved_stdout;
 	int	saved_stdin;
 
 	saved_stdout = save_and_redirect(&saved_stdin);
-	if (is_child)
-		apply_child_redirects(shell, tree);
-	else
+	if (apply_redirects(shell, tree) == -2)
 	{
-		if (apply_redirects(shell, tree) == -2)
-		{
-			restore_fds(saved_stdout, saved_stdin);
-			return ;
-		}
+		restore_fds(saved_stdout, saved_stdin);
+		return ;
 	}
 	if (tree && strncmp(tree->data, "exit", 4) == 0
 		&& ft_strlen(tree->data) == 4)
@@ -79,7 +74,7 @@ static void	child_builtin(t_shell *shell, t_tree *tree, int i)
 		dup2(shell->xcmd->pipe_fd[i - 1][0], STDIN_FILENO);
 	if (i < shell->xcmd->cmd_count - 1)
 		dup2(shell->xcmd->pipe_fd[i][1], STDOUT_FILENO);
-	exec_builtin(shell, tree, true);
+	exec_builtin(shell, tree);
 	exit_status = shell->exit_status;
 	free_shell(shell);
 	exit(exit_status);
