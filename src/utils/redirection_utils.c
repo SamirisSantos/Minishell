@@ -6,11 +6,24 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 18:28:49 by cpinho-c          #+#    #+#             */
-/*   Updated: 2026/03/01 15:48:26 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/03/02 12:37:58 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+int	check_redir_count(t_redir *temp)
+{
+	int	i;
+
+	i = 0;
+	while (temp->next)
+	{
+		temp = temp->next;
+		i++;
+	}
+	return (i);
+}
 
 static int	valid_redir_in(t_shell *shell, char *filename)
 {
