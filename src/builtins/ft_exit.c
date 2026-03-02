@@ -45,7 +45,7 @@ void	ft_exit(t_shell *shell, t_tree *tree)
 	long long int	status;
 
 	status = shell->exit_status;
-	if (tree && tree->cmd_args)
+	if (tree && tree->cmd_args &&tree->cmd_args[1])
 	{
 		if (!validade_arg(shell, tree->cmd_args))
 			return ;

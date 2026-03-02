@@ -6,7 +6,7 @@
 /*   By: cpinho-c <cpinho-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 17:34:46 by sade-ara          #+#    #+#             */
-/*   Updated: 2026/03/01 16:27:54 by cpinho-c         ###   ########.fr       */
+/*   Updated: 2026/03/02 11:06:10 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ static void handle_no_cmd_parent(t_shell *shell, t_tree *tree)
     ssize_t n;
 
 	saved_stdout = save_and_redirect(&saved_stdin);
-	apply_redirects(shell, tree);
-	while ((n = read(STDIN_FILENO, buf, sizeof(buf))) > 0)
-        write(STDOUT_FILENO, buf, n);
+	if (apply_redirects(shell, tree) == 0)
+	{
+		while ((n = read(STDIN_FILENO, buf, sizeof(buf))) > 0)
+			write(STDOUT_FILENO, buf, n);
+	}
 	restore_fds(saved_stdout, saved_stdin);
 }
 
